@@ -1,0 +1,1805 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_18 http://mcuxpresso.nxp.com/XSD/mex_configuration_18.xsd" uuid="567d3d6d-2798-4252-a703-0cefb2205c80" version="18" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_18" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MCXW716CxxxA</processor>
+      <package>MCXW716CMFTA</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="cm33">
+         <core name="Cortex-M33" id="cm33" description=""/>
+      </cores>
+      <description>mcxw_stage</description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <enable_parallel_routing>true</enable_parallel_routing>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="17.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/pin_mux.c" update_enabled="true"/>
+            <file path="board/pin_mux.h" update_enabled="true"/>
+         </generated_project_files>
+         <pins_profile>
+            <processor_version>25.06.10</processor_version>
+            <pin_labels>
+               <pin_label pin_num="44" pin_signal="ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22" label="sw2" identifier="sw2"/>
+               <pin_label pin_num="38" pin_signal="PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17" label="user_led" identifier="d14;user_led"/>
+               <pin_label pin_num="18" pin_signal="ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10" label="rgb_r" identifier="rgb_r"/>
+               <pin_label pin_num="17" pin_signal="ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7" label="rgb_b" identifier="rgb_b"/>
+               <pin_label pin_num="14" pin_signal="CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1" label="rgb_g" identifier="rgb_g"/>
+               <pin_label pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2" label="light_sens" identifier="light_sens"/>
+               <pin_label pin_num="24" pin_signal="ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4" label="sw4" identifier="sw4"/>
+            </pin_labels>
+            <external_user_signals>
+               <properties/>
+            </external_user_signals>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description></description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>cm33</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="TPM0" description="Peripheral TPM0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="GPIOC" description="Peripheral GPIOC signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="ADC0" description="Peripheral ADC0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="GPIOD" description="Peripheral GPIOD signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="LPI2C1" description="Peripheral LPI2C1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="Peripheral" resourceId="LPUART1" description="Peripheral LPUART1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.trgmux" description="Pins initialization requires the TRGMUX Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="TPM0" signal="CH, 0" pin_num="18" pin_signal="ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10">
+                     <pin_features>
+                        <pin_feature name="drive_strength" value="high"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="TPM0" signal="CH, 1" pin_num="17" pin_signal="ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7">
+                     <pin_features>
+                        <pin_feature name="drive_strength" value="high"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="TPM0" signal="CH, 2" pin_num="14" pin_signal="CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1">
+                     <pin_features>
+                        <pin_feature name="drive_strength" value="high"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOC" signal="GPIO, 6" pin_num="44" pin_signal="ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="gpio_per_interrupt_sel" value="output0"/>
+                        <pin_feature name="gpio_per_interrupt" value="kGPIO_InterruptFallingEdge"/>
+                        <pin_feature name="pull_select" value="up"/>
+                        <pin_feature name="pull_enable" value="enable"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOC" signal="GPIO, 1" pin_num="38" pin_signal="PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17">
+                     <pin_features>
+                        <pin_feature name="identifier" value="user_led"/>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                        <pin_feature name="drive_strength" value="high"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="ADC0" signal="B, 6" pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2"/>
+                  <pin peripheral="ADC0" signal="TRG_CH, 0" pin_num="" pin_signal="TRGMUX0_LPIT0_CH0"/>
+                  <pin peripheral="GPIOD" signal="GPIO, 1" pin_num="24" pin_signal="ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="gpio_per_interrupt" value="kGPIO_InterruptFallingEdge"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPI2C1" signal="SDA" pin_num="2" pin_signal="PTB4/WUU0_P15/LPSPI1_PCS3/LPUART1_CTS_b/LPI2C1_SDA/I3C0_SDA/TRGMUX0_IN0/FLEXIO0_D30"/>
+                  <pin peripheral="LPI2C1" signal="SCL" pin_num="3" pin_signal="PTB5/LPSPI1_PCS2/LPUART1_RTS_b/LPI2C1_SCL/I3C0_SCL/TRGMUX0_OUT0/FLEXIO0_D31"/>
+                  <pin peripheral="LPUART1" signal="TX" pin_num="40" pin_signal="PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19"/>
+                  <pin peripheral="LPUART1" signal="RX" pin_num="39" pin_signal="PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="17.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/clock_config.c" update_enabled="true"/>
+            <file path="board/clock_config.h" update_enabled="true"/>
+         </generated_project_files>
+         <clocks_profile>
+            <processor_version>25.06.10</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>INPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="direction" evaluation="">
+                        <data>OUTPUT</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.extal" description="&apos;EXTAL0&apos; (Pins tool id: SCG.extal, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.xtal" description="&apos;XTAL0&apos; (Pins tool id: SCG.xtal, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="routed" evaluation="">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.ccm32k" description="Clocks initialization requires the CCM32K Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources>
+                  <clock_source id="CCM32K.OSC_32K.outFreq" value="32.768 kHz" locked="false" enabled="true"/>
+                  <clock_source id="RADIO.RADIO_FRO192M.outFreq" value="64 MHz" locked="false" enabled="false"/>
+                  <clock_source id="SCG.SOSC.outFreq" value="32 MHz" locked="false" enabled="true"/>
+               </clock_sources>
+               <clock_outputs>
+                  <clock_output id="BUS_CLK.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CPU_CLK.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FIRC_CLK.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FRO16K_CLK.outFreq" value="16 kHz" locked="false" accuracy=""/>
+                  <clock_output id="MRCC.MRCC_LPADC0_CLK.outFreq" value="12 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MRCC.MRCC_LPI2C1_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MRCC.MRCC_LPIT0_CLK.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MRCC.MRCC_LPUART1_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MRCC.MRCC_TPM0_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="RADIO_FRO192M_CLK.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="RADIO_FRO192M_FRODIV_CLK.outFreq" value="64/3 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ROSC_CLK.outFreq" value="32.768 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SCG.FIRC_EXT_REF_TRIM_CLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SCGCLKOUT_CLK.outFreq" value="32.768 kHz" locked="false" accuracy=""/>
+                  <clock_output id="SIRC_CLK.outFreq" value="6 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SLOW_CLK.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SOSC_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="VDDCore" value="voltage_1v1" locked="false"/>
+                  <setting id="CCM32K.CCM32K_32K_SEL.sel" value="CCM32K.OSC_32K" locked="false"/>
+                  <setting id="CCM32K_FRO32K_CTRL_FRO_EN_CFG" value="Disabled" locked="false"/>
+                  <setting id="CCM32K_OSC32K_CTRL_CAP_SEL_EN_CFG" value="Enabled" locked="false"/>
+                  <setting id="CCM32K_OSC32K_CTRL_EXTAL_CAP_SEL_CFG" value="12PF" locked="false"/>
+                  <setting id="CCM32K_OSC32K_CTRL_OSC_EN_CFG" value="Enabled" locked="false"/>
+                  <setting id="CCM32K_OSC32K_CTRL_XTAL_CAP_SEL_CFG" value="12PF" locked="false"/>
+                  <setting id="MRCC.MRCC_LPADC0_DIV.scale" value="8" locked="false"/>
+                  <setting id="MRCC.MRCC_LPADC0_SEL.sel" value="SCG.FIRC_CLK" locked="false"/>
+                  <setting id="MRCC.MRCC_LPI2C1_DIV.scale" value="4" locked="false"/>
+                  <setting id="MRCC.MRCC_LPI2C1_SEL.sel" value="SCG.FIRC_CLK" locked="false"/>
+                  <setting id="MRCC.MRCC_LPIT0_SEL.sel" value="SCG.FIRC_CLK" locked="false"/>
+                  <setting id="MRCC.MRCC_LPUART1_DIV.scale" value="4" locked="false"/>
+                  <setting id="MRCC.MRCC_LPUART1_SEL.sel" value="SCG.FIRC_CLK" locked="false"/>
+                  <setting id="MRCC.MRCC_TPM0_DIV.scale" value="4" locked="false"/>
+                  <setting id="MRCC.MRCC_TPM0_SEL.sel" value="SCG.FIRC_CLK" locked="false"/>
+                  <setting id="RADIO.RADIO_FRO192M_DIV.scale" value="3" locked="false"/>
+                  <setting id="SCG.CLKOUTSEL.sel" value="CCM32K.ROSCCLK" locked="false"/>
+                  <setting id="SCG.DIVCORE.scale" value="1" locked="false"/>
+                  <setting id="SCG.DIVSLOW.scale" value="4" locked="false"/>
+                  <setting id="SCG.FIRC_TRIMDIV.scale" value="32" locked="false"/>
+                  <setting id="SCG_FIRCCSR_TRIM_CFG" value="Autotrimming" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCSTEN_CFG" value="Enabled" locked="false"/>
+                  <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="4.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="15.0" enabled="true" update_project_code="true">
+         <dependencies>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.tpm" description="TPM Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.tpm" description="An unsupported version of the TPM Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.3.99">2.2.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="GPIO Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="An unsupported version of the GPIO Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.8.99">2.7.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpit" description="LPIT Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpit" description="An unsupported version of the LPIT Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.1.9">2.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.vref_1" description="VREF Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.vref_1" description="An unsupported version of the VREF Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">2.4.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="LPADC Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="An unsupported version of the LPADC Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.9.9">2.8.1</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="LPI2C Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c" description="An unsupported version of the LPI2C Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.6.9">2.2.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="utility.debug_console" description="Utility debug_console is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="utility.debug_console" description="An unsupported version of the Utility debug_console in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">1.0.0</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Pins" description="The Pins tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
+               </feature>
+            </dependency>
+         </dependencies>
+         <generated_project_files>
+            <file path="board/peripherals.c" update_enabled="true"/>
+            <file path="board/peripherals.h" update_enabled="true"/>
+            <file path="utilities/debug_console/config/fsl_debug_console_conf.h" update_enabled="true"/>
+         </generated_project_files>
+         <peripherals_profile>
+            <processor_version>25.06.10</processor_version>
+            <ignored_component_migration_offer/>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="4d8da21c-86cc-4fc1-b018-4794c941d752" called_from_default_init="true" id_prefix="" core="cm33">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_TPM0_CLK" description="TPM0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.0" description="Signal CH0 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.2" description="Signal CH2 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.1" description="Signal CH1 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPIT0_CLK" description="LPIT0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPADC0_CLK" description="LPADC0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="ADC0.adc_se.6B" description="Signal channel 6B is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPI2C1_CLK" description="LPI2C1 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="component.serial_manager_uart" description="The serial_port_uart driver is missing in the project (required for the Debug console initialization)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="component.lpuart_adapter" description="The lpuart_adapter driver is missing in the project (required for the serial port initialization)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART1.uart_rx" description="Signal RX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART1.uart_tx" description="Signal TX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="The fsl_lpuart driver is missing in the project (required for DebugConsole)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPUART1_CLK" description="LPUART1 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <instances>
+                  <instance name="TPM0" uuid="2fd2ad8e-66da-4a39-891c-33d031880184" type="tpm" type_id="tpm_2.2.0" mode="EdgeAligned" peripheral="TPM0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="tpm_main_config">
+                        <struct name="tpm_config">
+                           <setting name="clockSource" value="kTPM_SystemClock"/>
+                           <setting name="tpmSrcClkFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="prescale" value="kTPM_Prescale_Divide_2"/>
+                           <setting name="timerFrequency" value="1000"/>
+                           <setting name="useGlobalTimeBase" value="false"/>
+                           <setting name="syncGlobalTimeBase" value="false"/>
+                           <setting name="triggerSelect" value="kTPM_Trigger_Select_0"/>
+                           <setting name="extTriggerPolarity" value="kTPM_ExtTrigger_Active_High"/>
+                           <setting name="triggerSource" value="kTPM_TriggerSource_Internal"/>
+                           <setting name="enableDoze" value="false"/>
+                           <setting name="enableDebugMode" value="true"/>
+                           <setting name="enableReloadOnTrigger" value="false"/>
+                           <setting name="enableStopOnOverflow" value="false"/>
+                           <setting name="enableStartOnTrigger" value="false"/>
+                           <setting name="enablePauseOnTrigger" value="false"/>
+                        </struct>
+                        <struct name="channelGlobalSetting">
+                           <array name="channelPolarity">
+                              <setting name="0" value="noInit"/>
+                              <setting name="1" value="noInit"/>
+                              <setting name="2" value="noInit"/>
+                              <setting name="3" value="noInit"/>
+                              <setting name="4" value="noInit"/>
+                              <setting name="5" value="noInit"/>
+                           </array>
+                           <array name="channelTrigger">
+                              <setting name="0" value="noInit"/>
+                              <setting name="1" value="noInit"/>
+                              <setting name="2" value="noInit"/>
+                              <setting name="3" value="noInit"/>
+                              <setting name="4" value="noInit"/>
+                              <setting name="5" value="noInit"/>
+                           </array>
+                        </struct>
+                        <set name="timer_interrupts">
+                           <selected/>
+                        </set>
+                        <setting name="enable_irq" value="false"/>
+                        <struct name="tpm_interrupt">
+                           <setting name="IRQn" value="TPM0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                        <setting name="EnableTimerInInit" value="true"/>
+                     </config_set>
+                     <config_set name="tpm_edge_aligned_mode">
+                        <array name="tpm_edge_aligned_channels_config">
+                           <struct name="0">
+                              <setting name="channelId" value="red"/>
+                              <setting name="edge_aligned_mode" value="kTPM_EdgeAlignedPwm"/>
+                              <struct name="edge_aligned_pwm">
+                                 <setting name="chnlNumber" value="kTPM_Chnl_0"/>
+                                 <setting name="level" value="kTPM_LowTrue"/>
+                                 <setting name="pauseLevel" value="kTPM_SetOnPause"/>
+                                 <setting name="dutyCyclePercent" value="0"/>
+                                 <setting name="enable_chan_irq" value="false"/>
+                              </struct>
+                           </struct>
+                           <struct name="1">
+                              <setting name="channelId" value="green"/>
+                              <setting name="edge_aligned_mode" value="kTPM_EdgeAlignedPwm"/>
+                              <struct name="edge_aligned_pwm">
+                                 <setting name="chnlNumber" value="kTPM_Chnl_2"/>
+                                 <setting name="level" value="kTPM_LowTrue"/>
+                                 <setting name="pauseLevel" value="kTPM_SetOnPause"/>
+                                 <setting name="dutyCyclePercent" value="0"/>
+                                 <setting name="enable_chan_irq" value="false"/>
+                              </struct>
+                           </struct>
+                           <struct name="2">
+                              <setting name="channelId" value="blue"/>
+                              <setting name="edge_aligned_mode" value="kTPM_EdgeAlignedPwm"/>
+                              <struct name="edge_aligned_pwm">
+                                 <setting name="chnlNumber" value="kTPM_Chnl_1"/>
+                                 <setting name="level" value="kTPM_LowTrue"/>
+                                 <setting name="pauseLevel" value="kTPM_SetOnPause"/>
+                                 <setting name="dutyCyclePercent" value="0"/>
+                                 <setting name="enable_chan_irq" value="false"/>
+                              </struct>
+                           </struct>
+                        </array>
+                     </config_set>
+                  </instance>
+                  <instance name="GPIOC" uuid="06de5433-a2a5-4d5f-bb85-548020776a95" type="gpio" type_id="gpio_2.7.0" mode="GPIO" peripheral="GPIOC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_gpio">
+                        <setting name="enable_irq" value="true"/>
+                        <struct name="port_interrupt">
+                           <setting name="IRQn" value="GPIOC_INT0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                        <setting name="enable_irq_1" value="false"/>
+                        <struct name="gpio_interrupt_1">
+                           <setting name="IRQn" value="GPIOC_INT1_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="1"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                        <setting name="enable_irq_EFT" value="false"/>
+                        <struct name="port_interrupt_EFT">
+                           <setting name="IRQn" value="PORTC_EFT_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="2"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="GPIOD" uuid="fbe4cb74-6ca0-4ce7-8a97-e394feeab23e" type="gpio" type_id="gpio_2.7.0" mode="GPIO" peripheral="GPIOD" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_gpio">
+                        <setting name="enable_irq" value="true"/>
+                        <struct name="port_interrupt">
+                           <setting name="IRQn" value="GPIOD_INT0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                        <setting name="enable_irq_1" value="false"/>
+                        <struct name="gpio_interrupt_1">
+                           <setting name="IRQn" value="GPIOA_INT1_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="1"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                        <setting name="enable_irq_EFT" value="false"/>
+                        <struct name="port_interrupt_EFT">
+                           <setting name="IRQn" value="PORTA_EFT_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="2"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="LPIT0" uuid="dc291f25-dd51-47af-b892-f528ec954452" type="lpit" type_id="lpit_2.0.0" mode="LPIT_GENERAL" peripheral="LPIT0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_lpit">
+                        <struct name="lpitConfig">
+                           <setting name="enableRunInDebug" value="false"/>
+                           <setting name="enableRunInDoze" value="false"/>
+                        </struct>
+                        <struct name="timingConfig">
+                           <setting name="clockSource" value="AsyncPeripheralClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                        </struct>
+                        <array name="channels">
+                           <struct name="0">
+                              <setting name="lpitChannelPrefixID" value="adc_conv_trig"/>
+                              <setting name="channelNumber" value="0"/>
+                              <setting name="enableChain" value="false"/>
+                              <setting name="timerMode" value="kLPIT_PeriodicCounter"/>
+                              <setting name="timerPeriod" value="10 ms"/>
+                              <setting name="lpit_trigger_select_t" value="internal_trigger_0"/>
+                              <setting name="enableReloadOnTriggerBool" value="false"/>
+                              <setting name="enableStopOnTimeout" value="false"/>
+                              <setting name="enableStartOnTriggerBool" value="false"/>
+                              <setting name="startTimer" value="false"/>
+                              <setting name="enableInterrupt" value="false"/>
+                           </struct>
+                        </array>
+                        <setting name="enableSharedInterrupt" value="false"/>
+                        <struct name="sharedInterrupt">
+                           <setting name="IRQn" value="LPIT0_IRQn"/>
+                           <setting name="enable_interrrupt" value="enabled"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                           <setting name="enable_custom_name" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="VREF0" uuid="97a9e3d6-d694-4122-9f7a-80e5eb30ab78" type="vref_1" type_id="vref_1_2.4.0" mode="general" peripheral="VREF0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_vref" quick_selection="default">
+                        <struct name="vref_config">
+                           <setting name="bufferMode" value="kVREF_ModeHighPowerBuffer"/>
+                           <setting name="enableLowPowerBuff" value="true"/>
+                           <setting name="enableInternalVoltageRegulator" value="true"/>
+                           <setting name="enableChopOscillator" value="true"/>
+                           <setting name="enableHCBandgap" value="true"/>
+                           <setting name="enableCurvatureCompensation" value="true"/>
+                           <setting name="initTrim" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="ADC0" uuid="5e13b50d-f78c-4170-bf74-a9af42be922e" type="lpadc" type_id="lpadc_2.8.1" mode="LPADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_lpadc">
+                        <struct name="lpadcConfig">
+                           <setting name="clockSource" value="AsynchronousFunctionClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="enableInDozeMode" value="false"/>
+                           <setting name="conversionAverageMode" value="kLPADC_ConversionAverage128"/>
+                           <setting name="offsetCalibration" value="yes"/>
+                           <setting name="autoCalibrate" value="true"/>
+                           <setting name="enableAnalogPreliminary" value="true"/>
+                           <setting name="powerUpDelay" value="0x80"/>
+                           <setting name="referenceVoltageSource" value="kLPADC_ReferenceVoltageAlt1"/>
+                           <setting name="powerLevelMode" value="kLPADC_PowerLevelAlt4"/>
+                           <setting name="triggerPriorityPolicy" value="kLPADC_TriggerPriorityExceptionDisabled"/>
+                           <setting name="enableConvPause" value="false"/>
+                           <setting name="convPauseDelay" value="0"/>
+                           <setting name="FIFO0Watermark" value="0"/>
+                           <setting name="FIFO1Watermark" value="0"/>
+                           <setting name="FIFO0WatermarkDMA" value="false"/>
+                           <setting name="FIFO1WatermarkDMA" value="false"/>
+                        </struct>
+                        <array name="lpadcConvCommandConfig">
+                           <struct name="0">
+                              <setting name="user_commandId" value=""/>
+                              <setting name="commandId" value="1"/>
+                              <setting name="chainedNextCommandNumber" value="0"/>
+                              <setting name="sampleChannelMode" value="kLPADC_SampleChannelSingleEndSideB"/>
+                              <setting name="channelNumber" value="B.6"/>
+                              <setting name="enableAutoChannelIncrement" value="false"/>
+                              <setting name="loopCount" value="0"/>
+                              <setting name="hardwareAverageMode" value="kLPADC_HardwareAverageCount1"/>
+                              <setting name="sampleTimeMode" value="kLPADC_SampleTimeADCK131"/>
+                              <setting name="hardwareCompareMode" value="kLPADC_HardwareCompareDisabled"/>
+                              <setting name="hardwareCompareValueHigh" value="0"/>
+                              <setting name="hardwareCompareValueLow" value="0"/>
+                              <setting name="conversionResoultuionMode" value="kLPADC_ConversionResolutionHigh"/>
+                              <setting name="enableWaitTrigger" value="true"/>
+                           </struct>
+                        </array>
+                        <array name="lpadcConvTriggerConfig">
+                           <struct name="0">
+                              <setting name="user_triggerId" value=""/>
+                              <setting name="triggerId" value="0"/>
+                              <setting name="targetCommandId" value="1"/>
+                              <setting name="delayPower" value="0"/>
+                              <setting name="priority" value="false"/>
+                              <setting name="channelAFIFOSelect" value="0"/>
+                              <setting name="channelBFIFOSelect" value="1"/>
+                              <setting name="enableHardwareTrigger" value="true"/>
+                           </struct>
+                        </array>
+                        <struct name="IRQ_cfg">
+                           <set name="interrupt_type">
+                              <selected>
+                                 <id>kLPADC_Trigger0CompletionInterruptEnable</id>
+                              </selected>
+                           </set>
+                           <setting name="enable_irq" value="true"/>
+                           <struct name="adc_interrupt">
+                              <setting name="IRQn" value="ADC0_IRQn"/>
+                              <setting name="enable_interrrupt" value="enabled"/>
+                              <setting name="enable_priority" value="false"/>
+                              <setting name="priority" value="0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="LPI2C1" uuid="73734b7d-a1b9-4b09-afd4-7b68940c43bc" type="lpi2c" type_id="lpi2c_2.2.0" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="main">
+                        <setting name="clockSource" value="Lpi2cClock"/>
+                        <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                     </config_set>
+                     <config_set name="interrupt_vector"/>
+                     <config_set name="master">
+                        <setting name="mode" value="polling"/>
+                        <struct name="config">
+                           <setting name="enableMaster" value="true"/>
+                           <setting name="enableDoze" value="true"/>
+                           <setting name="debugEnable" value="false"/>
+                           <setting name="ignoreAck" value="false"/>
+                           <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
+                           <setting name="baudRate_Hz" value="400000"/>
+                           <setting name="busIdleTimeout_ns" value="0"/>
+                           <setting name="pinLowTimeout_ns" value="0"/>
+                           <setting name="sdaGlitchFilterWidth_ns" value="0"/>
+                           <setting name="sclGlitchFilterWidth_ns" value="0"/>
+                           <struct name="hostRequest">
+                              <setting name="enable" value="false"/>
+                              <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
+                              <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
+                           </struct>
+                           <set name="edmaRequestSources">
+                              <selected/>
+                           </set>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="NVIC" uuid="ce9c3b95-b24b-4d05-b29c-8cda708bb1ae" type="nvic" type_id="nvic" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table">
+                           <struct name="0"/>
+                           <struct name="1"/>
+                           <struct name="2"/>
+                           <struct name="3"/>
+                        </array>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+                  <instance name="DMA0" uuid="cb6149be-bd7d-4193-a27f-1115da10fe64" type="dma3" type_id="dma3_2.2.0" mode="general" peripheral="DMA0" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="config" quick_selection="tcd_linked">
+                        <struct name="common_settings">
+                           <struct name="vars"/>
+                           <setting name="enableMasterIdReplication" value="true"/>
+                           <setting name="enableHaltOnError" value="true"/>
+                           <setting name="enableRoundRobinArbitration" value="fixedPriority"/>
+                           <setting name="enableDebugMode" value="false"/>
+                           <setting name="globalChannelLink" value="enable"/>
+                        </struct>
+                        <array name="dma_table"/>
+                        <array name="edma_channels">
+                           <struct name="0">
+                              <setting name="apiMode" value="nontransTCD"/>
+                              <struct name="edma_channel">
+                                 <setting name="channel_prefix_id" value="CH0"/>
+                                 <setting name="uid" value="1000"/>
+                                 <setting name="eDMAn" value="0"/>
+                                 <setting name="eDMA_source" value="dmaDisable"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="arbitrationGroup" value="0"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                              </struct>
+                              <setting name="resetChannel" value="true"/>
+                              <setting name="enableChannelRequest" value="false"/>
+                              <setting name="enableAsyncRequest" value="false"/>
+                              <array name="tcd_configuration">
+                                 <struct name="0">
+                                    <setting name="uid" value="2000"/>
+                                    <setting name="tcdID" value="CH0_TCD0"/>
+                                    <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
+                                    <setting name="saddr_expr" value="&amp;srcAddr0[0]"/>
+                                    <setting name="saddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t srcAddr0[], N_bytes);"/>
+                                    <setting name="soff" value="sizeof(srcAddr0[0])"/>
+                                    <setting name="soff_def" value=""/>
+                                    <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
+                                    <setting name="daddr_expr" value="&amp;dstAddr0[0]"/>
+                                    <setting name="daddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t dstAddr0[], N_bytes);"/>
+                                    <setting name="doff" value="sizeof(dstAddr0[0])"/>
+                                    <setting name="doff_def" value=""/>
+                                    <setting name="nbytes" value="1"/>
+                                 </struct>
+                              </array>
+                              <setting name="constantTCD" value="false"/>
+                              <setting name="no_init_uid" value="0"/>
+                              <setting name="initializedTCD" value="2000"/>
+                              <set name="channel_enabled_interrupts">
+                                 <selected/>
+                              </set>
+                              <setting name="init_interruptsEnable" value="false"/>
+                              <struct name="interrupt_channel">
+                                 <setting name="IRQn" value="DMA0_CH0_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                           </struct>
+                           <struct name="1">
+                              <setting name="apiMode" value="nontransTCD"/>
+                              <struct name="edma_channel">
+                                 <setting name="channel_prefix_id" value="CH1"/>
+                                 <setting name="uid" value="1001"/>
+                                 <setting name="eDMAn" value="1"/>
+                                 <setting name="eDMA_source" value="dmaDisable"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="arbitrationGroup" value="0"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                              </struct>
+                              <setting name="resetChannel" value="true"/>
+                              <setting name="enableChannelRequest" value="false"/>
+                              <setting name="enableAsyncRequest" value="false"/>
+                              <array name="tcd_configuration">
+                                 <struct name="0">
+                                    <setting name="uid" value="2010"/>
+                                    <setting name="tcdID" value="CH1_TCD0"/>
+                                    <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
+                                    <setting name="saddr_expr" value="&amp;srcAddr1[0]"/>
+                                    <setting name="saddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t srcAddr1[], N_bytes);"/>
+                                    <setting name="soff" value="sizeof(srcAddr1[0])"/>
+                                    <setting name="soff_def" value=""/>
+                                    <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
+                                    <setting name="daddr_expr" value="&amp;dstAddr1[0]"/>
+                                    <setting name="daddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t dstAddr1[], N_bytes);"/>
+                                    <setting name="doff" value="sizeof(dstAddr1[0])"/>
+                                    <setting name="doff_def" value=""/>
+                                    <setting name="nbytes" value="1"/>
+                                 </struct>
+                              </array>
+                              <setting name="constantTCD" value="false"/>
+                              <setting name="no_init_uid" value="0"/>
+                              <setting name="initializedTCD" value="2010"/>
+                              <set name="channel_enabled_interrupts">
+                                 <selected/>
+                              </set>
+                              <setting name="init_interruptsEnable" value="false"/>
+                              <struct name="interrupt_channel">
+                                 <setting name="IRQn" value="DMA0_CH1_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                           </struct>
+                        </array>
+                     </config_set>
+                  </instance>
+                  <instance name="DebugConsole" uuid="7b93cdd1-ed7b-408b-b347-c54f243ceb96" type="debug_console" type_id="debug_console_1.0.0" mode="general" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_debug_console">
+                        <struct name="config">
+                           <setting name="SDK_DEBUGCONSOLE" value="DEBUGCONSOLE_REDIRECT_TO_SDK"/>
+                           <setting name="SDK_DEBUGCONSOLE_UART" value="serial_port"/>
+                           <setting name="DEBUG_CONSOLE_RX_ENABLE" value="true"/>
+                           <setting name="DEBUG_CONSOLE_PRINTF_MAX_LOG_LEN" value="128"/>
+                           <setting name="DEBUG_CONSOLE_SCANF_MAX_LOG_LEN" value="20"/>
+                           <setting name="DEBUG_CONSOLE_ENABLE_ECHO" value="true"/>
+                           <setting name="PRINTF_FLOAT_ENABLE" value="true"/>
+                           <setting name="SCANF_FLOAT_ENABLE" value="true"/>
+                           <setting name="PRINTF_ADVANCED_ENABLE" value="false"/>
+                           <setting name="SCANF_ADVANCED_ENABLE" value="false"/>
+                           <setting name="DEBUG_CONSOLE_TRANSFER_NON_BLOCKING" value="true"/>
+                           <setting name="DEBUG_CONSOLE_TRANSMIT_BUFFER_LEN" value="512"/>
+                           <setting name="DEBUG_CONSOLE_RECEIVE_BUFFER_LEN" value="1024"/>
+                           <setting name="DEBUG_CONSOLE_TX_RELIABLE_ENABLE" value="true"/>
+                           <setting name="DEBUG_CONSOLE_DISABLE_RTOS_SYNCHRONIZATION" value="true"/>
+                        </struct>
+                        <struct name="peripheral_config">
+                           <setting name="serial_port_type" value="kSerialPort_Uart"/>
+                           <struct name="uart_config">
+                              <setting name="peripheralUART" value="LPUART1"/>
+                              <setting name="clockSource" value="genericUartClockSource"/>
+                              <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                              <setting name="baudRate_Bps" value="115200"/>
+                              <set name="interrupt_sources_lpuart">
+                                 <selected>
+                                    <id>kLPUART_TxDataRegEmptyInterruptEnable</id>
+                                    <id>kLPUART_TransmissionCompleteInterruptEnable</id>
+                                    <id>kLPUART_RxDataRegFullInterruptEnable</id>
+                                    <id>kLPUART_RxOverrunInterruptEnable</id>
+                                 </selected>
+                              </set>
+                              <setting name="enable_rx_tx_irq" value="true"/>
+                              <struct name="interrupt_rx_tx">
+                                 <setting name="IRQn" value="LPUART1_IRQn"/>
+                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="enable_priority" value="false"/>
+                                 <setting name="priority" value="0"/>
+                              </struct>
+                           </struct>
+                        </struct>
+                        <struct name="debug_console_codegenerator"/>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="ddb3c03f-1a8a-44f2-b3c9-6e2df6c05924" type_id="system">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+                  <setting name="global_init" value=""/>
+               </config_set_global>
+            </component>
+            <component name="uart_cmsis_common" uuid="18e253b3-57ea-40cc-a456-8eb0d7e8b5dc" type_id="uart_cmsis_common">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="gpio_adapter_common" uuid="d18db463-a3d3-4d8e-99dd-4d7618335454" type_id="gpio_adapter_common">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="msg" uuid="d4ced672-6d00-4bb7-ac00-1fd21b7d55a9" type_id="msg">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="generic_uart" uuid="77aa65dc-5204-439e-a290-4576096ee1e9" type_id="generic_uart">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_enet" uuid="5f948b28-a2c0-43f9-8777-f5982b0ae355" type_id="generic_enet">
+               <config_set_global name="global_enet"/>
+            </component>
+            <component name="generic_can" uuid="91a4f13b-c868-43bb-a8ab-2d3c7f0d89b3" type_id="generic_can">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
+      </periphs>
+      <tee name="TEE" version="8.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+            <tool_options>
+               <option id="_output_type_" value="c_code"/>
+               <option id="_legacy_source_names_" value="no"/>
+            </tool_options>
+         </tee_profile>
+         <functional_group name="BOARD_InitTEE" called_from_default_init="true" id_prefix="BOARD_INITTEE_" prefix_user_defined="false">
+            <description></description>
+            <options/>
+            <trdc>
+               <interrupts>
+                  <security>
+                     <interrupt id="adc0_irq" secure="Secure"/>
+                     <interrupt id="can0_irq" secure="Secure"/>
+                     <interrupt id="cmc0_irq" secure="Secure"/>
+                     <interrupt id="cti_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch0_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch10_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch11_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch12_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch13_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch14_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch15_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch1_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch2_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch3_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch4_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch5_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch6_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch7_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch8_irq" secure="Secure"/>
+                     <interrupt id="dma0_ch9_irq" secure="Secure"/>
+                     <interrupt id="dsb_irq" secure="Secure"/>
+                     <interrupt id="ele_cmd_irq" secure="Secure"/>
+                     <interrupt id="ele_nonsecure_irq" secure="Secure"/>
+                     <interrupt id="ele_secure_irq" secure="Secure"/>
+                     <interrupt id="ewm0_irq" secure="Secure"/>
+                     <interrupt id="flexio0_irq" secure="Secure"/>
+                     <interrupt id="fmu0_irq" secure="Secure"/>
+                     <interrupt id="gpioa_int0_irq" secure="Secure"/>
+                     <interrupt id="gpioa_int1_irq" secure="Secure"/>
+                     <interrupt id="gpiob_int0_irq" secure="Secure"/>
+                     <interrupt id="gpiob_int1_irq" secure="Secure"/>
+                     <interrupt id="gpioc_int0_irq" secure="Secure"/>
+                     <interrupt id="gpioc_int1_irq" secure="Secure"/>
+                     <interrupt id="gpiod_int0_irq" secure="Secure"/>
+                     <interrupt id="gpiod_int1_irq" secure="Secure"/>
+                     <interrupt id="i3c0_irq" secure="Secure"/>
+                     <interrupt id="lpcmp0_irq" secure="Secure"/>
+                     <interrupt id="lpcmp1_irq" secure="Secure"/>
+                     <interrupt id="lpi2c0_irq" secure="Secure"/>
+                     <interrupt id="lpi2c1_irq" secure="Secure"/>
+                     <interrupt id="lpit0_irq" secure="Secure"/>
+                     <interrupt id="lpspi0_irq" secure="Secure"/>
+                     <interrupt id="lpspi1_irq" secure="Secure"/>
+                     <interrupt id="lptmr0_irq" secure="Secure"/>
+                     <interrupt id="lptmr1_irq" secure="Secure"/>
+                     <interrupt id="lpuart0_irq" secure="Secure"/>
+                     <interrupt id="lpuart1_irq" secure="Secure"/>
+                     <interrupt id="mcm0_irq" secure="Secure"/>
+                     <interrupt id="mscm0_irq" secure="Secure"/>
+                     <interrupt id="porta_irq" secure="Secure"/>
+                     <interrupt id="portb_irq" secure="Secure"/>
+                     <interrupt id="portc_irq" secure="Secure"/>
+                     <interrupt id="portd_irq" secure="Secure"/>
+                     <interrupt id="rf_802_15_4_ieq" secure="Secure"/>
+                     <interrupt id="rf_bric_irq" secure="Secure"/>
+                     <interrupt id="rf_fmu_irq" secure="Secure"/>
+                     <interrupt id="rf_generic_irq" secure="Secure"/>
+                     <interrupt id="rf_imu0_irq" secure="Secure"/>
+                     <interrupt id="rf_imu1_irq" secure="Secure"/>
+                     <interrupt id="rf_lant_sw_irq" secure="Secure"/>
+                     <interrupt id="rf_nbu_irq" secure="Secure"/>
+                     <interrupt id="rf_wor_irq" secure="Secure"/>
+                     <interrupt id="rfmc_irq" secure="Secure"/>
+                     <interrupt id="rtc_alarm_irq" secure="Secure"/>
+                     <interrupt id="rtc_seconds_irq" secure="Secure"/>
+                     <interrupt id="scg0_irq" secure="Secure"/>
+                     <interrupt id="sfa0_irq" secure="Secure"/>
+                     <interrupt id="spc0_irq" secure="Secure"/>
+                     <interrupt id="tpm0_irq" secure="Secure"/>
+                     <interrupt id="tpm1_irq" secure="Secure"/>
+                     <interrupt id="trdc0_irq" secure="Secure"/>
+                     <interrupt id="vbat_irq" secure="Secure"/>
+                     <interrupt id="wdog0_irq" secure="Secure"/>
+                     <interrupt id="wdog1_irq" secure="Secure"/>
+                     <interrupt id="wuu0_irq" secure="Secure"/>
+                  </security>
+               </interrupts>
+               <ports>
+                  <port id="GPIOA">
+                     <pin_security id="0" security="s_priv"/>
+                     <pin_security id="1" security="s_priv"/>
+                     <pin_security id="16" security="s_priv"/>
+                     <pin_security id="17" security="s_priv"/>
+                     <pin_security id="18" security="s_priv"/>
+                     <pin_security id="19" security="s_priv"/>
+                     <pin_security id="20" security="s_priv"/>
+                     <pin_security id="21" security="s_priv"/>
+                     <pin_security id="4" security="s_priv"/>
+                     <pin_interrupt_security id="0" security="s_priv"/>
+                     <pin_interrupt_security id="1" security="s_priv"/>
+                  </port>
+                  <port id="GPIOB">
+                     <pin_security id="0" security="s_priv"/>
+                     <pin_security id="1" security="s_priv"/>
+                     <pin_security id="2" security="s_priv"/>
+                     <pin_security id="3" security="s_priv"/>
+                     <pin_security id="4" security="s_priv"/>
+                     <pin_security id="5" security="s_priv"/>
+                     <pin_interrupt_security id="0" security="s_priv"/>
+                     <pin_interrupt_security id="1" security="s_priv"/>
+                  </port>
+                  <port id="GPIOC">
+                     <pin_security id="0" security="s_priv"/>
+                     <pin_security id="1" security="s_priv"/>
+                     <pin_security id="2" security="s_priv"/>
+                     <pin_security id="3" security="s_priv"/>
+                     <pin_security id="4" security="s_priv"/>
+                     <pin_security id="5" security="s_priv"/>
+                     <pin_security id="6" security="s_priv"/>
+                     <pin_security id="7" security="s_priv"/>
+                     <pin_interrupt_security id="0" security="s_priv"/>
+                     <pin_interrupt_security id="1" security="s_priv"/>
+                  </port>
+                  <port id="GPIOD">
+                     <pin_security id="0" security="s_priv"/>
+                     <pin_security id="1" security="s_priv"/>
+                     <pin_security id="2" security="s_priv"/>
+                     <pin_security id="3" security="s_priv"/>
+                     <pin_security id="4" security="s_priv"/>
+                     <pin_security id="5" security="s_priv"/>
+                     <pin_interrupt_security id="0" security="s_priv"/>
+                     <pin_interrupt_security id="1" security="s_priv"/>
+                  </port>
+               </ports>
+               <masters>
+                  <master id="cm33">
+                     <domain_assignment enabled="false" locked="false" domain_id="0" domain_input="mda"/>
+                  </master>
+                  <master id="dma3">
+                     <domain_assignment secure="ns" privileged="user" enabled="false" locked="false" domain_id="0" domain_bypass="false"/>
+                  </master>
+                  <master id="dsb">
+                     <domain_assignment secure="ns" privileged="user" enabled="false" locked="false" domain_id="0" domain_bypass="false"/>
+                  </master>
+                  <master id="nbu">
+                     <domain_assignment secure="ns" privileged="user" enabled="false" locked="false" domain_id="0" domain_bypass="false"/>
+                  </master>
+               </masters>
+               <mbcs>
+                  <mbc checker_id="MBC0" using_global_templates="true">
+                     <slaves>
+                        <slave id="FLASH">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="1048576"/>
+                        </slave>
+                        <slave id="IFR0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="32768"/>
+                        </slave>
+                        <slave id="IFR1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="8192"/>
+                        </slave>
+                        <slave id="ROM_BOOT">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="98304"/>
+                        </slave>
+                     </slaves>
+                  </mbc>
+                  <mbc checker_id="MBC1" using_global_templates="true">
+                     <slaves>
+                        <slave id="TCM_CODE">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="16384"/>
+                        </slave>
+                        <slave id="TCM_SYS">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="114688"/>
+                        </slave>
+                     </slaves>
+                  </mbc>
+                  <mbc checker_id="MBC2" using_global_templates="true">
+                     <slaves>
+                        <slave id="AXBS0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="CMC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="DMA0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="EWM0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="MSCM">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SMSCM">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SPC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SYSPM">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TRGMUX0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="WUU0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="WDOG0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="WDOG1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="MRCC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SFA0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SCG0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="CCM32K">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="FMU0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="REGFILE0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="REGFILE1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="CRC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="ELEMUA">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="NPX">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TRDC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="VBAT0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="RTC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPTMR0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPTMR1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPIT0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TSTMR0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TPM0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TPM1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPI2C0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPI2C1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="I3C">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPSPI0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPSPI1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPUART0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPUART1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="FLEXIO0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="CAN0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="SEMA42">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="RFMC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="DSB0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="PORTA">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="PORTB">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="PORTC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="PORTD">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="GPIOD">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="ADC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPCMP0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="LPCMP1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="VREF0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="GPIOA">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="GPIOB">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="GPIOC">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="GENFSK">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="RADIO_CTRL">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="XCVR_RX_DIG">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="TX_PACKET_RAM">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                        </slave>
+                        <slave id="eDMA-TCD-CHx">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="65536"/>
+                        </slave>
+                        <slave id="TRDC-MBC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="TRDC-MBC1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="TRDC-MBC2">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="TRDC-MRC0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="ISP-AP0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="65536"/>
+                        </slave>
+                        <slave id="RF_GENLL_REMAP0">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="RF_GENLL_REMAP1">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                        <slave id="RF_GENLL_REMAP2">
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <domain security="ns" template="Template_1"/>
+                           <base_region start="0" size="4096"/>
+                        </slave>
+                     </slaves>
+                  </mbc>
+               </mbcs>
+               <mrcs>
+                  <mrc checker_id="MRC0" using_global_templates="true">
+                     <domains>
+                        <domain>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="0"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="1"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="2"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="3"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="4"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="5"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="6"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="7"/>
+                        </domain>
+                        <domain>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="0"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="1"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="2"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="3"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="4"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="5"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="6"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="7"/>
+                        </domain>
+                        <domain>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="0"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="1"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="2"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="3"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="4"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="5"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="6"/>
+                           <region start="1216348160" size="2097152" security="ns" template="Template_1" enabled="false" index="7"/>
+                        </domain>
+                     </domains>
+                  </mrc>
+               </mrcs>
+            </trdc>
+            <saus>
+               <sau enabled="false" all_non_secure="false" generate_code_for_disabled_regions="false">
+                  <region start="0" size="32" security="ns" enabled="false" index="0"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="1"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="2"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="3"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="4"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="5"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="6"/>
+                  <region start="0" size="32" security="ns" enabled="false" index="7"/>
+               </sau>
+            </saus>
+            <global_options>
+               <option id="_tzm_control_bit_0_" value="no"/>
+               <option id="_tzm_control_bit_1_" value="no"/>
+               <option id="_tzm_control_bit_2_" value="no"/>
+               <option id="_tzm_control_bit_4_" value="no"/>
+               <option id="_tzm_control_bit_5_" value="no"/>
+               <option id="_tzm_control_bit_6_" value="no"/>
+               <option id="_tzm_control_bit_8_" value="no"/>
+               <option id="_tzm_control_bit_9_" value="no"/>
+               <option id="_tzm_control_bit_10_" value="no"/>
+               <option id="_tzm_control_bit_12_" value="no"/>
+               <option id="_tzm_control_bit_13_" value="no"/>
+               <option id="_tzm_control_bit_14_" value="no"/>
+               <option id="_tzm_control_bit_16_" value="no"/>
+               <option id="_tzm_control_bit_17_" value="no"/>
+               <option id="_tzm_control_bit_18_" value="no"/>
+               <option id="_tzm_control_bit_20_" value="no"/>
+               <option id="TRDC_CR_GVLDM" value="no"/>
+               <option id="TRDC_CR_GVLDB" value="no"/>
+               <option id="TRDC_CR_GVLDR" value="no"/>
+               <option id="TRDC_IDAU_CR_VLD" value="no"/>
+               <option id="TRDC_IDAU_CR_LKSAU" value="no"/>
+               <option id="TRDC_IDAU_CR_LKNSMPU" value="no"/>
+               <option id="TRDC_IDAU_CR_LKSMPU" value="no"/>
+               <option id="TRDC_IDAU_CR_LKNSVTOR" value="no"/>
+               <option id="TRDC_IDAU_CR_LKSVTAIRCR" value="no"/>
+               <option id="AIRCR_PRIS" value="no"/>
+               <option id="AIRCR_BFHFNMINS" value="no"/>
+               <option id="AIRCR_SYSRESETREQS" value="no"/>
+               <option id="SCR_SLEEPDEEPS" value="no"/>
+               <option id="SHCSR_SECUREFAULTENA" value="no"/>
+               <option id="CPACR_CP0" value="0"/>
+               <option id="CPACR_CP1" value="0"/>
+               <option id="CPACR_CP2" value="0"/>
+               <option id="CPACR_CP3" value="0"/>
+               <option id="CPACR_CP4" value="0"/>
+               <option id="CPACR_CP5" value="0"/>
+               <option id="CPACR_CP6" value="0"/>
+               <option id="CPACR_CP7" value="0"/>
+               <option id="CPACR_CP10" value="0"/>
+               <option id="CPACR_CP11" value="0"/>
+               <option id="NSACR_CP0" value="no"/>
+               <option id="NSACR_CP1" value="no"/>
+               <option id="NSACR_CP2" value="no"/>
+               <option id="NSACR_CP3" value="no"/>
+               <option id="NSACR_CP4" value="no"/>
+               <option id="NSACR_CP5" value="no"/>
+               <option id="NSACR_CP6" value="no"/>
+               <option id="NSACR_CP7" value="no"/>
+               <option id="NSACR_CP10" value="no"/>
+               <option id="NSACR_CP11" value="no"/>
+               <option id="CPPWR_SU0" value="no"/>
+               <option id="CPPWR_SUS0" value="no"/>
+               <option id="CPPWR_SU1" value="no"/>
+               <option id="CPPWR_SUS1" value="no"/>
+               <option id="CPPWR_SU2" value="no"/>
+               <option id="CPPWR_SUS2" value="no"/>
+               <option id="CPPWR_SU3" value="no"/>
+               <option id="CPPWR_SUS3" value="no"/>
+               <option id="CPPWR_SU4" value="no"/>
+               <option id="CPPWR_SUS4" value="no"/>
+               <option id="CPPWR_SU5" value="no"/>
+               <option id="CPPWR_SUS5" value="no"/>
+               <option id="CPPWR_SU6" value="no"/>
+               <option id="CPPWR_SUS6" value="no"/>
+               <option id="CPPWR_SU7" value="no"/>
+               <option id="CPPWR_SUS7" value="no"/>
+               <option id="CPPWR_SU10" value="no"/>
+               <option id="CPPWR_SUS10" value="no"/>
+               <option id="CPPWR_SU11" value="no"/>
+               <option id="CPPWR_SUS11" value="no"/>
+               <option id="GPIOA_PCNS" value="no"/>
+               <option id="GPIOA_ICNS" value="no"/>
+               <option id="GPIOA_PCNP" value="no"/>
+               <option id="GPIOA_ICNP" value="no"/>
+               <option id="GPIOB_PCNS" value="no"/>
+               <option id="GPIOB_ICNS" value="no"/>
+               <option id="GPIOB_PCNP" value="no"/>
+               <option id="GPIOB_ICNP" value="no"/>
+               <option id="GPIOC_PCNS" value="no"/>
+               <option id="GPIOC_ICNS" value="no"/>
+               <option id="GPIOC_PCNP" value="no"/>
+               <option id="GPIOC_ICNP" value="no"/>
+               <option id="GPIOD_PCNS" value="no"/>
+               <option id="GPIOD_ICNS" value="no"/>
+               <option id="GPIOD_PCNP" value="no"/>
+               <option id="GPIOD_ICNP" value="no"/>
+            </global_options>
+            <mpus>
+               <mpu enabled="false" priv_default_map="false" handler_enabled="false" id="s" generate_code_for_disabled_regions="false">
+                  <attributes>
+                     <group index="0" id="0" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="1" id="1" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="2" id="2" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="3" id="3" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="4" id="4" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="5" id="5" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="6" id="6" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="7" id="7" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                  </attributes>
+                  <regions>
+                     <region start="0" size="32" security="priv" enabled="false" index="0" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="1" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="2" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="3" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="4" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="5" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="6" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="7" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                  </regions>
+               </mpu>
+               <mpu enabled="false" priv_default_map="false" handler_enabled="false" id="ns" generate_code_for_disabled_regions="false">
+                  <attributes>
+                     <group index="0" id="0" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="1" id="1" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="2" id="2" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="3" id="3" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="4" id="4" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="5" id="5" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="6" id="6" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                     <group index="7" id="7" memory_type="device" device="nGnRE">
+                        <regions_properties>
+                           <region_properties id="inner" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                           <region_properties id="outer" cacheable="false" write_back="false" read_allocation="false" write_allocation="false" transientness="false"/>
+                        </regions_properties>
+                     </group>
+                  </attributes>
+                  <regions>
+                     <region start="0" size="32" security="priv" enabled="false" index="0" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="1" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="2" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="3" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="4" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="5" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="6" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                     <region start="0" size="32" security="priv" enabled="false" index="7" executable="false" read_only="false" shareability="non_shareable" attributes_index="0"/>
+                  </regions>
+               </mpu>
+            </mpus>
+            <access_templates>
+               <template id="Template_1" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_2" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_3" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_4" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_5" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_6" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_7" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+               <template id="Template_8" locked="false">
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="ns_priv"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_user"/>
+                  <access read="BLOCK" write="BLOCK" execute="BLOCK" security_level="s_priv"/>
+               </template>
+            </access_templates>
+         </functional_group>
+      </tee>
+   </tools>
+</configuration>
