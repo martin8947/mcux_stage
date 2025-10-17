@@ -14,13 +14,14 @@ mcu_data: ksdk2_0
 processor_version: 25.06.10
 external_user_signals: {}
 pin_labels:
-- {pin_num: '44', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, label: sw2, identifier: sw2}
-- {pin_num: '38', pin_signal: PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17, label: user_led, identifier: d14;user_led}
-- {pin_num: '18', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10, label: rgb_r, identifier: rgb_r}
-- {pin_num: '17', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, label: rgb_b, identifier: rgb_b}
-- {pin_num: '14', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, label: rgb_g, identifier: rgb_g}
-- {pin_num: '26', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, label: light_sens, identifier: light_sens}
-- {pin_num: '24', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, label: sw4, identifier: sw4}
+- {pin_num: '44', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, label: SW2, identifier: sw2;SW2}
+- {pin_num: '38', pin_signal: PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17, label: USER_LED, identifier: d14;user_led;USER_LED}
+- {pin_num: '18', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10, label: RGB_R, identifier: rgb_r;RGB_R}
+- {pin_num: '17', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, label: RGB_B, identifier: rgb_b;RGB_B}
+- {pin_num: '14', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, label: RGB_G, identifier: rgb_g;RGB_G}
+- {pin_num: '26', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, label: LIGHT_SENS, identifier: light_sens;LIGHT_SENS}
+- {pin_num: '24', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, label: SW4, identifier: sw4;SW4}
+- {pin_num: '45', pin_signal: PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23, label: ACC_INT, identifier: ACC_INT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -49,20 +50,30 @@ BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
   - {pin_num: '18', peripheral: TPM0, signal: 'CH, 0', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
+    identifier: RGB_R, drive_strength: high}
+  - {pin_num: '17', peripheral: TPM0, signal: 'CH, 1', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, identifier: RGB_B,
     drive_strength: high}
-  - {pin_num: '17', peripheral: TPM0, signal: 'CH, 1', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, drive_strength: high}
-  - {pin_num: '14', peripheral: TPM0, signal: 'CH, 2', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, drive_strength: high}
-  - {pin_num: '44', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, direction: INPUT, gpio_per_interrupt_sel: output0,
-    gpio_per_interrupt: kGPIO_InterruptFallingEdge, pull_select: up, pull_enable: enable}
-  - {pin_num: '38', peripheral: GPIOC, signal: 'GPIO, 1', pin_signal: PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17, identifier: user_led,
+  - {pin_num: '14', peripheral: TPM0, signal: 'CH, 2', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, identifier: RGB_G,
+    drive_strength: high}
+  - {pin_num: '38', peripheral: GPIOC, signal: 'GPIO, 1', pin_signal: PTC1/WUU0_P8/LPSPI1_PCS3/CAN0_RX/I3C0_SCL/TPM1_CH1/LPI2C1_SDA/FLEXIO0_D17, identifier: USER_LED,
     direction: OUTPUT, gpio_init_state: 'true', drive_strength: high}
-  - {pin_num: '26', peripheral: ADC0, signal: 'B, 6', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2}
+  - {pin_num: '45', peripheral: GPIOC, signal: 'GPIO, 7', pin_signal: PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23,
+    direction: INPUT, gpio_per_interrupt_sel: output1, gpio_per_interrupt: kGPIO_InterruptRisingEdge}
+  - {pin_num: '44', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, identifier: SW2, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge,
+    pull_select: up, pull_enable: enable}
+  - {pin_num: '24', peripheral: GPIOD, signal: 'GPIO, 1', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, identifier: SW4, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge}
+  - {pin_num: '26', peripheral: ADC0, signal: 'B, 6', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, identifier: LIGHT_SENS}
   - {peripheral: ADC0, signal: 'TRG_CH, 0', pin_signal: TRGMUX0_LPIT0_CH0}
-  - {pin_num: '24', peripheral: GPIOD, signal: 'GPIO, 1', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge}
   - {pin_num: '2', peripheral: LPI2C1, signal: SDA, pin_signal: PTB4/WUU0_P15/LPSPI1_PCS3/LPUART1_CTS_b/LPI2C1_SDA/I3C0_SDA/TRGMUX0_IN0/FLEXIO0_D30}
   - {pin_num: '3', peripheral: LPI2C1, signal: SCL, pin_signal: PTB5/LPSPI1_PCS2/LPUART1_RTS_b/LPI2C1_SCL/I3C0_SCL/TRGMUX0_OUT0/FLEXIO0_D31}
-  - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19}
   - {pin_num: '39', peripheral: LPUART1, signal: RX, pin_signal: PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18}
+  - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19}
+  - {pin_num: '43', peripheral: CAN0, signal: RX, pin_signal: PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21}
+  - {pin_num: '42', peripheral: CAN0, signal: TX, pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20}
+  - {pin_num: '47', peripheral: LPSPI1, signal: IN, pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27}
+  - {pin_num: '1', peripheral: LPSPI1, signal: OUT, pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29}
+  - {pin_num: '48', peripheral: LPSPI1, signal: SCK, pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28}
+  - {pin_num: '46', peripheral: LPSPI1, signal: PCS0, pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -84,42 +95,52 @@ void BOARD_InitPins(void)
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortC);
 
-    gpio_pin_config_t user_led_config = {
+    gpio_pin_config_t USER_LED_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PTC1 (pin 38)  */
-    GPIO_PinInit(BOARD_INITPINS_user_led_GPIO, BOARD_INITPINS_user_led_PIN, &user_led_config);
+    GPIO_PinInit(BOARD_INITPINS_USER_LED_GPIO, BOARD_INITPINS_USER_LED_PIN, &USER_LED_config);
 
-    gpio_pin_config_t sw2_config = {
+    gpio_pin_config_t SW2_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTC6 (pin 44)  */
-    GPIO_PinInit(BOARD_INITPINS_sw2_GPIO, BOARD_INITPINS_sw2_PIN, &sw2_config);
+    GPIO_PinInit(BOARD_INITPINS_SW2_GPIO, BOARD_INITPINS_SW2_PIN, &SW2_config);
 
-    gpio_pin_config_t sw4_config = {
+    gpio_pin_config_t ACC_INT_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC7 (pin 45)  */
+    GPIO_PinInit(BOARD_INITPINS_ACC_INT_GPIO, BOARD_INITPINS_ACC_INT_PIN, &ACC_INT_config);
+
+    gpio_pin_config_t SW4_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTD1 (pin 24)  */
-    GPIO_PinInit(BOARD_INITPINS_sw4_GPIO, BOARD_INITPINS_sw4_PIN, &sw4_config);
+    GPIO_PinInit(BOARD_INITPINS_SW4_GPIO, BOARD_INITPINS_SW4_PIN, &SW4_config);
 
-    GPIOC->ICR[6] = ((GPIOC->ICR[6] &
+    /* Interrupt configuration on GPIOC6 (pin 44): Interrupt on falling edge */
+    GPIO_SetPinInterruptConfig(BOARD_INITPINS_SW2_GPIO, BOARD_INITPINS_SW2_PIN, kGPIO_InterruptFallingEdge);
+
+    GPIOC->ICR[7] = ((GPIOC->ICR[7] &
                       /* Mask bits to zero which are setting */
                       (~(GPIO_ICR_IRQS_MASK | GPIO_ICR_ISF_MASK)))
 
-                     /* Interrupt Select: Interrupt/trigger output/DMA request 0. */
-                     | GPIO_ICR_IRQS(ICR6_IRQS_irqs0));
+                     /* Interrupt Select: Interrupt/trigger output/DMA request 1. */
+                     | GPIO_ICR_IRQS(ICR7_IRQS_irqs1));
 
-    /* Interrupt configuration on GPIOC6 (pin 44): Interrupt on falling edge */
-    GPIO_SetPinInterruptConfig(BOARD_INITPINS_sw2_GPIO, BOARD_INITPINS_sw2_PIN, kGPIO_InterruptFallingEdge);
+    /* Interrupt configuration on GPIOC7 (pin 45): Interrupt on rising edge */
+    GPIO_SetPinInterruptConfig(BOARD_INITPINS_ACC_INT_GPIO, BOARD_INITPINS_ACC_INT_PIN, kGPIO_InterruptRisingEdge);
 
     /* Interrupt configuration on GPIOD1 (pin 24): Interrupt on falling edge */
-    GPIO_SetPinInterruptConfig(BOARD_INITPINS_sw4_GPIO, BOARD_INITPINS_sw4_PIN, kGPIO_InterruptFallingEdge);
+    GPIO_SetPinInterruptConfig(BOARD_INITPINS_SW4_GPIO, BOARD_INITPINS_SW4_PIN, kGPIO_InterruptFallingEdge);
 
     /* PORTA19 (pin 14) is configured as TPM0_CH2 */
-    PORT_SetPinMux(BOARD_INITPINS_rgb_g_PORT, BOARD_INITPINS_rgb_g_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(BOARD_INITPINS_RGB_G_PORT, BOARD_INITPINS_RGB_G_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[19] = ((PORTA->PCR[19] &
                        /* Mask bits to zero which are setting */
@@ -129,7 +150,7 @@ void BOARD_InitPins(void)
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
     /* PORTA20 (pin 17) is configured as TPM0_CH1 */
-    PORT_SetPinMux(BOARD_INITPINS_rgb_b_PORT, BOARD_INITPINS_rgb_b_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(BOARD_INITPINS_RGB_B_PORT, BOARD_INITPINS_RGB_B_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[20] = ((PORTA->PCR[20] &
                        /* Mask bits to zero which are setting */
@@ -139,7 +160,7 @@ void BOARD_InitPins(void)
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
     /* PORTA21 (pin 18) is configured as TPM0_CH0 */
-    PORT_SetPinMux(BOARD_INITPINS_rgb_r_PORT, BOARD_INITPINS_rgb_r_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(BOARD_INITPINS_RGB_R_PORT, BOARD_INITPINS_RGB_R_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[21] = ((PORTA->PCR[21] &
                        /* Mask bits to zero which are setting */
@@ -148,6 +169,18 @@ void BOARD_InitPins(void)
                       /* Drive Strength Enable: High. */
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
+    /* PORTB0 (pin 46) is configured as LPSPI1_PCS0 */
+    PORT_SetPinMux(PORTB, 0U, kPORT_MuxAlt2);
+
+    /* PORTB1 (pin 47) is configured as LPSPI1_SIN */
+    PORT_SetPinMux(PORTB, 1U, kPORT_MuxAlt2);
+
+    /* PORTB2 (pin 48) is configured as LPSPI1_SCK */
+    PORT_SetPinMux(PORTB, 2U, kPORT_MuxAlt2);
+
+    /* PORTB3 (pin 1) is configured as LPSPI1_SOUT */
+    PORT_SetPinMux(PORTB, 3U, kPORT_MuxAlt2);
+
     /* PORTB4 (pin 2) is configured as LPI2C1_SDA */
     PORT_SetPinMux(PORTB, 4U, kPORT_MuxAlt4);
 
@@ -155,7 +188,7 @@ void BOARD_InitPins(void)
     PORT_SetPinMux(PORTB, 5U, kPORT_MuxAlt4);
 
     /* PORTC1 (pin 38) is configured as PTC1 */
-    PORT_SetPinMux(BOARD_INITPINS_user_led_PORT, BOARD_INITPINS_user_led_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_INITPINS_USER_LED_PORT, BOARD_INITPINS_USER_LED_PIN, kPORT_MuxAsGpio);
 
     PORTC->PCR[1] = ((PORTC->PCR[1] &
                       /* Mask bits to zero which are setting */
@@ -170,8 +203,14 @@ void BOARD_InitPins(void)
     /* PORTC3 (pin 40) is configured as LPUART1_TX */
     PORT_SetPinMux(PORTC, 3U, kPORT_MuxAlt3);
 
+    /* PORTC4 (pin 42) is configured as CAN0_TX */
+    PORT_SetPinMux(PORTC, 4U, kPORT_MuxAlt3);
+
+    /* PORTC5 (pin 43) is configured as CAN0_RX */
+    PORT_SetPinMux(PORTC, 5U, kPORT_MuxAlt3);
+
     /* PORTC6 (pin 44) is configured as PTC6 */
-    PORT_SetPinMux(BOARD_INITPINS_sw2_PORT, BOARD_INITPINS_sw2_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_INITPINS_SW2_PORT, BOARD_INITPINS_SW2_PIN, kPORT_MuxAsGpio);
 
     PORTC->PCR[6] = ((PORTC->PCR[6] &
                       /* Mask bits to zero which are setting */
@@ -183,11 +222,14 @@ void BOARD_InitPins(void)
                      /* Pull Enable: Enables. */
                      | PORT_PCR_PE(PCR_PE_pe1));
 
+    /* PORTC7 (pin 45) is configured as PTC7 */
+    PORT_SetPinMux(BOARD_INITPINS_ACC_INT_PORT, BOARD_INITPINS_ACC_INT_PIN, kPORT_MuxAsGpio);
+
     /* PORTD1 (pin 24) is configured as PTD1 */
-    PORT_SetPinMux(BOARD_INITPINS_sw4_PORT, BOARD_INITPINS_sw4_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_INITPINS_SW4_PORT, BOARD_INITPINS_SW4_PIN, kPORT_MuxAsGpio);
 
     /* PORTD3 (pin 26) is configured as ADC0_B6 */
-    PORT_SetPinMux(BOARD_INITPINS_light_sens_PORT, BOARD_INITPINS_light_sens_PIN, kPORT_PinDisabledOrAnalog);
+    PORT_SetPinMux(BOARD_INITPINS_LIGHT_SENS_PORT, BOARD_INITPINS_LIGHT_SENS_PIN, kPORT_PinDisabledOrAnalog);
     /* LPIT0 Channel 0 is selected as ADC_GP0 device trigger input 0 */
     TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Trgmux0AdcGp0, kTRGMUX_TriggerInput0, kTRGMUX_SourceLpit0Channel0);
 }

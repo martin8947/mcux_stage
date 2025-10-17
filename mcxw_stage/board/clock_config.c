@@ -102,24 +102,26 @@ void BOARD_InitBootClocks(void)
 name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
-- {id: BUS_CLK.outFreq, value: 96 MHz}
-- {id: CPU_CLK.outFreq, value: 96 MHz}
-- {id: FIRC_CLK.outFreq, value: 96 MHz}
-- {id: FRO16K_CLK.outFreq, value: 16 kHz}
-- {id: MRCC.MRCC_LPADC0_CLK.outFreq, value: 12 MHz}
-- {id: MRCC.MRCC_LPI2C1_CLK.outFreq, value: 24 MHz}
-- {id: MRCC.MRCC_LPIT0_CLK.outFreq, value: 96 MHz}
-- {id: MRCC.MRCC_LPUART1_CLK.outFreq, value: 24 MHz}
-- {id: MRCC.MRCC_TPM0_CLK.outFreq, value: 24 MHz}
-- {id: RADIO_FRO192M_CLK.outFreq, value: 64 MHz}
-- {id: RADIO_FRO192M_FRODIV_CLK.outFreq, value: 64/3 MHz}
-- {id: ROSC_CLK.outFreq, value: 32.768 kHz}
+- {id: BUS_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: CPU_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: FIRC_CLK.outFreq, value: 192 MHz, locked: true, accuracy: '0.001'}
+- {id: FRO16K_CLK.outFreq, value: 16 kHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_CAN0_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_LPADC0_CLK.outFreq, value: 64 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_LPI2C1_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_LPIT0_CLK.outFreq, value: 192 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_LPSPI1_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_LPUART1_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
+- {id: MRCC.MRCC_TPM0_CLK.outFreq, value: 24 MHz, locked: true, accuracy: '0.001'}
+- {id: RADIO_FRO192M_CLK.outFreq, value: 64 MHz, locked: true, accuracy: '0.001'}
+- {id: RADIO_FRO192M_FRODIV_CLK.outFreq, value: 64/3 MHz, locked: true, accuracy: '0.001'}
+- {id: ROSC_CLK.outFreq, value: 32.768 kHz, locked: true, accuracy: '0.001'}
 - {id: SCG.FIRC_EXT_REF_TRIM_CLK.outFreq, value: 1 MHz}
-- {id: SCGCLKOUT_CLK.outFreq, value: 32.768 kHz}
-- {id: SIRC_CLK.outFreq, value: 6 MHz}
-- {id: SLOW_CLK.outFreq, value: 24 MHz}
-- {id: SOSC_CLK.outFreq, value: 32 MHz}
-- {id: System_clock.outFreq, value: 96 MHz}
+- {id: SCGCLKOUT_CLK.outFreq, value: 32.768 kHz, locked: true, accuracy: '0.001'}
+- {id: SIRC_CLK.outFreq, value: 6 MHz, locked: true, accuracy: '0.001'}
+- {id: SLOW_CLK.outFreq, value: 24 MHz, locked: true, accuracy: '0.001'}
+- {id: SOSC_CLK.outFreq, value: 32 MHz, locked: true, accuracy: '0.001'}
+- {id: System_clock.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
 settings:
 - {id: VDDCore, value: voltage_1v1}
 - {id: CCM32K.CCM32K_32K_SEL.sel, value: CCM32K.OSC_32K}
@@ -128,26 +130,32 @@ settings:
 - {id: CCM32K_OSC32K_CTRL_EXTAL_CAP_SEL_CFG, value: 12PF}
 - {id: CCM32K_OSC32K_CTRL_OSC_EN_CFG, value: Enabled}
 - {id: CCM32K_OSC32K_CTRL_XTAL_CAP_SEL_CFG, value: 12PF}
-- {id: MRCC.MRCC_LPADC0_DIV.scale, value: '8'}
+- {id: MRCC.MRCC_CAN0_DIV.scale, value: '2'}
+- {id: MRCC.MRCC_CAN0_SEL.sel, value: SCG.FIRC_CLK}
+- {id: MRCC.MRCC_LPADC0_DIV.scale, value: '3'}
 - {id: MRCC.MRCC_LPADC0_SEL.sel, value: SCG.FIRC_CLK}
-- {id: MRCC.MRCC_LPI2C1_DIV.scale, value: '4'}
+- {id: MRCC.MRCC_LPI2C1_DIV.scale, value: '2'}
 - {id: MRCC.MRCC_LPI2C1_SEL.sel, value: SCG.FIRC_CLK}
 - {id: MRCC.MRCC_LPIT0_SEL.sel, value: SCG.FIRC_CLK}
-- {id: MRCC.MRCC_LPUART1_DIV.scale, value: '4'}
+- {id: MRCC.MRCC_LPSPI1_DIV.scale, value: '2'}
+- {id: MRCC.MRCC_LPSPI1_SEL.sel, value: SCG.FIRC_CLK}
+- {id: MRCC.MRCC_LPUART1_DIV.scale, value: '2'}
 - {id: MRCC.MRCC_LPUART1_SEL.sel, value: SCG.FIRC_CLK}
-- {id: MRCC.MRCC_TPM0_DIV.scale, value: '4'}
+- {id: MRCC.MRCC_TPM0_DIV.scale, value: '8'}
 - {id: MRCC.MRCC_TPM0_SEL.sel, value: SCG.FIRC_CLK}
 - {id: RADIO.RADIO_FRO192M_DIV.scale, value: '3'}
+- {id: RTC_ROSCCSR_MONITOR_CFG, value: Reset}
 - {id: SCG.CLKOUTSEL.sel, value: CCM32K.ROSCCLK}
-- {id: SCG.DIVCORE.scale, value: '1'}
+- {id: SCG.DIVCORE.scale, value: '2'}
 - {id: SCG.DIVSLOW.scale, value: '4'}
 - {id: SCG.FIRC_TRIMDIV.scale, value: '32'}
 - {id: SCG_FIRCCSR_TRIM_CFG, value: Autotrimming}
-- {id: SCG_SIRCCSR_SIRCSTEN_CFG, value: Enabled}
+- {id: SCG_SOSCCSR_MONITOR_CFG, value: Reset}
 - {id: SCG_SOSCCSR_SOSCEN_CFG, value: Enabled}
 sources:
 - {id: CCM32K.OSC_32K.outFreq, value: 32.768 kHz, enabled: true}
 - {id: RADIO.RADIO_FRO192M.outFreq, value: 64 MHz}
+- {id: SCG.FIRC.outFreq, value: 192 MHz}
 - {id: SCG.SOSC.outFreq, value: 32 MHz, enabled: true}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
@@ -167,23 +175,23 @@ const scg_sys_clk_config_t g_sysClkConfig_BOARD_BootClockRUN =
 {
     .divSlow = (uint32_t)kSCG_SysClkDivBy4,       /* Slow Clock Divider: divided by 4 */
     .divBus = (uint32_t)kSCG_SysClkDivBy1,        /* Bus Clock Divider: divided by 1 */
-    .divCore = (uint32_t)kSCG_SysClkDivBy1,       /* Core Clock Divider: divided by 1 */
+    .divCore = (uint32_t)kSCG_SysClkDivBy2,       /* Core Clock Divider: divided by 2 */
     .src = (uint32_t)kSCG_SysClkSrcFirc,          /* Fast IRC is selected as System Clock Source */
 };
 const scg_sosc_config_t g_scgSysOscConfig_BOARD_BootClockRUN =
 {
     .freq = 32000000U,                            /* System Oscillator frequency: 32000000Hz */
-    .monitorMode = kSCG_SysOscMonitorDisable,     /* System OSC Clock Monitor is disabled */
+    .monitorMode = kSCG_SysOscMonitorReset,       /* Clock Monitor generates reset when error detected */
     .enableMode = kSCG_SoscEnable,                /* System OSC Enable */
 };
 const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN =
 {
-    .enableMode = kSCG_SircEnableInSleep,         /* Slow IRC is enabled in SLEEP mode */
+    .enableMode = kSCG_SircDisableInSleep,        /* Slow IRC is disabled in sleep modes */
 };
 const scg_firc_config_t g_scgFircConfig_BOARD_BootClockRUN =
 {
     .enableMode = kSCG_FircEnable,                /* Fast IRC is enabled */
-    .range = kSCG_FircRange96M,                   /* 96 Mhz FIRC clock selected */
+    .range = kSCG_FircRange192M,                  /* 192 Mhz FIRC clock selected */
     .trimConfig = &FircTrimConfig_BOARD_BootClockRUN,
 };
 static const ccm32k_osc_config_t g_ccm32kOscConfig_BOARD_BootClockRUN =
@@ -224,8 +232,8 @@ void BOARD_BootClockRUN(void)
 
     /* Config 32k Crystal Oscillator */
     CCM32K_Set32kOscConfig(CCM32K, kCCM32K_Enable32kHzCrystalOsc, &g_ccm32kOscConfig_BOARD_BootClockRUN);
-    /* Monitor is disabled */
-    CLOCK_SetRoscMonitorMode(kSCG_RoscMonitorDisable);
+    /* Clock Monitor generates interrupt when error detected */
+    CLOCK_SetRoscMonitorMode(kSCG_RoscMonitorReset);
     /* Wait for the 32kHz crystal oscillator to be stable */
     while ((CCM32K_GetStatusFlag(CCM32K) & CCM32K_STATUS_OSC32K_RDY_MASK) == 0UL)
     {
@@ -279,17 +287,25 @@ void BOARD_BootClockRUN(void)
     /* Set MRCC TPM0 selection */
     CLOCK_SetIpSrc(kCLOCK_Tpm0, kCLOCK_IpSrcFro192M);
     /* Set MRCC TPM0 fraction divider */
-    CLOCK_SetIpSrcDiv(kCLOCK_Tpm0, kSCG_SysClkDivBy4);
+    CLOCK_SetIpSrcDiv(kCLOCK_Tpm0, kSCG_SysClkDivBy8);
     /* Set MRCC LPI2C1 selection */
     CLOCK_SetIpSrc(kCLOCK_Lpi2c1, kCLOCK_IpSrcFro192M);
     /* Set MRCC LPI2C1 fraction divider */
-    CLOCK_SetIpSrcDiv(kCLOCK_Lpi2c1, kSCG_SysClkDivBy4);
+    CLOCK_SetIpSrcDiv(kCLOCK_Lpi2c1, kSCG_SysClkDivBy2);
+    /* Set MRCC LPSPI1 selection */
+    CLOCK_SetIpSrc(kCLOCK_Lpspi1, kCLOCK_IpSrcFro192M);
+    /* Set MRCC LPSPI1 fraction divider */
+    CLOCK_SetIpSrcDiv(kCLOCK_Lpspi1, kSCG_SysClkDivBy2);
     /* Set MRCC LPUART1 selection */
     CLOCK_SetIpSrc(kCLOCK_Lpuart1, kCLOCK_IpSrcFro192M);
     /* Set MRCC LPUART1 fraction divider */
-    CLOCK_SetIpSrcDiv(kCLOCK_Lpuart1, kSCG_SysClkDivBy4);
+    CLOCK_SetIpSrcDiv(kCLOCK_Lpuart1, kSCG_SysClkDivBy2);
+    /* Set MRCC CAN0 selection */
+    CLOCK_SetIpSrc(kCLOCK_Can0, kCLOCK_IpSrcFro192M);
+    /* Set MRCC CAN0 fraction divider */
+    CLOCK_SetIpSrcDiv(kCLOCK_Can0, kSCG_SysClkDivBy2);
     /* Set MRCC LPADC0 selection */
     CLOCK_SetIpSrc(kCLOCK_Lpadc0, kCLOCK_IpSrcFro192M);
     /* Set MRCC LPADC0 fraction divider */
-    CLOCK_SetIpSrcDiv(kCLOCK_Lpadc0, kSCG_SysClkDivBy8);
+    CLOCK_SetIpSrcDiv(kCLOCK_Lpadc0, kSCG_SysClkDivBy3);
 }

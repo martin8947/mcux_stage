@@ -62,9 +62,9 @@ extern "C" {
 /* Definition of peripheral ID. */
 #define LPIT0_PERIPHERAL LPIT0
 /* Definition of clock source frequency. */
-#define LPIT0_CLK_FREQ 96000000UL
+#define LPIT0_CLK_FREQ 192000000UL
 /* Definition of ticks count for channel adc_conv_trig. */
-#define LPIT0_ADC_CONV_TRIG_TICKS 959999U
+#define LPIT0_ADC_CONV_TRIG_TICKS 1919999U
 /* Definition of channel kLPIT_Chnl_0 ID */
 #define LPIT0_ADC_CONV_TRIG kLPIT_Chnl_0
 /* Definition of peripheral ID */
@@ -79,7 +79,7 @@ extern "C" {
 /* Definition of peripheral ID */
 #define LPI2C1_PERIPHERAL LPI2C1
 /* Definition of clock source */
-#define LPI2C1_CLOCK_FREQ 24000000UL
+#define LPI2C1_CLOCK_FREQ 96000000UL
 /* Definition of follower address */
 #define LPI2C1_MASTER_SLAVE_ADDRESS 0
 /* Debug console is initialized in the peripheral tool */
@@ -93,7 +93,7 @@ extern "C" {
 /* Definition of the Baud rate */
 #define DEBUGCONSOLE_BAUDRATE 115200UL
 /* Definition of the clock source frequency */
-#define DEBUGCONSOLE_CLK_FREQ 24000000UL
+#define DEBUGCONSOLE_CLK_FREQ 96000000UL
 /* DebugConsole interrupt vector ID (number). */
 #define DEBUGCONSOLE_SERIAL_IRQN LPUART1_IRQn
 

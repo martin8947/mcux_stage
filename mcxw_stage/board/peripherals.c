@@ -339,7 +339,7 @@ static void LPIT0_init(void) {
   LPIT_Init(LPIT0_PERIPHERAL, &LPIT0_config);
   /* Setup channel 0. */
   LPIT_SetupChannel(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG, &LPIT0_adc_conv_trig_struct);
-  /* Set channel 0 period to 960000 ticks. */
+  /* Set channel 0 period to 1920000 ticks. */
   LPIT_SetTimerPeriod(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG, LPIT0_ADC_CONV_TRIG_TICKS);
 }
 
