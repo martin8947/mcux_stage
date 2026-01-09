@@ -33,6 +33,11 @@
                <pin_label pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2" label="LIGHT_SENS" identifier="light_sens;LIGHT_SENS"/>
                <pin_label pin_num="24" pin_signal="ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4" label="SW4" identifier="sw4;SW4"/>
                <pin_label pin_num="45" pin_signal="PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23" label="ACC_INT" identifier="ACC_INT"/>
+               <pin_label pin_num="10" pin_signal="ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG" label="TEST" identifier="TEST"/>
+               <pin_label pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27" label="LPSPI1_SIN_DIS" identifier="LPSPI1_SIN_DIS"/>
+               <pin_label pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29" label="LPSPI1_SOUT_DIS" identifier="LPSPI1_SOUT_DIS"/>
+               <pin_label pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28" label="LPSPI1_SCK_DIS" identifier="LPSPI1_SCK_DIS"/>
+               <pin_label pin_num="46" pin_signal="ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26" label="LPSPI1_PCS0" identifier="LPSPI1_PCS0"/>
             </pin_labels>
             <external_user_signals>
                <properties/>
@@ -78,11 +83,6 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="Peripheral" resourceId="CAN0" description="Peripheral CAN0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
-                     <feature name="initialized" evaluation="equal">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="Peripheral" resourceId="LPSPI1" description="Peripheral LPSPI1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
@@ -170,10 +170,104 @@
                   <pin peripheral="LPUART1" signal="TX" pin_num="40" pin_signal="PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19"/>
                   <pin peripheral="CAN0" signal="RX" pin_num="43" pin_signal="PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21"/>
                   <pin peripheral="CAN0" signal="TX" pin_num="42" pin_signal="PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20"/>
-                  <pin peripheral="LPSPI1" signal="IN" pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27"/>
-                  <pin peripheral="LPSPI1" signal="OUT" pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29"/>
-                  <pin peripheral="LPSPI1" signal="SCK" pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28"/>
-                  <pin peripheral="LPSPI1" signal="PCS0" pin_num="46" pin_signal="ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 0" pin_num="46" pin_signal="ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+            <function name="BOARD_InitPins_LPSPI1">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <coreID>cm33</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="Peripheral" resourceId="LPSPI1" description="Peripheral LPSPI1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins_LPSPI1">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins_LPSPI1">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins_LPSPI1">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LPSPI1" signal="IN" pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27">
+                     <pin_features>
+                        <pin_feature name="identifier" value=""/>
+                        <pin_feature name="pull_select" value="up"/>
+                        <pin_feature name="pull_enable" value="enable"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPSPI1" signal="OUT" pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29">
+                     <pin_features>
+                        <pin_feature name="identifier" value=""/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPSPI1" signal="SCK" pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28">
+                     <pin_features>
+                        <pin_feature name="identifier" value=""/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+            <function name="BOARD_DeinitPins_LPSPI1">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>false</callFromInitBoot>
+                  <coreID>cm33</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                     <feature name="enabled" evaluation="equal" configuration="cm33">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="GPIOB" signal="GPIO, 1" pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="pull_select" value="up"/>
+                        <pin_feature name="pull_enable" value="enable"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOB" signal="GPIO, 3" pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="pull_select" value="up"/>
+                        <pin_feature name="pull_enable" value="enable"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOB" signal="GPIO, 2" pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28">
+                     <pin_features>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="pull_select" value="up"/>
+                        <pin_feature name="pull_enable" value="enable"/>
+                     </pin_features>
+                  </pin>
                </pins>
             </function>
          </functions_list>
@@ -364,17 +458,12 @@
                   <data type="Version" maxValue="2.6.9">2.2.0</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="utility.debug_console" description="Utility debug_console is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
-               <feature name="enabled" evaluation="equal">
-                  <data type="Boolean">true</data>
-               </feature>
-            </dependency>
-            <dependency resourceType="SWComponent" resourceId="utility.debug_console" description="An unsupported version of the Utility debug_console in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
-                  <data type="Version">1.0.0</data>
-               </feature>
-            </dependency>
             <dependency resourceType="Tool" resourceId="Pins" description="The Pins tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data>true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data>true</data>
                </feature>
@@ -383,7 +472,6 @@
          <generated_project_files>
             <file path="board/peripherals.c" update_enabled="true"/>
             <file path="board/peripherals.h" update_enabled="true"/>
-            <file path="utilities/debug_console/config/fsl_debug_console_conf.h" update_enabled="true"/>
          </generated_project_files>
          <peripherals_profile>
             <processor_version>25.06.10</processor_version>
@@ -442,36 +530,6 @@
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="SWComponent" resourceId="component.serial_manager_uart" description="The serial_port_uart driver is missing in the project (required for the Debug console initialization)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="enabled" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="SWComponent" resourceId="component.lpuart_adapter" description="The lpuart_adapter driver is missing in the project (required for the serial port initialization)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="enabled" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART1.uart_rx" description="Signal RX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPUART1.uart_tx" description="Signal TX is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpuart" description="The fsl_lpuart driver is missing in the project (required for DebugConsole)." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="enabled" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPUART1_CLK" description="LPUART1 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
                </dependencies>
@@ -790,7 +848,6 @@
                            <struct name="0"/>
                            <struct name="1"/>
                            <struct name="2"/>
-                           <struct name="3"/>
                         </array>
                         <array name="interrupts"/>
                      </config_set>
@@ -908,52 +965,6 @@
                               </struct>
                            </struct>
                         </array>
-                     </config_set>
-                  </instance>
-                  <instance name="DebugConsole" uuid="7b93cdd1-ed7b-408b-b347-c54f243ceb96" type="debug_console" type_id="debug_console_1.0.0" mode="general" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="fsl_debug_console">
-                        <struct name="config">
-                           <setting name="SDK_DEBUGCONSOLE" value="DEBUGCONSOLE_REDIRECT_TO_SDK"/>
-                           <setting name="SDK_DEBUGCONSOLE_UART" value="serial_port"/>
-                           <setting name="DEBUG_CONSOLE_RX_ENABLE" value="true"/>
-                           <setting name="DEBUG_CONSOLE_PRINTF_MAX_LOG_LEN" value="128"/>
-                           <setting name="DEBUG_CONSOLE_SCANF_MAX_LOG_LEN" value="20"/>
-                           <setting name="DEBUG_CONSOLE_ENABLE_ECHO" value="true"/>
-                           <setting name="PRINTF_FLOAT_ENABLE" value="true"/>
-                           <setting name="SCANF_FLOAT_ENABLE" value="true"/>
-                           <setting name="PRINTF_ADVANCED_ENABLE" value="false"/>
-                           <setting name="SCANF_ADVANCED_ENABLE" value="false"/>
-                           <setting name="DEBUG_CONSOLE_TRANSFER_NON_BLOCKING" value="true"/>
-                           <setting name="DEBUG_CONSOLE_TRANSMIT_BUFFER_LEN" value="512"/>
-                           <setting name="DEBUG_CONSOLE_RECEIVE_BUFFER_LEN" value="1024"/>
-                           <setting name="DEBUG_CONSOLE_TX_RELIABLE_ENABLE" value="true"/>
-                           <setting name="DEBUG_CONSOLE_DISABLE_RTOS_SYNCHRONIZATION" value="true"/>
-                        </struct>
-                        <struct name="peripheral_config">
-                           <setting name="serial_port_type" value="kSerialPort_Uart"/>
-                           <struct name="uart_config">
-                              <setting name="peripheralUART" value="LPUART1"/>
-                              <setting name="clockSource" value="genericUartClockSource"/>
-                              <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                              <setting name="baudRate_Bps" value="115200"/>
-                              <set name="interrupt_sources_lpuart">
-                                 <selected>
-                                    <id>kLPUART_TxDataRegEmptyInterruptEnable</id>
-                                    <id>kLPUART_TransmissionCompleteInterruptEnable</id>
-                                    <id>kLPUART_RxDataRegFullInterruptEnable</id>
-                                    <id>kLPUART_RxOverrunInterruptEnable</id>
-                                 </selected>
-                              </set>
-                              <setting name="enable_rx_tx_irq" value="true"/>
-                              <struct name="interrupt_rx_tx">
-                                 <setting name="IRQn" value="LPUART1_IRQn"/>
-                                 <setting name="enable_interrrupt" value="enabled"/>
-                                 <setting name="enable_priority" value="false"/>
-                                 <setting name="priority" value="0"/>
-                              </struct>
-                           </struct>
-                        </struct>
-                        <struct name="debug_console_codegenerator"/>
                      </config_set>
                   </instance>
                </instances>

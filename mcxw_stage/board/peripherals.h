@@ -17,8 +17,6 @@
 #include "fsl_vref.h"
 #include "fsl_lpadc.h"
 #include "fsl_lpi2c.h"
-#include "fsl_debug_console.h"
-#include "fsl_lpuart.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -80,22 +78,10 @@ extern "C" {
 #define LPI2C1_PERIPHERAL LPI2C1
 /* Definition of clock source */
 #define LPI2C1_CLOCK_FREQ 96000000UL
+/* Transfer buffer size */
+#define LPI2C1_MASTER_BUFFER_SIZE 1
 /* Definition of follower address */
 #define LPI2C1_MASTER_SLAVE_ADDRESS 0
-/* Debug console is initialized in the peripheral tool */
-#define BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL 
-/* Definition of serial peripheral */
-#define DEBUGCONSOLE_SERIAL_PERIPHERAL LPUART1
-/* Definition of serial peripheral instance */
-#define DEBUGCONSOLE_INSTANCE 1U
-/* Definition of serial peripheral type */
-#define DEBUGCONSOLE_TYPE kSerialPort_Uart
-/* Definition of the Baud rate */
-#define DEBUGCONSOLE_BAUDRATE 115200UL
-/* Definition of the clock source frequency */
-#define DEBUGCONSOLE_CLK_FREQ 96000000UL
-/* DebugConsole interrupt vector ID (number). */
-#define DEBUGCONSOLE_SERIAL_IRQN LPUART1_IRQn
 
 /***********************************************************************************************************************
  * Global variables
@@ -107,6 +93,9 @@ extern const lpadc_config_t ADC0_config;
 extern lpadc_conv_command_config_t ADC0_commandsConfig[1];
 extern lpadc_conv_trigger_config_t ADC0_triggersConfig[1];
 extern const lpi2c_master_config_t LPI2C1_masterConfig;
+extern lpi2c_master_transfer_t LPI2C1_masterTransfer;
+extern uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
+extern lpi2c_master_handle_t LPI2C1_masterHandle;
 
 /***********************************************************************************************************************
  * Initialization functions

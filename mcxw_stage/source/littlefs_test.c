@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#include "board.h"
-//#include "app.h"
+#include "littlefs_test.h"
 
 #include "fsl_nor_flash.h"
 #include "fsl_lpspi_nor_flash.h"
@@ -191,7 +190,7 @@ const crc_config_t crc32_conf = {
 	.crcResult = kCrcFinalChecksum
 };
 
-int main(void)
+void littlefs_test(void)
 {
 	lpspi_memory_config_t lpspi_memory_config;
 	nor_config_t nor_config;
@@ -328,6 +327,4 @@ int main(void)
 	assert(lfs_unmount(&lfs) == LFS_ERR_OK);
 
 	PRINTF("\r\nReset me.");
-
-	while (1);
 }

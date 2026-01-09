@@ -9,6 +9,7 @@
 #include "fsl_debug_console.h"
 
 #include "iic_test.h"
+#include "littlefs_test.h"
 
 int main(void) {
 	int pass = 0;
@@ -18,6 +19,8 @@ int main(void) {
 	BOARD_InitBootPeripherals();
 
 	DbgConsole_Init(1, 115200, kSerialPort_Uart, CLOCK_GetIpFreq(kCLOCK_Lpuart1));
+
+	littlefs_test();
 
 	PRINTF("Starting...\r\n");
 

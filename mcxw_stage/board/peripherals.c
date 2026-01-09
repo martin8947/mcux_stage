@@ -70,7 +70,7 @@ instance:
   - tpm_main_config:
     - tpm_config:
       - clockSource: 'kTPM_SystemClock'
-      - tpmSrcClkFreq: 'BOARD_BootClockRUN'
+      - tpmSrcClkFreq: 'ClocksTool_DefaultInit'
       - prescale: 'kTPM_Prescale_Divide_2'
       - timerFrequency: '1000'
       - useGlobalTimeBase: 'false'
@@ -111,7 +111,7 @@ instance:
   - tpm_edge_aligned_mode:
     - tpm_edge_aligned_channels_config:
       - 0:
-        - channelId: 'red'
+        - channelId: 'RED'
         - edge_aligned_mode: 'kTPM_EdgeAlignedPwm'
         - edge_aligned_pwm:
           - chnlNumber: 'kTPM_Chnl_0'
@@ -120,7 +120,7 @@ instance:
           - dutyCyclePercent: '0'
           - enable_chan_irq: 'false'
       - 1:
-        - channelId: 'green'
+        - channelId: 'GREEN'
         - edge_aligned_mode: 'kTPM_EdgeAlignedPwm'
         - edge_aligned_pwm:
           - chnlNumber: 'kTPM_Chnl_2'
@@ -129,7 +129,7 @@ instance:
           - dutyCyclePercent: '0'
           - enable_chan_irq: 'false'
       - 2:
-        - channelId: 'blue'
+        - channelId: 'BLUE'
         - edge_aligned_mode: 'kTPM_EdgeAlignedPwm'
         - edge_aligned_pwm:
           - chnlNumber: 'kTPM_Chnl_1'
@@ -529,7 +529,7 @@ instance:
     - clockSourceFreq: 'BOARD_BootClockRUN'
   - interrupt_vector: []
   - master:
-    - mode: 'polling'
+    - mode: 'transfer'
     - config:
       - enableMaster: 'true'
       - enableDoze: 'true'
@@ -546,6 +546,20 @@ instance:
         - source: 'kLPI2C_HostRequestExternalPin'
         - polarity: 'kLPI2C_HostRequestPinActiveHigh'
       - edmaRequestSources: ''
+    - transfer:
+      - blocking: 'false'
+      - enable_custom_handle: 'false'
+      - callback:
+        - name: ''
+        - userData: ''
+      - flags: ''
+      - slaveAddress: '0'
+      - direction: 'kLPI2C_Write'
+      - subaddress: '0'
+      - subaddressSize: '0'
+      - blocking_buffer: 'false'
+      - enable_custom_buffer: 'false'
+      - dataSize: '1'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const lpi2c_master_config_t LPI2C1_masterConfig = {
@@ -565,9 +579,21 @@ const lpi2c_master_config_t LPI2C1_masterConfig = {
     .polarity = kLPI2C_HostRequestPinActiveHigh
   }
 };
+lpi2c_master_transfer_t LPI2C1_masterTransfer = {
+  .flags = kLPI2C_TransferDefaultFlag,
+  .slaveAddress = 0,
+  .direction = kLPI2C_Write,
+  .subaddress = 0,
+  .subaddressSize = 0,
+  .data = LPI2C1_masterBuffer,
+  .dataSize = 1
+};
+lpi2c_master_handle_t LPI2C1_masterHandle;
+uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
 
 static void LPI2C1_init(void) {
   LPI2C_MasterInit(LPI2C1_PERIPHERAL, &LPI2C1_masterConfig, LPI2C1_CLOCK_FREQ);
+  LPI2C_MasterTransferCreateHandle(LPI2C1_PERIPHERAL, &LPI2C1_masterHandle, NULL, NULL);
 }
 
 /***********************************************************************************************************************
@@ -589,7 +615,6 @@ instance:
       - 0: []
       - 1: []
       - 2: []
-      - 3: []
     - interrupts: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
@@ -597,63 +622,6 @@ instance:
 /* Empty initialization function (commented out)
 static void NVIC_init(void) {
 } */
-
-/***********************************************************************************************************************
- * DebugConsole initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'DebugConsole'
-- type: 'debug_console'
-- mode: 'general'
-- custom_name_enabled: 'false'
-- type_id: 'debug_console_1.0.0'
-- functional_group: 'BOARD_InitPeripherals'
-- config_sets:
-  - fsl_debug_console:
-    - config:
-      - SDK_DEBUGCONSOLE: 'DEBUGCONSOLE_REDIRECT_TO_SDK'
-      - SDK_DEBUGCONSOLE_UART: 'serial_port'
-      - DEBUG_CONSOLE_RX_ENABLE: 'true'
-      - DEBUG_CONSOLE_PRINTF_MAX_LOG_LEN: '128'
-      - DEBUG_CONSOLE_SCANF_MAX_LOG_LEN: '20'
-      - DEBUG_CONSOLE_ENABLE_ECHO: 'true'
-      - PRINTF_FLOAT_ENABLE: 'true'
-      - SCANF_FLOAT_ENABLE: 'true'
-      - PRINTF_ADVANCED_ENABLE: 'false'
-      - SCANF_ADVANCED_ENABLE: 'false'
-      - DEBUG_CONSOLE_TRANSFER_NON_BLOCKING: 'true'
-      - DEBUG_CONSOLE_TRANSMIT_BUFFER_LEN: '512'
-      - DEBUG_CONSOLE_RECEIVE_BUFFER_LEN: '1024'
-      - DEBUG_CONSOLE_TX_RELIABLE_ENABLE: 'true'
-      - DEBUG_CONSOLE_DISABLE_RTOS_SYNCHRONIZATION: 'true'
-    - peripheral_config:
-      - serial_port_type: 'kSerialPort_Uart'
-      - uart_config:
-        - peripheralUART: 'LPUART1'
-        - clockSource: 'genericUartClockSource'
-        - clockSourceFreq: 'BOARD_BootClockRUN'
-        - baudRate_Bps: '115200'
-        - interrupt_sources_lpuart: 'kLPUART_TxDataRegEmptyInterruptEnable kLPUART_TransmissionCompleteInterruptEnable kLPUART_RxDataRegFullInterruptEnable kLPUART_RxOverrunInterruptEnable'
-        - enable_rx_tx_irq: 'true'
-        - interrupt_rx_tx:
-          - IRQn: 'LPUART1_IRQn'
-          - enable_interrrupt: 'enabled'
-          - enable_priority: 'false'
-          - priority: '0'
-    - debug_console_codegenerator: []
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-
-static void DebugConsole_init(void) {
-  /* Debug console initialization */
-  /* Enable LPUART interrupt sources */
-  LPUART_EnableInterrupts(DEBUGCONSOLE_SERIAL_PERIPHERAL, (kLPUART_TxDataRegEmptyInterruptEnable | kLPUART_TransmissionCompleteInterruptEnable | kLPUART_RxDataRegFullInterruptEnable | kLPUART_RxOverrunInterruptEnable));
-  DbgConsole_Init(DEBUGCONSOLE_INSTANCE, DEBUGCONSOLE_BAUDRATE, DEBUGCONSOLE_TYPE, DEBUGCONSOLE_CLK_FREQ);
-  /* Enable interrupt DEBUGCONSOLE_SERIAL_IRQN request in the NVIC */
-  EnableIRQ(DEBUGCONSOLE_SERIAL_IRQN);
-}
 
 /***********************************************************************************************************************
  * Initialization functions
@@ -668,7 +636,6 @@ void BOARD_InitPeripherals(void)
   VREF0_init();
   ADC0_init();
   LPI2C1_init();
-  DebugConsole_init();
 }
 
 /***********************************************************************************************************************

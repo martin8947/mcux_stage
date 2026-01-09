@@ -22,6 +22,11 @@ pin_labels:
 - {pin_num: '26', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, label: LIGHT_SENS, identifier: light_sens;LIGHT_SENS}
 - {pin_num: '24', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, label: SW4, identifier: sw4;SW4}
 - {pin_num: '45', pin_signal: PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23, label: ACC_INT, identifier: ACC_INT}
+- {pin_num: '10', pin_signal: ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG, label: TEST, identifier: TEST}
+- {pin_num: '47', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, label: LPSPI1_SIN_DIS, identifier: LPSPI1_SIN_DIS}
+- {pin_num: '1', pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, label: LPSPI1_SOUT_DIS, identifier: LPSPI1_SOUT_DIS}
+- {pin_num: '48', pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28, label: LPSPI1_SCK_DIS, identifier: LPSPI1_SCK_DIS}
+- {pin_num: '46', pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26, label: LPSPI1_PCS0, identifier: LPSPI1_PCS0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -70,10 +75,7 @@ BOARD_InitPins:
   - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19}
   - {pin_num: '43', peripheral: CAN0, signal: RX, pin_signal: PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21}
   - {pin_num: '42', peripheral: CAN0, signal: TX, pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20}
-  - {pin_num: '47', peripheral: LPSPI1, signal: IN, pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27}
-  - {pin_num: '1', peripheral: LPSPI1, signal: OUT, pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29}
-  - {pin_num: '48', peripheral: LPSPI1, signal: SCK, pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28}
-  - {pin_num: '46', peripheral: LPSPI1, signal: PCS0, pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26}
+  - {pin_num: '46', peripheral: GPIOB, signal: 'GPIO, 0', pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26, direction: OUTPUT, gpio_init_state: 'true'}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -87,6 +89,8 @@ BOARD_InitPins:
 void BOARD_InitPins(void)
 {
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
+    CLOCK_EnableClock(kCLOCK_GpioB);
+    /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_GpioC);
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortA);
@@ -94,6 +98,13 @@ void BOARD_InitPins(void)
     CLOCK_EnableClock(kCLOCK_PortB);
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortC);
+
+    gpio_pin_config_t LPSPI1_PCS0_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PTB0 (pin 46)  */
+    GPIO_PinInit(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, &LPSPI1_PCS0_config);
 
     gpio_pin_config_t USER_LED_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -169,17 +180,8 @@ void BOARD_InitPins(void)
                       /* Drive Strength Enable: High. */
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
-    /* PORTB0 (pin 46) is configured as LPSPI1_PCS0 */
-    PORT_SetPinMux(PORTB, 0U, kPORT_MuxAlt2);
-
-    /* PORTB1 (pin 47) is configured as LPSPI1_SIN */
-    PORT_SetPinMux(PORTB, 1U, kPORT_MuxAlt2);
-
-    /* PORTB2 (pin 48) is configured as LPSPI1_SCK */
-    PORT_SetPinMux(PORTB, 2U, kPORT_MuxAlt2);
-
-    /* PORTB3 (pin 1) is configured as LPSPI1_SOUT */
-    PORT_SetPinMux(PORTB, 3U, kPORT_MuxAlt2);
+    /* PORTB0 (pin 46) is configured as PTB0 */
+    PORT_SetPinMux(BOARD_INITPINS_LPSPI1_PCS0_PORT, BOARD_INITPINS_LPSPI1_PCS0_PIN, kPORT_MuxAsGpio);
 
     /* PORTB4 (pin 2) is configured as LPI2C1_SDA */
     PORT_SetPinMux(PORTB, 4U, kPORT_MuxAlt4);
@@ -232,6 +234,139 @@ void BOARD_InitPins(void)
     PORT_SetPinMux(BOARD_INITPINS_LIGHT_SENS_PORT, BOARD_INITPINS_LIGHT_SENS_PIN, kPORT_PinDisabledOrAnalog);
     /* LPIT0 Channel 0 is selected as ADC_GP0 device trigger input 0 */
     TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Trgmux0AdcGp0, kTRGMUX_TriggerInput0, kTRGMUX_SourceLpit0Channel0);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitPins_LPSPI1:
+- options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '47', peripheral: LPSPI1, signal: IN, pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, identifier: '', pull_select: up, pull_enable: enable}
+  - {pin_num: '1', peripheral: LPSPI1, signal: OUT, pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, identifier: ''}
+  - {pin_num: '48', peripheral: LPSPI1, signal: SCK, pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28, identifier: ''}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitPins_LPSPI1
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitPins_LPSPI1(void)
+{
+    /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
+    CLOCK_EnableClock(kCLOCK_PortB);
+
+    /* PORTB1 (pin 47) is configured as LPSPI1_SIN */
+    PORT_SetPinMux(PORTB, 1U, kPORT_MuxAlt2);
+
+    PORTB->PCR[1] = ((PORTB->PCR[1] &
+                      /* Mask bits to zero which are setting */
+                      (~(PORT_PCR_PS_MASK | PORT_PCR_PE_MASK)))
+
+                     /* Pull Select: Enables internal pullup resistor. */
+                     | PORT_PCR_PS(PCR_PS_ps1)
+
+                     /* Pull Enable: Enables. */
+                     | PORT_PCR_PE(PCR_PE_pe1));
+
+    /* PORTB2 (pin 48) is configured as LPSPI1_SCK */
+    PORT_SetPinMux(PORTB, 2U, kPORT_MuxAlt2);
+
+    /* PORTB3 (pin 1) is configured as LPSPI1_SOUT */
+    PORT_SetPinMux(PORTB, 3U, kPORT_MuxAlt2);
+}
+
+/* clang-format off */
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_DeinitPins_LPSPI1:
+- options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
+- pin_list:
+  - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 1', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, direction: INPUT, pull_select: up, pull_enable: enable}
+  - {pin_num: '1', peripheral: GPIOB, signal: 'GPIO, 3', pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, direction: INPUT, pull_select: up,
+    pull_enable: enable}
+  - {pin_num: '48', peripheral: GPIOB, signal: 'GPIO, 2', pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28, direction: INPUT, pull_select: up,
+    pull_enable: enable}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+/* clang-format on */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_DeinitPins_LPSPI1
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_DeinitPins_LPSPI1(void)
+{
+    /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
+    CLOCK_EnableClock(kCLOCK_GpioB);
+    /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
+    CLOCK_EnableClock(kCLOCK_PortB);
+
+    gpio_pin_config_t LPSPI1_SIN_DIS_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTB1 (pin 47)  */
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN, &LPSPI1_SIN_DIS_config);
+
+    gpio_pin_config_t LPSPI1_SCK_DIS_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTB2 (pin 48)  */
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN, &LPSPI1_SCK_DIS_config);
+
+    gpio_pin_config_t LPSPI1_SOUT_DIS_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTB3 (pin 1)  */
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN, &LPSPI1_SOUT_DIS_config);
+
+    /* PORTB1 (pin 47) is configured as PTB1 */
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN, kPORT_MuxAsGpio);
+
+    PORTB->PCR[1] = ((PORTB->PCR[1] &
+                      /* Mask bits to zero which are setting */
+                      (~(PORT_PCR_PS_MASK | PORT_PCR_PE_MASK)))
+
+                     /* Pull Select: Enables internal pullup resistor. */
+                     | PORT_PCR_PS(PCR_PS_ps1)
+
+                     /* Pull Enable: Enables. */
+                     | PORT_PCR_PE(PCR_PE_pe1));
+
+    /* PORTB2 (pin 48) is configured as PTB2 */
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN, kPORT_MuxAsGpio);
+
+    PORTB->PCR[2] = ((PORTB->PCR[2] &
+                      /* Mask bits to zero which are setting */
+                      (~(PORT_PCR_PS_MASK | PORT_PCR_PE_MASK)))
+
+                     /* Pull Select: Enables internal pullup resistor. */
+                     | PORT_PCR_PS(PCR_PS_ps1)
+
+                     /* Pull Enable: Enables. */
+                     | PORT_PCR_PE(PCR_PE_pe1));
+
+    /* PORTB3 (pin 1) is configured as PTB3 */
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN, kPORT_MuxAsGpio);
+
+    PORTB->PCR[3] = ((PORTB->PCR[3] &
+                      /* Mask bits to zero which are setting */
+                      (~(PORT_PCR_PS_MASK | PORT_PCR_PE_MASK)))
+
+                     /* Pull Select: Enables internal pullup resistor. */
+                     | PORT_PCR_PS(PCR_PS_ps1)
+
+                     /* Pull Enable: Enables. */
+                     | PORT_PCR_PE(PCR_PE_pe1));
 }
 /***********************************************************************************************************************
  * EOF
