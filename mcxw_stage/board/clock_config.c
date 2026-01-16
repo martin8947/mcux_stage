@@ -150,7 +150,6 @@ settings:
 - {id: SCG.DIVSLOW.scale, value: '4'}
 - {id: SCG.FIRC_TRIMDIV.scale, value: '32'}
 - {id: SCG_FIRCCSR_TRIM_CFG, value: Autotrimming}
-- {id: SCG_SOSCCSR_MONITOR_CFG, value: Reset}
 - {id: SCG_SOSCCSR_SOSCEN_CFG, value: Enabled}
 sources:
 - {id: CCM32K.OSC_32K.outFreq, value: 32.768 kHz, enabled: true}
@@ -181,7 +180,7 @@ const scg_sys_clk_config_t g_sysClkConfig_BOARD_BootClockRUN =
 const scg_sosc_config_t g_scgSysOscConfig_BOARD_BootClockRUN =
 {
     .freq = 32000000U,                            /* System Oscillator frequency: 32000000Hz */
-    .monitorMode = kSCG_SysOscMonitorReset,       /* Clock Monitor generates reset when error detected */
+    .monitorMode = kSCG_SysOscMonitorDisable,     /* System OSC Clock Monitor is disabled */
     .enableMode = kSCG_SoscEnable,                /* System OSC Enable */
 };
 const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN =

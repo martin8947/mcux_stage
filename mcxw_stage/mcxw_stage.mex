@@ -34,10 +34,10 @@
                <pin_label pin_num="24" pin_signal="ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4" label="SW4" identifier="sw4;SW4"/>
                <pin_label pin_num="45" pin_signal="PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23" label="ACC_INT" identifier="ACC_INT"/>
                <pin_label pin_num="10" pin_signal="ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG" label="TEST" identifier="TEST"/>
-               <pin_label pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27" label="LPSPI1_SIN_DIS" identifier="LPSPI1_SIN_DIS"/>
-               <pin_label pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29" label="LPSPI1_SOUT_DIS" identifier="LPSPI1_SOUT_DIS"/>
-               <pin_label pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28" label="LPSPI1_SCK_DIS" identifier="LPSPI1_SCK_DIS"/>
                <pin_label pin_num="46" pin_signal="ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26" label="LPSPI1_PCS0" identifier="LPSPI1_PCS0"/>
+               <pin_label pin_num="47" pin_signal="ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27" label="LPSPI1_SIN" identifier="LPSPI1_SIN"/>
+               <pin_label pin_num="1" pin_signal="ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29" label="LPSPI1_SOUT" identifier="LPSPI1_SOUT"/>
+               <pin_label pin_num="48" pin_signal="ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28" label="LPSPI1_SCK" identifier="LPSPI1_SCK"/>
             </pin_labels>
             <external_user_signals>
                <properties/>
@@ -225,7 +225,7 @@
             <function name="BOARD_DeinitPins_LPSPI1">
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
-                  <callFromInitBoot>false</callFromInitBoot>
+                  <callFromInitBoot>true</callFromInitBoot>
                   <coreID>cm33</coreID>
                   <enableClock>true</enableClock>
                </options>
@@ -382,7 +382,6 @@
                   <setting id="SCG.DIVSLOW.scale" value="4" locked="false"/>
                   <setting id="SCG.FIRC_TRIMDIV.scale" value="32" locked="false"/>
                   <setting id="SCG_FIRCCSR_TRIM_CFG" value="Autotrimming" locked="false"/>
-                  <setting id="SCG_SOSCCSR_MONITOR_CFG" value="Reset" locked="false"/>
                   <setting id="SCG_SOSCCSR_SOSCEN_CFG" value="Enabled" locked="false"/>
                </clock_settings>
                <called_from_default_init>true</called_from_default_init>

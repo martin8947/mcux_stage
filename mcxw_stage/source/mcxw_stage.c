@@ -26,6 +26,8 @@ int main(void) {
 
     LPIT_StartTimer(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG);
 
+    while (1);
+
 	while (1) {
 		PRINTF("Pass %d\r\n", pass);
 

@@ -1,23 +1,23 @@
 
 #include <assert.h>
+#include <stdbool.h>
 
 #include "board.h"
 
 #include "peripherals.h"
 #include "pin_mux.h"
-#include "clock_config.h"
 
+//needed for spi_pin_mode_t
 #include "fsl_lpspi_mem_adapter.h"
 
-//needed by fsl_lpspi_mem_adapter.c
 void BOARD_LpspiPcsPinControl(bool isSelected)
 {
 	if (isSelected) {
-		//assert PCS0 (PTB0)
-		GPIO_PinWrite(GPIOB, 0, 0);
+		//assert chip select
+		GPIO_PinWrite(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, 0);
 	} else {
-		//deassert PCS0 (PTB0)
-		GPIO_PinWrite(GPIOB, 0, 1);
+		//deassert chip select
+		GPIO_PinWrite(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, 1);
 	}
 }
 
@@ -26,17 +26,19 @@ void BOARD_LpspiIomuxConfig(spi_pin_mode_t pinMode)
 	switch (pinMode) {
 		case kSpiIomux_SpiMode:
 			//enable LPSPI1 pins
+			BOARD_InitPins_LPSPI1();
 			break;
 		case kSpiIomux_DefaultMode:
 			//disable LPSPI1 pins
+			BOARD_DeinitPins_LPSPI1();
 			break;
 		default:
+			//just in case
 			assert(0);
 			break;
 	}
 }
 
-//needed by fsl_lpspi_nor_flash.c
 uint32_t BOARD_GetLpspiClock(void)
 {
 	return CLOCK_GetIpFreq(kCLOCK_Lpspi1);
@@ -44,8 +46,8 @@ uint32_t BOARD_GetLpspiClock(void)
 
 uint32_t BOARD_GetNorFlashBaudrate(void)
 {
-	//24 MHz for LPCPIS1 (isnt it way too much? will check later)
-	return 24000000u;
+	//32 MHz shall be OK for our flash
+	return 32000000ul;
 }
 
 LPSPI_Type *BOARD_GetLpspiForNorFlash(void)

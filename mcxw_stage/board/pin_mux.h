@@ -151,44 +151,44 @@ void BOARD_InitPins_LPSPI1(void);
 #define PCR_PE_pe1 0x01u /*!<@brief Pull Enable: Enables */
 #define PCR_PS_ps1 0x01u /*!<@brief Pull Select: Enables internal pullup resistor */
 
-/*! @name PORTB1 (number 47), LPSPI1_SIN_DIS
+/*! @name PORTB1 (number 47), LPSPI1_SIN
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_GPIO_PIN_MASK (1U << 1U) /*!<@brief GPIO pin mask */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_GPIO_PIN_MASK (1U << 1U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN 1U                   /*!<@brief PORT pin number */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
-                                                                        /* @} */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN 1U                   /*!<@brief PORT pin number */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
+                                                                    /* @} */
 
-/*! @name PORTB3 (number 1), LPSPI1_SOUT_DIS
+/*! @name PORTB3 (number 1), LPSPI1_SOUT
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_GPIO_PIN_MASK (1U << 3U) /*!<@brief GPIO pin mask */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_GPIO_PIN_MASK (1U << 3U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN 3U                   /*!<@brief PORT pin number */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
-                                                                         /* @} */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                                     /* @} */
 
-/*! @name PORTB2 (number 48), LPSPI1_SCK_DIS
+/*! @name PORTB2 (number 48), LPSPI1_SCK
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_GPIO_PIN_MASK (1U << 2U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN 2U                   /*!<@brief PORT pin number */
-#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
-                                                                        /* @} */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                                    /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

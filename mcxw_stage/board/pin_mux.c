@@ -23,10 +23,10 @@ pin_labels:
 - {pin_num: '24', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, label: SW4, identifier: sw4;SW4}
 - {pin_num: '45', pin_signal: PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23, label: ACC_INT, identifier: ACC_INT}
 - {pin_num: '10', pin_signal: ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG, label: TEST, identifier: TEST}
-- {pin_num: '47', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, label: LPSPI1_SIN_DIS, identifier: LPSPI1_SIN_DIS}
-- {pin_num: '1', pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, label: LPSPI1_SOUT_DIS, identifier: LPSPI1_SOUT_DIS}
-- {pin_num: '48', pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28, label: LPSPI1_SCK_DIS, identifier: LPSPI1_SCK_DIS}
 - {pin_num: '46', pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26, label: LPSPI1_PCS0, identifier: LPSPI1_PCS0}
+- {pin_num: '47', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, label: LPSPI1_SIN, identifier: LPSPI1_SIN}
+- {pin_num: '1', pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, label: LPSPI1_SOUT, identifier: LPSPI1_SOUT}
+- {pin_num: '48', pin_signal: ADC0_B12/PTB2/LPSPI1_SCK/LPUART1_TX/TPM1_CH2/FLEXIO0_D28, label: LPSPI1_SCK, identifier: LPSPI1_SCK}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -46,6 +46,7 @@ pin_labels:
 void BOARD_InitBootPins(void)
 {
     BOARD_InitPins();
+    BOARD_DeinitPins_LPSPI1();
 }
 
 /* clang-format off */
@@ -284,7 +285,7 @@ void BOARD_InitPins_LPSPI1(void)
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_DeinitPins_LPSPI1:
-- options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
+- options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
   - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 1', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, direction: INPUT, pull_select: up, pull_enable: enable}
   - {pin_num: '1', peripheral: GPIOB, signal: 'GPIO, 3', pin_signal: ADC0_B13/PTB3/WUU0_P14/LPSPI1_SOUT/LPUART1_RX/TPM1_CH3/FLEXIO0_D29, direction: INPUT, pull_select: up,
@@ -308,29 +309,29 @@ void BOARD_DeinitPins_LPSPI1(void)
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortB);
 
-    gpio_pin_config_t LPSPI1_SIN_DIS_config = {
+    gpio_pin_config_t LPSPI1_SIN_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB1 (pin 47)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN, &LPSPI1_SIN_DIS_config);
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN, &LPSPI1_SIN_config);
 
-    gpio_pin_config_t LPSPI1_SCK_DIS_config = {
+    gpio_pin_config_t LPSPI1_SCK_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB2 (pin 48)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN, &LPSPI1_SCK_DIS_config);
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN, &LPSPI1_SCK_config);
 
-    gpio_pin_config_t LPSPI1_SOUT_DIS_config = {
+    gpio_pin_config_t LPSPI1_SOUT_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB3 (pin 1)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN, &LPSPI1_SOUT_DIS_config);
+    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN, &LPSPI1_SOUT_config);
 
     /* PORTB1 (pin 47) is configured as PTB1 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_DIS_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[1] = ((PORTB->PCR[1] &
                       /* Mask bits to zero which are setting */
@@ -343,7 +344,7 @@ void BOARD_DeinitPins_LPSPI1(void)
                      | PORT_PCR_PE(PCR_PE_pe1));
 
     /* PORTB2 (pin 48) is configured as PTB2 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_DIS_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[2] = ((PORTB->PCR[2] &
                       /* Mask bits to zero which are setting */
@@ -356,7 +357,7 @@ void BOARD_DeinitPins_LPSPI1(void)
                      | PORT_PCR_PE(PCR_PE_pe1));
 
     /* PORTB3 (pin 1) is configured as PTB3 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_DIS_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[3] = ((PORTB->PCR[3] &
                       /* Mask bits to zero which are setting */
