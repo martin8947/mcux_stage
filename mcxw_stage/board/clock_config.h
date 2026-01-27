@@ -32,29 +32,29 @@ void BOARD_InitBootClocks(void);
 #endif /* __cplusplus*/
 
 /*******************************************************************************
- ********************** Configuration BOARD_BootClockRUN ***********************
+ *************************** Configuration clk_init ****************************
  ******************************************************************************/
 /*******************************************************************************
- * Definitions for BOARD_BootClockRUN configuration
+ * Definitions for clk_init configuration
  ******************************************************************************/
-#define BOARD_BOOTCLOCKRUN_CORE_CLOCK              96000000U  /*!< Core clock frequency: 96000000Hz */
-#define BOARD_BOOTCLOCKRUN_ROSC_CLOCK                 32768U  /*!< ROSC clock frequency: 32768Hz */
+#define CLK_INIT_CORE_CLOCK                        96000000U  /*!< Core clock frequency: 96000000Hz */
+#define CLK_INIT_ROSC_CLOCK                           32768U  /*!< ROSC clock frequency: 32768Hz */
 
-/*! @brief SCG set for BOARD_BootClockRUN configuration.
+/*! @brief SCG set for clk_init configuration.
  */
-extern const scg_sys_clk_config_t g_sysClkConfig_BOARD_BootClockRUN;
-/*! @brief System OSC set for BOARD_BootClockRUN configuration.
+extern const scg_sys_clk_config_t g_sysClkConfig_clk_init;
+/*! @brief System OSC set for clk_init configuration.
  */
-extern const scg_sosc_config_t g_scgSysOscConfig_BOARD_BootClockRUN;
-/*! @brief SIRC set for BOARD_BootClockRUN configuration.
+extern const scg_sosc_config_t g_scgSysOscConfig_clk_init;
+/*! @brief SIRC set for clk_init configuration.
  */
-extern const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN;
-/*! @brief FIRC set for BOARD_BootClockRUN configuration.
+extern const scg_sirc_config_t g_scgSircConfig_clk_init;
+/*! @brief FIRC set for clk_init configuration.
  */
-extern const scg_firc_config_t g_scgFircConfig_BOARD_BootClockRUN;
+extern const scg_firc_config_t g_scgFircConfig_clk_init;
 
 /*******************************************************************************
- * API for BOARD_BootClockRUN configuration
+ * API for clk_init configuration
  ******************************************************************************/
 #if defined(__cplusplus)
 extern "C" {
@@ -64,7 +64,7 @@ extern "C" {
  * @brief This function executes configuration of clocks.
  *
  */
-void BOARD_BootClockRUN(void);
+void clk_init(void);
 
 #if defined(__cplusplus)
 }

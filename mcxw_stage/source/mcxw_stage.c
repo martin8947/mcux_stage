@@ -1,11 +1,11 @@
 
 #include <stdio.h>
 
+#include "board.h"
+#include "clock_config.h"
 #include "peripherals.h"
 #include "pin_mux.h"
-#include "clock_config.h"
 
-#include "fsl_clock.h"
 #include "fsl_debug_console.h"
 
 #include "iic_test.h"
@@ -20,13 +20,14 @@ int main(void) {
 
 	DbgConsole_Init(1, 115200, kSerialPort_Uart, CLOCK_GetIpFreq(kCLOCK_Lpuart1));
 
+	//LPADC0 trigger start
+	LPIT_StartTimer(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG);
+
+	while (1);
+
 	littlefs_test();
 
 	PRINTF("Starting...\r\n");
-
-    LPIT_StartTimer(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG);
-
-    while (1);
 
 	while (1) {
 		PRINTF("Pass %d\r\n", pass);

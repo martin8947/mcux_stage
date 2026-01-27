@@ -30,7 +30,7 @@
                <pin_label pin_num="18" pin_signal="ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10" label="RGB_R" identifier="rgb_r;RGB_R"/>
                <pin_label pin_num="17" pin_signal="ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7" label="RGB_B" identifier="rgb_b;RGB_B"/>
                <pin_label pin_num="14" pin_signal="CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1" label="RGB_G" identifier="rgb_g;RGB_G"/>
-               <pin_label pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2" label="LIGHT_SENS" identifier="light_sens;LIGHT_SENS"/>
+               <pin_label pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2" label="LIGHT_SENS" identifier="light_sens;LIGHT_SENS;LIGHT_SENSX;LIGHT_SENS2"/>
                <pin_label pin_num="24" pin_signal="ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4" label="SW4" identifier="sw4;SW4"/>
                <pin_label pin_num="45" pin_signal="PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23" label="ACC_INT" identifier="ACC_INT"/>
                <pin_label pin_num="10" pin_signal="ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG" label="TEST" identifier="TEST"/>
@@ -44,7 +44,7 @@
             </external_user_signals>
          </pins_profile>
          <functions_list>
-            <function name="BOARD_InitPins">
+            <function name="pin_init_bulk">
                <description></description>
                <options>
                   <callFromInitBoot>true</callFromInitBoot>
@@ -52,57 +52,57 @@
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
-                  <dependency resourceType="Peripheral" resourceId="TPM0" description="Peripheral TPM0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="TPM0" description="Peripheral TPM0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="GPIOC" description="Peripheral GPIOC signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="GPIOC" description="Peripheral GPIOC signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="GPIOD" description="Peripheral GPIOD signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="GPIOD" description="Peripheral GPIOD signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="ADC0" description="Peripheral ADC0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="LPI2C1" description="Peripheral LPI2C1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="LPI2C1" description="Peripheral LPI2C1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="LPUART1" description="Peripheral LPUART1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="LPUART1" description="Peripheral LPUART1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="CAN0" description="Peripheral CAN0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="CAN0" description="Peripheral CAN0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="ADC0" description="Peripheral ADC0 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_bulk">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:pin_init_bulk">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:pin_init_bulk">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:pin_init_bulk">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.trgmux" description="Pins initialization requires the TRGMUX Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.trgmux" description="Pins initialization requires the TRGMUX Driver in the project." problem_level="2" source="Pins:pin_init_bulk">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
@@ -158,12 +158,6 @@
                         <pin_feature name="gpio_per_interrupt" value="kGPIO_InterruptFallingEdge"/>
                      </pin_features>
                   </pin>
-                  <pin peripheral="ADC0" signal="B, 6" pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2">
-                     <pin_features>
-                        <pin_feature name="identifier" value="LIGHT_SENS"/>
-                     </pin_features>
-                  </pin>
-                  <pin peripheral="ADC0" signal="TRG_CH, 0" pin_num="" pin_signal="TRGMUX0_LPIT0_CH0"/>
                   <pin peripheral="LPI2C1" signal="SDA" pin_num="2" pin_signal="PTB4/WUU0_P15/LPSPI1_PCS3/LPUART1_CTS_b/LPI2C1_SDA/I3C0_SDA/TRGMUX0_IN0/FLEXIO0_D30"/>
                   <pin peripheral="LPI2C1" signal="SCL" pin_num="3" pin_signal="PTB5/LPSPI1_PCS2/LPUART1_RTS_b/LPI2C1_SCL/I3C0_SCL/TRGMUX0_OUT0/FLEXIO0_D31"/>
                   <pin peripheral="LPUART1" signal="RX" pin_num="39" pin_signal="PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18"/>
@@ -176,9 +170,15 @@
                         <pin_feature name="gpio_init_state" value="true"/>
                      </pin_features>
                   </pin>
+                  <pin peripheral="ADC0" signal="B, 6" pin_num="26" pin_signal="ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2">
+                     <pin_features>
+                        <pin_feature name="identifier" value="LIGHT_SENS"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="ADC0" signal="TRG_CH, 0" pin_num="" pin_signal="TRGMUX0_LPIT0_CH0"/>
                </pins>
             </function>
-            <function name="BOARD_InitPins_LPSPI1">
+            <function name="pin_init_lpspi1">
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
                   <callFromInitBoot>false</callFromInitBoot>
@@ -186,17 +186,17 @@
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
-                  <dependency resourceType="Peripheral" resourceId="LPSPI1" description="Peripheral LPSPI1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:BOARD_InitPins_LPSPI1">
+                  <dependency resourceType="Peripheral" resourceId="LPSPI1" description="Peripheral LPSPI1 signals are routed in the Pins Tool, but the peripheral is not initialized in the Peripherals Tool." problem_level="1" source="Pins:pin_init_lpspi1">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins_LPSPI1">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:pin_init_lpspi1">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins_LPSPI1">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:pin_init_lpspi1">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
@@ -222,7 +222,7 @@
                   </pin>
                </pins>
             </function>
-            <function name="BOARD_DeinitPins_LPSPI1">
+            <function name="pin_deinit_lpspi1">
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
                   <callFromInitBoot>true</callFromInitBoot>
@@ -230,17 +230,17 @@
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:pin_deinit_lpspi1">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:pin_deinit_lpspi1">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_DeinitPins_LPSPI1">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:pin_deinit_lpspi1">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
@@ -281,46 +281,46 @@
             <processor_version>25.06.10</processor_version>
          </clocks_profile>
          <clock_configurations>
-            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
+            <clock_configuration name="clk_init" id_prefix="" prefix_user_defined="false">
                <description></description>
                <options/>
                <dependencies>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to be routed" problem_level="1" source="Clocks:clk_init">
                      <feature name="routed" evaluation="">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_extal" description="&apos;EXTAL32K&apos; (Pins tool id: RTC.rtc_extal, Clocks tool id: CCM32K.EXTAL32K) needs to have &apos;INPUT&apos; direction" problem_level="1" source="Clocks:clk_init">
                      <feature name="direction" evaluation="">
                         <data>INPUT</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to be routed" problem_level="1" source="Clocks:clk_init">
                      <feature name="routed" evaluation="">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="RTC.rtc_xtal" description="&apos;XTAL32K&apos; (Pins tool id: RTC.rtc_xtal, Clocks tool id: CCM32K.XTAL32K) needs to have &apos;OUTPUT&apos; direction" problem_level="1" source="Clocks:clk_init">
                      <feature name="direction" evaluation="">
                         <data>OUTPUT</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.extal" description="&apos;EXTAL0&apos; (Pins tool id: SCG.extal, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.extal" description="&apos;EXTAL0&apos; (Pins tool id: SCG.extal, Clocks tool id: SCG.EXTAL0) needs to be routed" problem_level="1" source="Clocks:clk_init">
                      <feature name="routed" evaluation="">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.xtal" description="&apos;XTAL0&apos; (Pins tool id: SCG.xtal, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="SCG.xtal" description="&apos;XTAL0&apos; (Pins tool id: SCG.xtal, Clocks tool id: SCG.XTAL0) needs to be routed" problem_level="1" source="Clocks:clk_init">
                      <feature name="routed" evaluation="">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:clk_init">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.ccm32k" description="Clocks initialization requires the CCM32K Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.ccm32k" description="Clocks initialization requires the CCM32K Driver in the project." problem_level="2" source="Clocks:clk_init">
                      <feature name="enabled" evaluation="equal" configuration="cm33">
                         <data>true</data>
                      </feature>
@@ -477,56 +477,56 @@
             <ignored_component_migration_offer/>
          </peripherals_profile>
          <functional_groups>
-            <functional_group name="BOARD_InitPeripherals" uuid="4d8da21c-86cc-4fc1-b018-4794c941d752" called_from_default_init="true" id_prefix="" core="cm33">
+            <functional_group name="periph_init" uuid="4d8da21c-86cc-4fc1-b018-4794c941d752" called_from_default_init="true" id_prefix="" core="cm33">
                <description></description>
                <options/>
                <dependencies>
-                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_TPM0_CLK" description="TPM0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_TPM0_CLK" description="TPM0 clock is inactive." problem_level="2" source="Peripherals:periph_init">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.0" description="Signal CH0 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.0" description="Signal CH0 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.2" description="Signal CH2 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.2" description="Signal CH2 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.1" description="Signal CH1 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="TPM0.tmr_ch.1" description="Signal CH1 of peripheral TPM0 is not routed" problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="equal">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPIT0_CLK" description="LPIT0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPIT0_CLK" description="LPIT0 clock is inactive." problem_level="2" source="Peripherals:periph_init">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPADC0_CLK" description="LPADC0 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPADC0_CLK" description="LPADC0 clock is inactive." problem_level="2" source="Peripherals:periph_init">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="ADC0.adc_se.6B" description="Signal channel 6B is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="ADC0.adc_se.6B" description="Signal channel 6B is not routed." problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPI2C1_CLK" description="LPI2C1 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="ClockOutput" resourceId="MRCC.MRCC_LPI2C1_CLK" description="LPI2C1 clock is inactive." problem_level="2" source="Peripherals:periph_init">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_scl" description="Signal serial clock is not routed." problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
                      </feature>
@@ -537,7 +537,7 @@
                      <config_set name="tpm_main_config">
                         <struct name="tpm_config">
                            <setting name="clockSource" value="kTPM_SystemClock"/>
-                           <setting name="tpmSrcClkFreq" value="ClocksTool_DefaultInit"/>
+                           <setting name="tpmSrcClkFreq" value="clk_init"/>
                            <setting name="prescale" value="kTPM_Prescale_Divide_2"/>
                            <setting name="timerFrequency" value="1000"/>
                            <setting name="useGlobalTimeBase" value="false"/>
@@ -685,7 +685,7 @@
                         </struct>
                         <struct name="timingConfig">
                            <setting name="clockSource" value="AsyncPeripheralClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="clockSourceFreq" value="clk_init"/>
                         </struct>
                         <array name="channels">
                            <struct name="0">
@@ -713,7 +713,7 @@
                      </config_set>
                   </instance>
                   <instance name="VREF0" uuid="97a9e3d6-d694-4122-9f7a-80e5eb30ab78" type="vref_1" type_id="vref_1_2.4.0" mode="general" peripheral="VREF0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="fsl_vref" quick_selection="default">
+                     <config_set name="fsl_vref">
                         <struct name="vref_config">
                            <setting name="bufferMode" value="kVREF_ModeHighPowerBuffer"/>
                            <setting name="enableLowPowerBuff" value="true"/>
@@ -729,7 +729,7 @@
                      <config_set name="fsl_lpadc">
                         <struct name="lpadcConfig">
                            <setting name="clockSource" value="AsynchronousFunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="clockSourceFreq" value="clk_init"/>
                            <setting name="enableInDozeMode" value="false"/>
                            <setting name="conversionAverageMode" value="kLPADC_ConversionAverage128"/>
                            <setting name="offsetCalibration" value="yes"/>
@@ -748,14 +748,14 @@
                         </struct>
                         <array name="lpadcConvCommandConfig">
                            <struct name="0">
-                              <setting name="user_commandId" value=""/>
+                              <setting name="user_commandId" value="cmd1"/>
                               <setting name="commandId" value="1"/>
                               <setting name="chainedNextCommandNumber" value="0"/>
                               <setting name="sampleChannelMode" value="kLPADC_SampleChannelSingleEndSideB"/>
                               <setting name="channelNumber" value="B.6"/>
                               <setting name="enableAutoChannelIncrement" value="false"/>
                               <setting name="loopCount" value="0"/>
-                              <setting name="hardwareAverageMode" value="kLPADC_HardwareAverageCount1"/>
+                              <setting name="hardwareAverageMode" value="kLPADC_HardwareAverageCount128"/>
                               <setting name="sampleTimeMode" value="kLPADC_SampleTimeADCK131"/>
                               <setting name="hardwareCompareMode" value="kLPADC_HardwareCompareDisabled"/>
                               <setting name="hardwareCompareValueHigh" value="0"/>
@@ -766,7 +766,7 @@
                         </array>
                         <array name="lpadcConvTriggerConfig">
                            <struct name="0">
-                              <setting name="user_triggerId" value=""/>
+                              <setting name="user_triggerId" value="trg0"/>
                               <setting name="triggerId" value="0"/>
                               <setting name="targetCommandId" value="1"/>
                               <setting name="delayPower" value="0"/>
@@ -796,7 +796,7 @@
                   <instance name="LPI2C1" uuid="73734b7d-a1b9-4b09-afd4-7b68940c43bc" type="lpi2c" type_id="lpi2c_2.2.0" mode="master" peripheral="LPI2C1" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="main">
                         <setting name="clockSource" value="Lpi2cClock"/>
-                        <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                        <setting name="clockSourceFreq" value="clk_init"/>
                      </config_set>
                      <config_set name="interrupt_vector"/>
                      <config_set name="master">
@@ -804,7 +804,7 @@
                         <struct name="config">
                            <setting name="enableMaster" value="true"/>
                            <setting name="enableDoze" value="true"/>
-                           <setting name="debugEnable" value="false"/>
+                           <setting name="debugEnable" value="true"/>
                            <setting name="ignoreAck" value="false"/>
                            <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
                            <setting name="baudRate_Hz" value="400000"/>
@@ -834,7 +834,7 @@
                            <setting name="slaveAddress" value="0"/>
                            <setting name="direction" value="kLPI2C_Write"/>
                            <setting name="subaddress" value="0"/>
-                           <setting name="subaddressSize" value="0"/>
+                           <setting name="subaddressSize" value="1"/>
                            <setting name="blocking_buffer" value="false"/>
                            <setting name="enable_custom_buffer" value="false"/>
                            <setting name="dataSize" value="1"/>

@@ -2,12 +2,14 @@
 #ifndef _BOARD_H_
 #define _BOARD_H_
 
+#include <stdint.h>
 #include <stdbool.h>
 
-//needed for spi_pin_mode_t
-#include "fsl_lpspi_mem_adapter.h"
-
+//LPSPI_Type
 #include "fsl_common.h"
+
+//spi_pin_mode_t
+#include "fsl_lpspi_mem_adapter.h"
 
 //needed by fsl_lpspi_mem_adapter.c
 void BOARD_LpspiPcsPinControl(bool isSelected);

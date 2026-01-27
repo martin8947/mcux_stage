@@ -25,7 +25,7 @@ extern "C" {
 /***********************************************************************************************************************
  * Definitions
  **********************************************************************************************************************/
-/* Definitions for BOARD_InitPeripherals functional group */
+/* Definitions for periph_init functional group */
 /* Definition of peripheral ID */
 #define TPM0_PERIPHERAL TPM0
 /* Definition of the clock source frequency */
@@ -56,7 +56,7 @@ extern "C" {
 #define GPIOD_INT_0_IRQN GPIOD_INT0_IRQn
 /* GPIOD interrupt handler identifier. */
 #define GPIOD_INT_0_IRQHANDLER GPIOD_INT0_IRQHandler
-/* BOARD_InitPeripherals defines for LPIT0 */
+/* periph_init defines for LPIT0 */
 /* Definition of peripheral ID. */
 #define LPIT0_PERIPHERAL LPIT0
 /* Definition of clock source frequency. */
@@ -73,7 +73,11 @@ extern "C" {
 #define ADC0_IRQN ADC0_IRQn
 /* ADC0 interrupt handler identifier. */
 #define ADC0_IRQHANDLER ADC0_IRQHandler
-/* BOARD_InitPeripherals defines for LPI2C1 */
+/* Command 1 - cmd1 */
+#define ADC0_CMD1 1U
+/* Trigger 0 - trg0 */
+#define ADC0_TRG0 0U
+/* periph_init defines for LPI2C1 */
 /* Definition of peripheral ID */
 #define LPI2C1_PERIPHERAL LPI2C1
 /* Definition of clock source */
@@ -101,7 +105,7 @@ extern lpi2c_master_handle_t LPI2C1_masterHandle;
  * Initialization functions
  **********************************************************************************************************************/
 
-void BOARD_InitPeripherals(void);
+void periph_init(void);
 
 /***********************************************************************************************************************
  * BOARD_InitBootPeripherals function

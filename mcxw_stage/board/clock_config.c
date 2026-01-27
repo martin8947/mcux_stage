@@ -90,16 +90,16 @@ static void CLOCK_CONFIG_FircSafeConfig(const scg_firc_config_t *fircConfig)
  ******************************************************************************/
 void BOARD_InitBootClocks(void)
 {
-    BOARD_BootClockRUN();
+    clk_init();
 }
 
 /*******************************************************************************
- ********************** Configuration BOARD_BootClockRUN ***********************
+ *************************** Configuration clk_init ****************************
  ******************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!Configuration
-name: BOARD_BootClockRUN
+name: clk_init
 called_from_default_init: true
 outputs:
 - {id: BUS_CLK.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
@@ -160,9 +160,9 @@ sources:
 /* clang-format on */
 
 /*******************************************************************************
- * Variables for BOARD_BootClockRUN configuration
+ * Variables for clk_init configuration
  ******************************************************************************/
-static const scg_firc_trim_config_t FircTrimConfig_BOARD_BootClockRUN =
+static const scg_firc_trim_config_t FircTrimConfig_clk_init =
 {
     .trimMode = kSCG_FircTrimUpdate,              /* FIRC trim is enabled and trim value update is enabled */
     .trimSrc = kSCG_FircTrimSrcSysOsc,            /* Trim source is System OSC */
@@ -170,30 +170,30 @@ static const scg_firc_trim_config_t FircTrimConfig_BOARD_BootClockRUN =
     .trimCoar = 0U,                               /* Trim value, see Reference Manual for more information */
     .trimFine = 0U,                               /* Trim value, see Reference Manual for more information */
 };
-const scg_sys_clk_config_t g_sysClkConfig_BOARD_BootClockRUN =
+const scg_sys_clk_config_t g_sysClkConfig_clk_init =
 {
     .divSlow = (uint32_t)kSCG_SysClkDivBy4,       /* Slow Clock Divider: divided by 4 */
     .divBus = (uint32_t)kSCG_SysClkDivBy1,        /* Bus Clock Divider: divided by 1 */
     .divCore = (uint32_t)kSCG_SysClkDivBy2,       /* Core Clock Divider: divided by 2 */
     .src = (uint32_t)kSCG_SysClkSrcFirc,          /* Fast IRC is selected as System Clock Source */
 };
-const scg_sosc_config_t g_scgSysOscConfig_BOARD_BootClockRUN =
+const scg_sosc_config_t g_scgSysOscConfig_clk_init =
 {
     .freq = 32000000U,                            /* System Oscillator frequency: 32000000Hz */
     .monitorMode = kSCG_SysOscMonitorDisable,     /* System OSC Clock Monitor is disabled */
     .enableMode = kSCG_SoscEnable,                /* System OSC Enable */
 };
-const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN =
+const scg_sirc_config_t g_scgSircConfig_clk_init =
 {
     .enableMode = kSCG_SircDisableInSleep,        /* Slow IRC is disabled in sleep modes */
 };
-const scg_firc_config_t g_scgFircConfig_BOARD_BootClockRUN =
+const scg_firc_config_t g_scgFircConfig_clk_init =
 {
     .enableMode = kSCG_FircEnable,                /* Fast IRC is enabled */
     .range = kSCG_FircRange192M,                  /* 192 Mhz FIRC clock selected */
-    .trimConfig = &FircTrimConfig_BOARD_BootClockRUN,
+    .trimConfig = &FircTrimConfig_clk_init,
 };
-static const ccm32k_osc_config_t g_ccm32kOscConfig_BOARD_BootClockRUN =
+static const ccm32k_osc_config_t g_ccm32kOscConfig_clk_init =
 {
     .coarseAdjustment = kCCM32K_OscCoarseAdjustmentRange0,/* ESR_Range0 */
     .enableInternalCapBank = true,                /* Internal capacitance bank is enabled */
@@ -201,9 +201,9 @@ static const ccm32k_osc_config_t g_ccm32kOscConfig_BOARD_BootClockRUN =
     .extalCap = kCCM32K_OscExtal12pFCap,          /* 12 pF */
 };
 /*******************************************************************************
- * Code for BOARD_BootClockRUN configuration
+ * Code for clk_init configuration
  ******************************************************************************/
-void BOARD_BootClockRUN(void)
+void clk_init(void)
 {
     uint32_t coreFreq;
     scg_sys_clk_config_t curConfig;
@@ -218,7 +218,7 @@ void BOARD_BootClockRUN(void)
     /* Get the CPU Core frequency */
     coreFreq = CLOCK_GetSysClkFreq(kSCG_SysClkCore);
 
-    if (coreFreq <= BOARD_BOOTCLOCKRUN_CORE_CLOCK) {
+    if (coreFreq <= CLK_INIT_CORE_CLOCK) {
         /* Set the LDO_CORE VDD regulator level */
         ldoOption.CoreLDOVoltage = kSPC_CoreLDO_NormalVoltage;
         ldoOption.CoreLDODriveStrength = kSPC_CoreLDO_NormalDriveStrength;
@@ -230,7 +230,7 @@ void BOARD_BootClockRUN(void)
     }
 
     /* Config 32k Crystal Oscillator */
-    CCM32K_Set32kOscConfig(CCM32K, kCCM32K_Enable32kHzCrystalOsc, &g_ccm32kOscConfig_BOARD_BootClockRUN);
+    CCM32K_Set32kOscConfig(CCM32K, kCCM32K_Enable32kHzCrystalOsc, &g_ccm32kOscConfig_clk_init);
     /* Clock Monitor generates interrupt when error detected */
     CLOCK_SetRoscMonitorMode(kSCG_RoscMonitorReset);
     /* Wait for the 32kHz crystal oscillator to be stable */
@@ -246,27 +246,27 @@ void BOARD_BootClockRUN(void)
     {
     }
 
-    CLOCK_SetXtal32Freq(BOARD_BOOTCLOCKRUN_ROSC_CLOCK);
+    CLOCK_SetXtal32Freq(CLK_INIT_ROSC_CLOCK);
 
     /* Init FIRC */
-    CLOCK_CONFIG_FircSafeConfig(&g_scgFircConfig_BOARD_BootClockRUN);
+    CLOCK_CONFIG_FircSafeConfig(&g_scgFircConfig_clk_init);
     /* Set SCG to FIRC mode */
-    CLOCK_SetRunModeSysClkConfig(&g_sysClkConfig_BOARD_BootClockRUN);
+    CLOCK_SetRunModeSysClkConfig(&g_sysClkConfig_clk_init);
     /* Wait for clock source switch finished */
     do
     {
         CLOCK_GetCurSysClkConfig(&curConfig);
-    } while (curConfig.src != g_sysClkConfig_BOARD_BootClockRUN.src);
+    } while (curConfig.src != g_sysClkConfig_clk_init.src);
     /* Initializes SOSC according to board configuration */
-    (void)CLOCK_InitSysOsc(&g_scgSysOscConfig_BOARD_BootClockRUN);
+    (void)CLOCK_InitSysOsc(&g_scgSysOscConfig_clk_init);
     /* Set the XTAL0 frequency based on board settings */
-    CLOCK_SetXtal0Freq(g_scgSysOscConfig_BOARD_BootClockRUN.freq);
+    CLOCK_SetXtal0Freq(g_scgSysOscConfig_clk_init.freq);
     /* Init SIRC */
-    (void)CLOCK_InitSirc(&g_scgSircConfig_BOARD_BootClockRUN);
+    (void)CLOCK_InitSirc(&g_scgSircConfig_clk_init);
     /* Set SystemCoreClock variable */
-    SystemCoreClock = BOARD_BOOTCLOCKRUN_CORE_CLOCK;
+    SystemCoreClock = CLK_INIT_CORE_CLOCK;
 
-    if (coreFreq > BOARD_BOOTCLOCKRUN_CORE_CLOCK) {
+    if (coreFreq > CLK_INIT_CORE_CLOCK) {
         /* Configure Flash to support different voltage level and frequency */
         FMU0->FCTRL = (FMU0->FCTRL & ~((uint32_t)FMU_FCTRL_RWSC_MASK)) | (FMU_FCTRL_RWSC(0x2U));
         /* Specifies the operating voltage for the SRAM's read/write timing margin */

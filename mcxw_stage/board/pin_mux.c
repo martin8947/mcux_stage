@@ -19,7 +19,7 @@ pin_labels:
 - {pin_num: '18', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10, label: RGB_R, identifier: rgb_r;RGB_R}
 - {pin_num: '17', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, label: RGB_B, identifier: rgb_b;RGB_B}
 - {pin_num: '14', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, label: RGB_G, identifier: rgb_g;RGB_G}
-- {pin_num: '26', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, label: LIGHT_SENS, identifier: light_sens;LIGHT_SENS}
+- {pin_num: '26', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, label: LIGHT_SENS, identifier: light_sens;LIGHT_SENS;LIGHT_SENSX;LIGHT_SENS2}
 - {pin_num: '24', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, label: SW4, identifier: sw4;SW4}
 - {pin_num: '45', pin_signal: PTC7/WUU0_P12/NMI_b/RF_NOT_ALLOWED/TRGMUX0_IN3/TRGMUX0_OUT3/SFA0_CLK/TPM1_CLKIN/TPM2_CLKIN/CLKOUT/FLEXIO0_D23, label: ACC_INT, identifier: ACC_INT}
 - {pin_num: '10', pin_signal: ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG, label: TEST, identifier: TEST}
@@ -45,14 +45,14 @@ pin_labels:
  * END ****************************************************************************************************************/
 void BOARD_InitBootPins(void)
 {
-    BOARD_InitPins();
-    BOARD_DeinitPins_LPSPI1();
+    pin_init_bulk();
+    pin_deinit_lpspi1();
 }
 
 /* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitPins:
+pin_init_bulk:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
   - {pin_num: '18', peripheral: TPM0, signal: 'CH, 0', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
@@ -68,8 +68,6 @@ BOARD_InitPins:
   - {pin_num: '44', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, identifier: SW2, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge,
     pull_select: up, pull_enable: enable}
   - {pin_num: '24', peripheral: GPIOD, signal: 'GPIO, 1', pin_signal: ADC0_B5/PTD1/SPC0_LPREQ/NMI_b/RF_GPO_4, identifier: SW4, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge}
-  - {pin_num: '26', peripheral: ADC0, signal: 'B, 6', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, identifier: LIGHT_SENS}
-  - {peripheral: ADC0, signal: 'TRG_CH, 0', pin_signal: TRGMUX0_LPIT0_CH0}
   - {pin_num: '2', peripheral: LPI2C1, signal: SDA, pin_signal: PTB4/WUU0_P15/LPSPI1_PCS3/LPUART1_CTS_b/LPI2C1_SDA/I3C0_SDA/TRGMUX0_IN0/FLEXIO0_D30}
   - {pin_num: '3', peripheral: LPI2C1, signal: SCL, pin_signal: PTB5/LPSPI1_PCS2/LPUART1_RTS_b/LPI2C1_SCL/I3C0_SCL/TRGMUX0_OUT0/FLEXIO0_D31}
   - {pin_num: '39', peripheral: LPUART1, signal: RX, pin_signal: PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18}
@@ -77,17 +75,19 @@ BOARD_InitPins:
   - {pin_num: '43', peripheral: CAN0, signal: RX, pin_signal: PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21}
   - {pin_num: '42', peripheral: CAN0, signal: TX, pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20}
   - {pin_num: '46', peripheral: GPIOB, signal: 'GPIO, 0', pin_signal: ADC0_B10/PTB0/WUU0_P13/LPSPI1_PCS0/TPM1_CH0/FLEXIO0_D26, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: '26', peripheral: ADC0, signal: 'B, 6', pin_signal: ADC0_B6/PTD3/LPTMR1_ALT3/TAMPER1/RF_GPO_6/TRGMUX0_IN2, identifier: LIGHT_SENS}
+  - {peripheral: ADC0, signal: 'TRG_CH, 0', pin_signal: TRGMUX0_LPIT0_CH0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
 
 /* FUNCTION ************************************************************************************************************
  *
- * Function Name : BOARD_InitPins
+ * Function Name : pin_init_bulk
  * Description   : 
  *
  * END ****************************************************************************************************************/
-void BOARD_InitPins(void)
+void pin_init_bulk(void)
 {
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_GpioB);
@@ -105,38 +105,38 @@ void BOARD_InitPins(void)
         .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PTB0 (pin 46)  */
-    GPIO_PinInit(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, &LPSPI1_PCS0_config);
+    GPIO_PinInit(PIN_INIT_BULK_LPSPI1_PCS0_GPIO, PIN_INIT_BULK_LPSPI1_PCS0_PIN, &LPSPI1_PCS0_config);
 
     gpio_pin_config_t USER_LED_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PTC1 (pin 38)  */
-    GPIO_PinInit(BOARD_INITPINS_USER_LED_GPIO, BOARD_INITPINS_USER_LED_PIN, &USER_LED_config);
+    GPIO_PinInit(PIN_INIT_BULK_USER_LED_GPIO, PIN_INIT_BULK_USER_LED_PIN, &USER_LED_config);
 
     gpio_pin_config_t SW2_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTC6 (pin 44)  */
-    GPIO_PinInit(BOARD_INITPINS_SW2_GPIO, BOARD_INITPINS_SW2_PIN, &SW2_config);
+    GPIO_PinInit(PIN_INIT_BULK_SW2_GPIO, PIN_INIT_BULK_SW2_PIN, &SW2_config);
 
     gpio_pin_config_t ACC_INT_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTC7 (pin 45)  */
-    GPIO_PinInit(BOARD_INITPINS_ACC_INT_GPIO, BOARD_INITPINS_ACC_INT_PIN, &ACC_INT_config);
+    GPIO_PinInit(PIN_INIT_BULK_ACC_INT_GPIO, PIN_INIT_BULK_ACC_INT_PIN, &ACC_INT_config);
 
     gpio_pin_config_t SW4_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTD1 (pin 24)  */
-    GPIO_PinInit(BOARD_INITPINS_SW4_GPIO, BOARD_INITPINS_SW4_PIN, &SW4_config);
+    GPIO_PinInit(PIN_INIT_BULK_SW4_GPIO, PIN_INIT_BULK_SW4_PIN, &SW4_config);
 
     /* Interrupt configuration on GPIOC6 (pin 44): Interrupt on falling edge */
-    GPIO_SetPinInterruptConfig(BOARD_INITPINS_SW2_GPIO, BOARD_INITPINS_SW2_PIN, kGPIO_InterruptFallingEdge);
+    GPIO_SetPinInterruptConfig(PIN_INIT_BULK_SW2_GPIO, PIN_INIT_BULK_SW2_PIN, kGPIO_InterruptFallingEdge);
 
     GPIOC->ICR[7] = ((GPIOC->ICR[7] &
                       /* Mask bits to zero which are setting */
@@ -146,13 +146,13 @@ void BOARD_InitPins(void)
                      | GPIO_ICR_IRQS(ICR7_IRQS_irqs1));
 
     /* Interrupt configuration on GPIOC7 (pin 45): Interrupt on rising edge */
-    GPIO_SetPinInterruptConfig(BOARD_INITPINS_ACC_INT_GPIO, BOARD_INITPINS_ACC_INT_PIN, kGPIO_InterruptRisingEdge);
+    GPIO_SetPinInterruptConfig(PIN_INIT_BULK_ACC_INT_GPIO, PIN_INIT_BULK_ACC_INT_PIN, kGPIO_InterruptRisingEdge);
 
     /* Interrupt configuration on GPIOD1 (pin 24): Interrupt on falling edge */
-    GPIO_SetPinInterruptConfig(BOARD_INITPINS_SW4_GPIO, BOARD_INITPINS_SW4_PIN, kGPIO_InterruptFallingEdge);
+    GPIO_SetPinInterruptConfig(PIN_INIT_BULK_SW4_GPIO, PIN_INIT_BULK_SW4_PIN, kGPIO_InterruptFallingEdge);
 
     /* PORTA19 (pin 14) is configured as TPM0_CH2 */
-    PORT_SetPinMux(BOARD_INITPINS_RGB_G_PORT, BOARD_INITPINS_RGB_G_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(PIN_INIT_BULK_RGB_G_PORT, PIN_INIT_BULK_RGB_G_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[19] = ((PORTA->PCR[19] &
                        /* Mask bits to zero which are setting */
@@ -162,7 +162,7 @@ void BOARD_InitPins(void)
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
     /* PORTA20 (pin 17) is configured as TPM0_CH1 */
-    PORT_SetPinMux(BOARD_INITPINS_RGB_B_PORT, BOARD_INITPINS_RGB_B_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(PIN_INIT_BULK_RGB_B_PORT, PIN_INIT_BULK_RGB_B_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[20] = ((PORTA->PCR[20] &
                        /* Mask bits to zero which are setting */
@@ -172,7 +172,7 @@ void BOARD_InitPins(void)
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
     /* PORTA21 (pin 18) is configured as TPM0_CH0 */
-    PORT_SetPinMux(BOARD_INITPINS_RGB_R_PORT, BOARD_INITPINS_RGB_R_PIN, kPORT_MuxAlt5);
+    PORT_SetPinMux(PIN_INIT_BULK_RGB_R_PORT, PIN_INIT_BULK_RGB_R_PIN, kPORT_MuxAlt5);
 
     PORTA->PCR[21] = ((PORTA->PCR[21] &
                        /* Mask bits to zero which are setting */
@@ -182,7 +182,7 @@ void BOARD_InitPins(void)
                       | PORT_PCR_DSE(PCR_DSE_dse1));
 
     /* PORTB0 (pin 46) is configured as PTB0 */
-    PORT_SetPinMux(BOARD_INITPINS_LPSPI1_PCS0_PORT, BOARD_INITPINS_LPSPI1_PCS0_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_INIT_BULK_LPSPI1_PCS0_PORT, PIN_INIT_BULK_LPSPI1_PCS0_PIN, kPORT_MuxAsGpio);
 
     /* PORTB4 (pin 2) is configured as LPI2C1_SDA */
     PORT_SetPinMux(PORTB, 4U, kPORT_MuxAlt4);
@@ -191,7 +191,7 @@ void BOARD_InitPins(void)
     PORT_SetPinMux(PORTB, 5U, kPORT_MuxAlt4);
 
     /* PORTC1 (pin 38) is configured as PTC1 */
-    PORT_SetPinMux(BOARD_INITPINS_USER_LED_PORT, BOARD_INITPINS_USER_LED_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_INIT_BULK_USER_LED_PORT, PIN_INIT_BULK_USER_LED_PIN, kPORT_MuxAsGpio);
 
     PORTC->PCR[1] = ((PORTC->PCR[1] &
                       /* Mask bits to zero which are setting */
@@ -213,7 +213,7 @@ void BOARD_InitPins(void)
     PORT_SetPinMux(PORTC, 5U, kPORT_MuxAlt3);
 
     /* PORTC6 (pin 44) is configured as PTC6 */
-    PORT_SetPinMux(BOARD_INITPINS_SW2_PORT, BOARD_INITPINS_SW2_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_INIT_BULK_SW2_PORT, PIN_INIT_BULK_SW2_PIN, kPORT_MuxAsGpio);
 
     PORTC->PCR[6] = ((PORTC->PCR[6] &
                       /* Mask bits to zero which are setting */
@@ -226,13 +226,13 @@ void BOARD_InitPins(void)
                      | PORT_PCR_PE(PCR_PE_pe1));
 
     /* PORTC7 (pin 45) is configured as PTC7 */
-    PORT_SetPinMux(BOARD_INITPINS_ACC_INT_PORT, BOARD_INITPINS_ACC_INT_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_INIT_BULK_ACC_INT_PORT, PIN_INIT_BULK_ACC_INT_PIN, kPORT_MuxAsGpio);
 
     /* PORTD1 (pin 24) is configured as PTD1 */
-    PORT_SetPinMux(BOARD_INITPINS_SW4_PORT, BOARD_INITPINS_SW4_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_INIT_BULK_SW4_PORT, PIN_INIT_BULK_SW4_PIN, kPORT_MuxAsGpio);
 
     /* PORTD3 (pin 26) is configured as ADC0_B6 */
-    PORT_SetPinMux(BOARD_INITPINS_LIGHT_SENS_PORT, BOARD_INITPINS_LIGHT_SENS_PIN, kPORT_PinDisabledOrAnalog);
+    PORT_SetPinMux(PIN_INIT_BULK_LIGHT_SENS_PORT, PIN_INIT_BULK_LIGHT_SENS_PIN, kPORT_PinDisabledOrAnalog);
     /* LPIT0 Channel 0 is selected as ADC_GP0 device trigger input 0 */
     TRGMUX_SetTriggerSource(TRGMUX0, kTRGMUX_Trgmux0AdcGp0, kTRGMUX_TriggerInput0, kTRGMUX_SourceLpit0Channel0);
 }
@@ -240,7 +240,7 @@ void BOARD_InitPins(void)
 /* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitPins_LPSPI1:
+pin_init_lpspi1:
 - options: {callFromInitBoot: 'false', coreID: cm33, enableClock: 'true'}
 - pin_list:
   - {pin_num: '47', peripheral: LPSPI1, signal: IN, pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, identifier: '', pull_select: up, pull_enable: enable}
@@ -252,11 +252,11 @@ BOARD_InitPins_LPSPI1:
 
 /* FUNCTION ************************************************************************************************************
  *
- * Function Name : BOARD_InitPins_LPSPI1
+ * Function Name : pin_init_lpspi1
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_InitPins_LPSPI1(void)
+void pin_init_lpspi1(void)
 {
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortB);
@@ -284,7 +284,7 @@ void BOARD_InitPins_LPSPI1(void)
 /* clang-format off */
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_DeinitPins_LPSPI1:
+pin_deinit_lpspi1:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
   - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 1', pin_signal: ADC0_B11/PTB1/LPSPI1_SIN/TPM1_CH1/FLEXIO0_D27, direction: INPUT, pull_select: up, pull_enable: enable}
@@ -298,11 +298,11 @@ BOARD_DeinitPins_LPSPI1:
 
 /* FUNCTION ************************************************************************************************************
  *
- * Function Name : BOARD_DeinitPins_LPSPI1
+ * Function Name : pin_deinit_lpspi1
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  * END ****************************************************************************************************************/
-void BOARD_DeinitPins_LPSPI1(void)
+void pin_deinit_lpspi1(void)
 {
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_GpioB);
@@ -314,24 +314,24 @@ void BOARD_DeinitPins_LPSPI1(void)
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB1 (pin 47)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN, &LPSPI1_SIN_config);
+    GPIO_PinInit(PIN_DEINIT_LPSPI1_LPSPI1_SIN_GPIO, PIN_DEINIT_LPSPI1_LPSPI1_SIN_PIN, &LPSPI1_SIN_config);
 
     gpio_pin_config_t LPSPI1_SCK_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB2 (pin 48)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN, &LPSPI1_SCK_config);
+    GPIO_PinInit(PIN_DEINIT_LPSPI1_LPSPI1_SCK_GPIO, PIN_DEINIT_LPSPI1_LPSPI1_SCK_PIN, &LPSPI1_SCK_config);
 
     gpio_pin_config_t LPSPI1_SOUT_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PTB3 (pin 1)  */
-    GPIO_PinInit(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_GPIO, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN, &LPSPI1_SOUT_config);
+    GPIO_PinInit(PIN_DEINIT_LPSPI1_LPSPI1_SOUT_GPIO, PIN_DEINIT_LPSPI1_LPSPI1_SOUT_PIN, &LPSPI1_SOUT_config);
 
     /* PORTB1 (pin 47) is configured as PTB1 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SIN_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_DEINIT_LPSPI1_LPSPI1_SIN_PORT, PIN_DEINIT_LPSPI1_LPSPI1_SIN_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[1] = ((PORTB->PCR[1] &
                       /* Mask bits to zero which are setting */
@@ -344,7 +344,7 @@ void BOARD_DeinitPins_LPSPI1(void)
                      | PORT_PCR_PE(PCR_PE_pe1));
 
     /* PORTB2 (pin 48) is configured as PTB2 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SCK_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_DEINIT_LPSPI1_LPSPI1_SCK_PORT, PIN_DEINIT_LPSPI1_LPSPI1_SCK_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[2] = ((PORTB->PCR[2] &
                       /* Mask bits to zero which are setting */
@@ -357,7 +357,7 @@ void BOARD_DeinitPins_LPSPI1(void)
                      | PORT_PCR_PE(PCR_PE_pe1));
 
     /* PORTB3 (pin 1) is configured as PTB3 */
-    PORT_SetPinMux(BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PORT, BOARD_DEINITPINS_LPSPI1_LPSPI1_SOUT_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(PIN_DEINIT_LPSPI1_LPSPI1_SOUT_PORT, PIN_DEINIT_LPSPI1_LPSPI1_SOUT_PIN, kPORT_MuxAsGpio);
 
     PORTB->PCR[3] = ((PORTB->PCR[3] &
                       /* Mask bits to zero which are setting */

@@ -1,5 +1,6 @@
 
 void OnProjectLoad (void) {
+  Edit.SysVar (VAR_HSS_SPEED, FREQ_100_HZ);
   Project.SetDevice ("MCXW716");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");

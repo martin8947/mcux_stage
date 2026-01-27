@@ -1,23 +1,33 @@
 
 #include <assert.h>
+#include <stdint.h>
 #include <stdbool.h>
 
 #include "board.h"
 
-#include "peripherals.h"
+//pin constants and iomux calls
 #include "pin_mux.h"
 
-//needed for spi_pin_mode_t
+//LPSPI_Type and LPSPI1
+#include "fsl_common.h"
+
+//GPIO_PinWrite
+#include "fsl_gpio.h"
+
+//CLOCK_GetIpFreq and kCLOCK_Lpspi1
+#include "fsl_clock.h"
+
+//spi_pin_mode_t
 #include "fsl_lpspi_mem_adapter.h"
 
 void BOARD_LpspiPcsPinControl(bool isSelected)
 {
 	if (isSelected) {
 		//assert chip select
-		GPIO_PinWrite(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, 0);
+		GPIO_PinWrite(PIN_INIT_BULK_LPSPI1_PCS0_GPIO, PIN_INIT_BULK_LPSPI1_PCS0_PIN, 0);
 	} else {
 		//deassert chip select
-		GPIO_PinWrite(BOARD_INITPINS_LPSPI1_PCS0_GPIO, BOARD_INITPINS_LPSPI1_PCS0_PIN, 1);
+		GPIO_PinWrite(PIN_INIT_BULK_LPSPI1_PCS0_GPIO, PIN_INIT_BULK_LPSPI1_PCS0_PIN, 1);
 	}
 }
 
@@ -26,11 +36,11 @@ void BOARD_LpspiIomuxConfig(spi_pin_mode_t pinMode)
 	switch (pinMode) {
 		case kSpiIomux_SpiMode:
 			//enable LPSPI1 pins
-			BOARD_InitPins_LPSPI1();
+			pin_init_lpspi1();
 			break;
 		case kSpiIomux_DefaultMode:
 			//disable LPSPI1 pins
-			BOARD_DeinitPins_LPSPI1();
+			pin_deinit_lpspi1();
 			break;
 		default:
 			//just in case

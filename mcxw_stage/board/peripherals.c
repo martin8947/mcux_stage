@@ -12,7 +12,7 @@ package_id: MCXW716CMFTA
 mcu_data: ksdk2_0
 processor_version: 25.06.10
 functionalGroups:
-- name: BOARD_InitPeripherals
+- name: periph_init
   UUID: 4d8da21c-86cc-4fc1-b018-4794c941d752
   called_from_default_init: true
   selectedCore: cm33
@@ -51,7 +51,7 @@ component:
 #include "peripherals.h"
 
 /***********************************************************************************************************************
- * BOARD_InitPeripherals functional group
+ * periph_init functional group
  **********************************************************************************************************************/
 /***********************************************************************************************************************
  * TPM0 initialization code
@@ -64,13 +64,13 @@ instance:
 - mode: 'EdgeAligned'
 - custom_name_enabled: 'false'
 - type_id: 'tpm_2.2.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'TPM0'
 - config_sets:
   - tpm_main_config:
     - tpm_config:
       - clockSource: 'kTPM_SystemClock'
-      - tpmSrcClkFreq: 'ClocksTool_DefaultInit'
+      - tpmSrcClkFreq: 'clk_init'
       - prescale: 'kTPM_Prescale_Divide_2'
       - timerFrequency: '1000'
       - useGlobalTimeBase: 'false'
@@ -154,7 +154,7 @@ const tpm_config_t TPM0_config = {
   .enablePauseOnTrigger = false
 };
 
-const tpm_chnl_pwm_signal_param_t TPM0_pwmSignalParams[] = { 
+const tpm_chnl_pwm_signal_param_t TPM0_pwmSignalParams[] = {
   {
     .chnlNumber = kTPM_Chnl_0,
     .level = kTPM_LowTrue,
@@ -198,7 +198,7 @@ instance:
 - mode: 'GPIO'
 - custom_name_enabled: 'false'
 - type_id: 'gpio_2.7.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'GPIOC'
 - config_sets:
   - fsl_gpio:
@@ -243,7 +243,7 @@ instance:
 - mode: 'GPIO'
 - custom_name_enabled: 'false'
 - type_id: 'gpio_2.7.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'GPIOD'
 - config_sets:
   - fsl_gpio:
@@ -288,7 +288,7 @@ instance:
 - mode: 'LPIT_GENERAL'
 - custom_name_enabled: 'false'
 - type_id: 'lpit_2.0.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'LPIT0'
 - config_sets:
   - fsl_lpit:
@@ -297,7 +297,7 @@ instance:
       - enableRunInDoze: 'false'
     - timingConfig:
       - clockSource: 'AsyncPeripheralClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - clockSourceFreq: 'clk_init'
     - channels:
       - 0:
         - lpitChannelPrefixID: 'adc_conv_trig'
@@ -354,7 +354,7 @@ instance:
 - mode: 'general'
 - custom_name_enabled: 'false'
 - type_id: 'vref_1_2.4.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'VREF0'
 - config_sets:
   - fsl_vref:
@@ -366,7 +366,6 @@ instance:
       - enableHCBandgap: 'true'
       - enableCurvatureCompensation: 'true'
       - initTrim: 'false'
-    - quick_selection: 'default'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const vref_config_t VREF0_config = {
@@ -394,13 +393,13 @@ instance:
 - mode: 'LPADC'
 - custom_name_enabled: 'false'
 - type_id: 'lpadc_2.8.1'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'ADC0'
 - config_sets:
   - fsl_lpadc:
     - lpadcConfig:
       - clockSource: 'AsynchronousFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - clockSourceFreq: 'clk_init'
       - enableInDozeMode: 'false'
       - conversionAverageMode: 'kLPADC_ConversionAverage128'
       - offsetCalibration: 'yes'
@@ -418,14 +417,14 @@ instance:
       - FIFO1WatermarkDMA: 'false'
     - lpadcConvCommandConfig:
       - 0:
-        - user_commandId: ''
+        - user_commandId: 'cmd1'
         - commandId: '1'
         - chainedNextCommandNumber: '0'
         - sampleChannelMode: 'kLPADC_SampleChannelSingleEndSideB'
         - channelNumber: 'B.6'
         - enableAutoChannelIncrement: 'false'
         - loopCount: '0'
-        - hardwareAverageMode: 'kLPADC_HardwareAverageCount1'
+        - hardwareAverageMode: 'kLPADC_HardwareAverageCount128'
         - sampleTimeMode: 'kLPADC_SampleTimeADCK131'
         - hardwareCompareMode: 'kLPADC_HardwareCompareDisabled'
         - hardwareCompareValueHigh: '0'
@@ -434,7 +433,7 @@ instance:
         - enableWaitTrigger: 'true'
     - lpadcConvTriggerConfig:
       - 0:
-        - user_triggerId: ''
+        - user_triggerId: 'trg0'
         - triggerId: '0'
         - targetCommandId: '1'
         - delayPower: '0'
@@ -469,11 +468,11 @@ const lpadc_config_t ADC0_config = {
 lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
   {
     .sampleChannelMode = kLPADC_SampleChannelSingleEndSideB,
-    .channelNumber = 6U,
+    .channelNumber = 2U,
     .chainedNextCommandNumber = 0,
     .enableAutoChannelIncrement = false,
     .loopCount = 0UL,
-    .hardwareAverageMode = kLPADC_HardwareAverageCount1,
+    .hardwareAverageMode = kLPADC_HardwareAverageCount128,
     .sampleTimeMode = kLPADC_SampleTimeADCK131,
     .hardwareCompareMode = kLPADC_HardwareCompareDisabled,
     .hardwareCompareValueHigh = 0UL,
@@ -501,9 +500,9 @@ static void ADC0_init(void) {
   /* Perform auto calibration */
   LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
   /* Configure conversion command 1. */
-  LPADC_SetConvCommandConfig(ADC0_PERIPHERAL, 1, &ADC0_commandsConfig[0]);
+  LPADC_SetConvCommandConfig(ADC0_PERIPHERAL, ADC0_CMD1, &ADC0_commandsConfig[0]);
   /* Configure trigger 0. */
-  LPADC_SetConvTriggerConfig(ADC0_PERIPHERAL, 0, &ADC0_triggersConfig[0]);
+  LPADC_SetConvTriggerConfig(ADC0_PERIPHERAL, ADC0_TRG0, &ADC0_triggersConfig[0]);
   /* Enable interrupts from LPADC */
   LPADC_EnableInterrupts(ADC0_PERIPHERAL, (kLPADC_Trigger0CompletionInterruptEnable));
   /* Enable interrupt ADC0_IRQN request in the NVIC */
@@ -521,19 +520,19 @@ instance:
 - mode: 'master'
 - custom_name_enabled: 'false'
 - type_id: 'lpi2c_2.2.0'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'LPI2C1'
 - config_sets:
   - main:
     - clockSource: 'Lpi2cClock'
-    - clockSourceFreq: 'BOARD_BootClockRUN'
+    - clockSourceFreq: 'clk_init'
   - interrupt_vector: []
   - master:
     - mode: 'transfer'
     - config:
       - enableMaster: 'true'
       - enableDoze: 'true'
-      - debugEnable: 'false'
+      - debugEnable: 'true'
       - ignoreAck: 'false'
       - pinConfig: 'kLPI2C_2PinOpenDrain'
       - baudRate_Hz: '400000'
@@ -556,7 +555,7 @@ instance:
       - slaveAddress: '0'
       - direction: 'kLPI2C_Write'
       - subaddress: '0'
-      - subaddressSize: '0'
+      - subaddressSize: '1'
       - blocking_buffer: 'false'
       - enable_custom_buffer: 'false'
       - dataSize: '1'
@@ -565,7 +564,7 @@ instance:
 const lpi2c_master_config_t LPI2C1_masterConfig = {
   .enableMaster = true,
   .enableDoze = true,
-  .debugEnable = false,
+  .debugEnable = true,
   .ignoreAck = false,
   .pinConfig = kLPI2C_2PinOpenDrain,
   .baudRate_Hz = 400000UL,
@@ -584,7 +583,7 @@ lpi2c_master_transfer_t LPI2C1_masterTransfer = {
   .slaveAddress = 0,
   .direction = kLPI2C_Write,
   .subaddress = 0,
-  .subaddressSize = 0,
+  .subaddressSize = 1,
   .data = LPI2C1_masterBuffer,
   .dataSize = 1
 };
@@ -607,7 +606,7 @@ instance:
 - mode: 'general'
 - custom_name_enabled: 'false'
 - type_id: 'nvic'
-- functional_group: 'BOARD_InitPeripherals'
+- functional_group: 'periph_init'
 - peripheral: 'NVIC'
 - config_sets:
   - nvic:
@@ -626,7 +625,7 @@ static void NVIC_init(void) {
 /***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
-void BOARD_InitPeripherals(void)
+void periph_init(void)
 {
   /* Initialize components */
   TPM0_init();
@@ -643,5 +642,5 @@ void BOARD_InitPeripherals(void)
  **********************************************************************************************************************/
 void BOARD_InitBootPeripherals(void)
 {
-  BOARD_InitPeripherals();
+  periph_init();
 }
