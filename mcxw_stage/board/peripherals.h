@@ -17,6 +17,7 @@
 #include "fsl_vref.h"
 #include "fsl_lpadc.h"
 #include "fsl_lpi2c.h"
+#include "fsl_syspm.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -86,6 +87,21 @@ extern "C" {
 #define LPI2C1_MASTER_BUFFER_SIZE 1
 /* Definition of follower address */
 #define LPI2C1_MASTER_SLAVE_ADDRESS 0
+/* periph_init defines for SYSPM */
+/* Definition of peripheral ID */
+#define SYSPM_PERIPHERAL SYSPM
+/* Definition of SYSPM monitor 0 event Event 1 device CM33 PC (event ID: bcc_tk_bra, ID hex: 0xC, event code: 0b0001100) */
+#define SYSPM_MONITOR0_MON0_EVT1_ID 0xCU
+/* Definition of SYSPM monitor 0 event Event 2 device CM33 PC (event ID: tcm_opx, ID hex: 0x23, event code: 0b0100011) */
+#define SYSPM_MONITOR0_MON0_EVT2_ID 0x23U
+/* Definition of SYSPM monitor 0 event Event 3 device CM33 PC (event ID: cycle_count, ID hex: 0x7F, event code: 0b1111111) */
+#define SYSPM_MONITOR0_MON0_EVT3_ID 0x7FU
+/* Definition of SYSPM monitor 1 event Event 1 device CM33 PS (event ID: bcc_tk_bra, ID hex: 0xC, event code: 0b0001100) */
+#define SYSPM_MONITOR1_MON1_EVT1_ID 0xCU
+/* Definition of SYSPM monitor 1 event Event 2 device CM33 PS (event ID: tcm_opx, ID hex: 0x23, event code: 0b0100011) */
+#define SYSPM_MONITOR1_MON1_EVT2_ID 0x23U
+/* Definition of SYSPM monitor 1 event Event 3 device CM33 PS (event ID: cycle_count, ID hex: 0x7F, event code: 0b1111111) */
+#define SYSPM_MONITOR1_MON1_EVT3_ID 0x7FU
 
 /***********************************************************************************************************************
  * Global variables

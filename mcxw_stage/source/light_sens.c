@@ -18,8 +18,8 @@ void ADC0_IRQHANDLER(void) {
 	trig_stat_flag = LPADC_GetTriggerStatusFlags(ADC0_PERIPHERAL);
 	stat_flag = LPADC_GetStatusFlags(ADC0_PERIPHERAL);
 
-	//assert(trig_stat_flag == kLPADC_Trigger0CompletedFlag);
-	//assert(stat_flag == (kLPADC_TriggerCompletionFlag | kLPADC_ResultFIFO0ReadyFlag));
+	assert(trig_stat_flag == kLPADC_Trigger0CompletedFlag);
+	assert(stat_flag == (kLPADC_CalibrationReadyFlag | kLPADC_TriggerCompletionFlag | kLPADC_ResultFIFO0ReadyFlag));
 
 	//FIFO 0 is supposed to contain 1 sample(s)
 	assert(LPADC_GetConvResultCount(ADC0_PERIPHERAL, 0) == 1);
@@ -36,6 +36,7 @@ void ADC0_IRQHANDLER(void) {
 
 	LPADC_ClearTriggerStatusFlags(ADC0_PERIPHERAL, trig_stat_flag);
 	LPADC_ClearStatusFlags(ADC0_PERIPHERAL, stat_flag);
+	stat_flag = LPADC_GetStatusFlags(ADC0_PERIPHERAL);
 
 	adc_conv_cnt++;
 }

@@ -532,10 +532,10 @@ instance:
     - config:
       - enableMaster: 'true'
       - enableDoze: 'true'
-      - debugEnable: 'true'
+      - debugEnable: 'false'
       - ignoreAck: 'false'
       - pinConfig: 'kLPI2C_2PinOpenDrain'
-      - baudRate_Hz: '400000'
+      - baudRate_Hz: '100000'
       - busIdleTimeout_ns: '0'
       - pinLowTimeout_ns: '0'
       - sdaGlitchFilterWidth_ns: '0'
@@ -555,7 +555,7 @@ instance:
       - slaveAddress: '0'
       - direction: 'kLPI2C_Write'
       - subaddress: '0'
-      - subaddressSize: '1'
+      - subaddressSize: '0'
       - blocking_buffer: 'false'
       - enable_custom_buffer: 'false'
       - dataSize: '1'
@@ -564,10 +564,10 @@ instance:
 const lpi2c_master_config_t LPI2C1_masterConfig = {
   .enableMaster = true,
   .enableDoze = true,
-  .debugEnable = true,
+  .debugEnable = false,
   .ignoreAck = false,
   .pinConfig = kLPI2C_2PinOpenDrain,
-  .baudRate_Hz = 400000UL,
+  .baudRate_Hz = 100000UL,
   .busIdleTimeout_ns = 0UL,
   .pinLowTimeout_ns = 0UL,
   .sdaGlitchFilterWidth_ns = 0U,
@@ -583,7 +583,7 @@ lpi2c_master_transfer_t LPI2C1_masterTransfer = {
   .slaveAddress = 0,
   .direction = kLPI2C_Write,
   .subaddress = 0,
-  .subaddressSize = 1,
+  .subaddressSize = 0,
   .data = LPI2C1_masterBuffer,
   .dataSize = 1
 };
@@ -623,6 +623,94 @@ static void NVIC_init(void) {
 } */
 
 /***********************************************************************************************************************
+ * SYSPM initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'SYSPM'
+- type: 'syspm'
+- mode: 'General'
+- custom_name_enabled: 'false'
+- type_id: 'syspm_2.2.0'
+- functional_group: 'periph_init'
+- peripheral: 'SYSPM'
+- config_sets:
+  - fsl_syspm:
+    - syspm_monitor:
+      - 0:
+        - syspm_mode_t: 'kSYSPM_BothMode'
+        - syspm_startstop_control_t: 'kSYSPM_GlobalStart'
+        - syspm_event_config:
+          - 0:
+            - syspm_event_name: 'mon0_evt1'
+            - syspm_event_number: 'Event1'
+            - syspm_event_device: 'Event1'
+            - resetEvent: 'false'
+            - syspm_events: 'bcc_tk_bra'
+          - 1:
+            - syspm_event_name: 'mon0_evt2'
+            - syspm_event_number: 'Event2'
+            - syspm_event_device: 'Event1'
+            - resetEvent: 'false'
+            - syspm_events: 'tcm_opx'
+          - 2:
+            - syspm_event_name: 'mon0_evt3'
+            - syspm_event_number: 'Event3'
+            - syspm_event_device: 'Event1'
+            - resetEvent: 'false'
+            - syspm_events: 'cycle_count'
+      - 1:
+        - syspm_mode_t: 'kSYSPM_BothMode'
+        - syspm_startstop_control_t: 'kSYSPM_GlobalStart'
+        - syspm_event_config:
+          - 0:
+            - syspm_event_name: 'mon1_evt1'
+            - syspm_event_number: 'Event1'
+            - syspm_event_device: 'Event2'
+            - resetEvent: 'false'
+            - syspm_events: 'bcc_tk_bra'
+          - 1:
+            - syspm_event_name: 'mon1_evt2'
+            - syspm_event_number: 'Event2'
+            - syspm_event_device: 'Event2'
+            - resetEvent: 'false'
+            - syspm_events: 'tcm_opx'
+          - 2:
+            - syspm_event_name: 'mon1_evt3'
+            - syspm_event_number: 'Event3'
+            - syspm_event_device: 'Event2'
+            - resetEvent: 'false'
+            - syspm_events: 'cycle_count'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+static void SYSPM_init(void) {
+  /* SYSPM peripheral initialization */
+  SYSPM_Init(SYSPM_PERIPHERAL);
+  /* SYSPM monitor 0 event Event 1 device CM33 PC setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor0, kSYSPM_Event1, SYSPM_MONITOR0_MON0_EVT1_ID);
+  /* SYSPM monitor 0 event Event 2 device CM33 PC setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor0, kSYSPM_Event2, SYSPM_MONITOR0_MON0_EVT2_ID);
+  /* SYSPM monitor 0 event Event 3 device CM33 PC setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor0, kSYSPM_Event3, SYSPM_MONITOR0_MON0_EVT3_ID);
+  /* SYSPM monitor 1 event Event 1 device CM33 PS setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor1, kSYSPM_Event1, SYSPM_MONITOR1_MON1_EVT1_ID);
+  /* SYSPM monitor 1 event Event 2 device CM33 PS setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor1, kSYSPM_Event2, SYSPM_MONITOR1_MON1_EVT2_ID);
+  /* SYSPM monitor 1 event Event 3 device CM33 PS setting */
+  SYSPM_SelectEvent(SYSPM_PERIPHERAL, kSYSPM_Monitor1, kSYSPM_Event3, SYSPM_MONITOR1_MON1_EVT3_ID);
+  /* SYSPM monitor 0 count mode */
+  SYSPM_SetCountMode(SYSPM_PERIPHERAL, kSYSPM_Monitor0, kSYSPM_BothMode);
+  /* SYSPM monitor 1 count mode */
+  SYSPM_SetCountMode(SYSPM_PERIPHERAL, kSYSPM_Monitor1, kSYSPM_BothMode);
+  /* SYSPM monitor 0 start control */
+  SYSPM_SetStartStopControl(SYSPM_PERIPHERAL, kSYSPM_Monitor0, kSYSPM_GlobalStart);
+  /* SYSPM monitor 1 start control */
+  SYSPM_SetStartStopControl(SYSPM_PERIPHERAL, kSYSPM_Monitor1, kSYSPM_GlobalStart);
+}
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void periph_init(void)
@@ -635,6 +723,7 @@ void periph_init(void)
   VREF0_init();
   ADC0_init();
   LPI2C1_init();
+  SYSPM_init();
 }
 
 /***********************************************************************************************************************

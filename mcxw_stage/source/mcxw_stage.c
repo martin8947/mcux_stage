@@ -18,6 +18,8 @@ int main(void) {
 	BOARD_InitBootClocks();
 	BOARD_InitBootPeripherals();
 
+	assert(LPADC_GetStatusFlags(ADC0_PERIPHERAL) == kLPADC_CalibrationReadyFlag);
+
 	DbgConsole_Init(1, 115200, kSerialPort_Uart, CLOCK_GetIpFreq(kCLOCK_Lpuart1));
 
 	//LPADC0 trigger start

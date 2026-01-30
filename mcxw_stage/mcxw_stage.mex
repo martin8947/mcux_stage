@@ -457,6 +457,16 @@
                   <data type="Version" maxValue="2.6.9">2.2.0</data>
                </feature>
             </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.syspm" description="SYSPM Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.syspm" description="An unsupported version of the SYSPM Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.3.9">2.2.0</data>
+               </feature>
+            </dependency>
             <dependency resourceType="Tool" resourceId="Pins" description="The Pins tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data>true</data>
@@ -804,10 +814,10 @@
                         <struct name="config">
                            <setting name="enableMaster" value="true"/>
                            <setting name="enableDoze" value="true"/>
-                           <setting name="debugEnable" value="true"/>
+                           <setting name="debugEnable" value="false"/>
                            <setting name="ignoreAck" value="false"/>
                            <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
-                           <setting name="baudRate_Hz" value="400000"/>
+                           <setting name="baudRate_Hz" value="100000"/>
                            <setting name="busIdleTimeout_ns" value="0"/>
                            <setting name="pinLowTimeout_ns" value="0"/>
                            <setting name="sdaGlitchFilterWidth_ns" value="0"/>
@@ -834,14 +844,14 @@
                            <setting name="slaveAddress" value="0"/>
                            <setting name="direction" value="kLPI2C_Write"/>
                            <setting name="subaddress" value="0"/>
-                           <setting name="subaddressSize" value="1"/>
+                           <setting name="subaddressSize" value="0"/>
                            <setting name="blocking_buffer" value="false"/>
                            <setting name="enable_custom_buffer" value="false"/>
                            <setting name="dataSize" value="1"/>
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="NVIC" uuid="ce9c3b95-b24b-4d05-b29c-8cda708bb1ae" type="nvic" type_id="nvic" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="NVIC" uuid="153b30fc-44ad-4c05-bb56-d6866e80299d" type="nvic" type_id="nvic" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="nvic">
                         <array name="interrupt_table">
                            <struct name="0"/>
@@ -851,24 +861,266 @@
                         <array name="interrupts"/>
                      </config_set>
                   </instance>
-                  <instance name="DMA0" uuid="cb6149be-bd7d-4193-a27f-1115da10fe64" type="dma3" type_id="dma3_2.2.0" mode="general" peripheral="DMA0" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="config" quick_selection="tcd_linked">
+                  <instance name="SYSPM" uuid="f410397c-8d19-4773-8896-8577a51d371f" type="syspm" type_id="syspm_2.2.0" mode="General" peripheral="SYSPM" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_syspm">
+                        <array name="syspm_monitor">
+                           <struct name="0">
+                              <setting name="syspm_mode_t" value="kSYSPM_BothMode"/>
+                              <setting name="syspm_startstop_control_t" value="kSYSPM_GlobalStart"/>
+                              <array name="syspm_event_config">
+                                 <struct name="0">
+                                    <setting name="syspm_event_name" value="mon0_evt1"/>
+                                    <setting name="syspm_event_number" value="Event1"/>
+                                    <setting name="syspm_event_device" value="Event1"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="bcc_tk_bra"/>
+                                 </struct>
+                                 <struct name="1">
+                                    <setting name="syspm_event_name" value="mon0_evt2"/>
+                                    <setting name="syspm_event_number" value="Event2"/>
+                                    <setting name="syspm_event_device" value="Event1"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="tcm_opx"/>
+                                 </struct>
+                                 <struct name="2">
+                                    <setting name="syspm_event_name" value="mon0_evt3"/>
+                                    <setting name="syspm_event_number" value="Event3"/>
+                                    <setting name="syspm_event_device" value="Event1"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="cycle_count"/>
+                                 </struct>
+                              </array>
+                           </struct>
+                           <struct name="1">
+                              <setting name="syspm_mode_t" value="kSYSPM_BothMode"/>
+                              <setting name="syspm_startstop_control_t" value="kSYSPM_GlobalStart"/>
+                              <array name="syspm_event_config">
+                                 <struct name="0">
+                                    <setting name="syspm_event_name" value="mon1_evt1"/>
+                                    <setting name="syspm_event_number" value="Event1"/>
+                                    <setting name="syspm_event_device" value="Event2"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="bcc_tk_bra"/>
+                                 </struct>
+                                 <struct name="1">
+                                    <setting name="syspm_event_name" value="mon1_evt2"/>
+                                    <setting name="syspm_event_number" value="Event2"/>
+                                    <setting name="syspm_event_device" value="Event2"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="tcm_opx"/>
+                                 </struct>
+                                 <struct name="2">
+                                    <setting name="syspm_event_name" value="mon1_evt3"/>
+                                    <setting name="syspm_event_number" value="Event3"/>
+                                    <setting name="syspm_event_device" value="Event2"/>
+                                    <setting name="resetEvent" value="false"/>
+                                    <setting name="syspm_events" value="cycle_count"/>
+                                 </struct>
+                              </array>
+                           </struct>
+                        </array>
+                     </config_set>
+                  </instance>
+                  <instance name="CAN0" uuid="a0b21c9a-5f3d-4a38-959b-5d1f38e22192" type="flexcan" type_id="flexcan_2.14.0" mode="edma" peripheral="CAN0" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="edmaCfg">
+                        <struct name="edma_channels">
+                           <setting name="enable_rx_fifo_edma_channel" value="true"/>
+                           <struct name="edma_rx_fifo_channel">
+                              <setting name="uid" value="1769767061281"/>
+                              <setting name="eDMAn" value="8"/>
+                              <setting name="eDMA_source" value="kDmaRequestCAN0"/>
+                              <setting name="init_channel_priority" value="false"/>
+                              <struct name="edma_channel_Preemption">
+                                 <setting name="enableChannelPreemption" value="false"/>
+                                 <setting name="enablePreemptAbility" value="false"/>
+                                 <setting name="arbitrationGroup" value="0"/>
+                                 <setting name="channelPriority" value="0"/>
+                              </struct>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                        <struct name="flexcan_edma_handle">
+                           <setting name="enable_custom_name" value="false"/>
+                           <setting name="init_callback" value="false"/>
+                           <setting name="callback_fcn" value=""/>
+                           <setting name="user_data" value=""/>
+                        </struct>
+                     </config_set>
+                     <config_set name="transferCfg">
+                        <struct name="transfer">
+                           <setting name="init_rx_transfer" value="true"/>
+                           <struct name="rx_transfer">
+                              <setting name="frame" value="FrameRx"/>
+                              <setting name="frameFormat" value="classical"/>
+                              <setting name="mbIdx" value="0"/>
+                           </struct>
+                           <setting name="init_tx_transfer" value="true"/>
+                           <struct name="tx_transfer">
+                              <setting name="frame" value="FrameTx"/>
+                              <setting name="frameFormat" value="classical"/>
+                              <setting name="mbIdx" value="1"/>
+                           </struct>
+                           <setting name="init_callback" value="false"/>
+                           <setting name="callback_fcn" value=""/>
+                           <setting name="user_data" value=""/>
+                        </struct>
+                     </config_set>
+                     <config_set name="fsl_flexcan">
+                        <struct name="can_config">
+                           <setting name="clockSource" value="kFLEXCAN_ClkSrcOsc"/>
+                           <setting name="clockSourceFreq" value="clk_init"/>
+                           <setting name="wakeupSrc" value="kFLEXCAN_WakeupSrcUnfiltered"/>
+                           <setting name="flexibleDataRate" value="false"/>
+                           <setting name="baudRate" value="1000000"/>
+                           <setting name="baudRateFD" value="2000000"/>
+                           <setting name="enableBRS" value="false"/>
+                           <setting name="dataSize" value="kFLEXCAN_8BperMB"/>
+                           <setting name="maxMbNum" value="16"/>
+                           <setting name="enableLoopBack" value="false"/>
+                           <setting name="enableTimerSync" value="true"/>
+                           <setting name="enableSelfWakeup" value="false"/>
+                           <setting name="enableIndividMask" value="false"/>
+                           <setting name="disableSelfReception" value="false"/>
+                           <setting name="enableListenOnlyMode" value="false"/>
+                           <setting name="enableDoze" value="false"/>
+                           <setting name="enableTransceiverDelayMeasure" value="true"/>
+                           <setting name="enableRemoteRequestFrameStored" value="true"/>
+                           <struct name="timingConfig">
+                              <setting name="phaseSeg1" value="4"/>
+                              <setting name="phaseSeg2" value="3"/>
+                              <setting name="rJumpwidth" value="2"/>
+                              <struct name="bitTime"/>
+                              <setting name="fphaseSeg1" value="4"/>
+                              <setting name="fphaseSeg2" value="4"/>
+                              <setting name="frJumpwidth" value="2"/>
+                              <struct name="fbitTime"/>
+                           </struct>
+                        </struct>
+                        <setting name="enableRxFifoDMA" value="false"/>
+                        <setting name="enableRxFIFO" value="false"/>
+                        <struct name="rxFIFO">
+                           <setting name="idFilterTable" value=""/>
+                           <setting name="idFilterNum" value="num0"/>
+                           <setting name="idFilterType" value="kFLEXCAN_RxFifoFilterTypeA"/>
+                           <setting name="priority" value="kFLEXCAN_RxFifoPrioLow"/>
+                        </struct>
+                        <setting name="enableEnhancedRxFIFO" value="false"/>
+                        <struct name="enhancedRxFIFO">
+                           <setting name="idFilterTable" value=""/>
+                           <setting name="idFilterPairNum" value="2"/>
+                           <setting name="extendIdFilterNum" value="0"/>
+                           <setting name="fifoWatermarkSelection" value="1"/>
+                           <setting name="dmaPerReadLength" value="kFLEXCAN_1WordPerRead"/>
+                           <setting name="priority" value="kFLEXCAN_RxFifoPrioLow"/>
+                        </struct>
+                        <array name="channels">
+                           <struct name="0">
+                              <setting name="mbID" value="0"/>
+                              <setting name="mbType" value="mbRx"/>
+                              <struct name="rxMb">
+                                 <setting name="id" value="0"/>
+                                 <setting name="format" value="kFLEXCAN_FrameFormatStandard"/>
+                                 <setting name="type" value="kFLEXCAN_FrameTypeData"/>
+                              </struct>
+                           </struct>
+                           <struct name="1">
+                              <setting name="mbID" value="1"/>
+                              <setting name="mbType" value="mbTx"/>
+                              <struct name="rxMb">
+                                 <setting name="id" value="0"/>
+                                 <setting name="format" value="kFLEXCAN_FrameFormatStandard"/>
+                                 <setting name="type" value="kFLEXCAN_FrameTypeData"/>
+                              </struct>
+                           </struct>
+                        </array>
+                        <setting name="enablePNConfig" value="false"/>
+                        <struct name="pn_config">
+                           <setting name="enableTimeout" value="false"/>
+                           <setting name="inputTimeoutValue" value="0"/>
+                           <setting name="enableMatch" value="false"/>
+                           <setting name="matchSrc" value="kFLEXCAN_PNMatSrcID"/>
+                           <setting name="matchNum" value="1"/>
+                           <setting name="idMatchMode" value="kFLEXCAN_PNMatModeEqual"/>
+                           <setting name="dataMatchMode" value="kFLEXCAN_PNMatModeEqual"/>
+                           <setting name="idFilterIDE" value="kFLEXCAN_FrameFormatStandard"/>
+                           <setting name="idFilterRTR" value="kFLEXCAN_DataFrameType"/>
+                           <setting name="idLowerValue" value="0"/>
+                           <setting name="idUpperValue" value="0"/>
+                           <setting name="lengthLower" value="0"/>
+                           <setting name="lengthUpper" value="0"/>
+                           <array name="payloadLower">
+                              <struct name="0">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="1">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="2">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="3">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="4">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="5">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="6">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="7">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                           </array>
+                           <array name="payloadUpper">
+                              <struct name="0">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="1">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="2">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="3">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="4">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="5">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="6">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                              <struct name="7">
+                                 <setting name="byte" value="0"/>
+                              </struct>
+                           </array>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="DMA0" uuid="600fbfa6-7215-41f7-a4da-cd51efecb8cd" type="dma3" type_id="dma3_2.2.0" mode="general" peripheral="DMA0" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="config">
                         <struct name="common_settings">
                            <struct name="vars"/>
                            <setting name="enableMasterIdReplication" value="true"/>
                            <setting name="enableHaltOnError" value="true"/>
-                           <setting name="enableRoundRobinArbitration" value="fixedPriority"/>
+                           <setting name="enableRoundRobinArbitration" value="roundRobin"/>
                            <setting name="enableDebugMode" value="false"/>
                            <setting name="globalChannelLink" value="enable"/>
                         </struct>
                         <array name="dma_table"/>
                         <array name="edma_channels">
                            <struct name="0">
-                              <setting name="apiMode" value="nontransTCD"/>
+                              <setting name="apiMode" value="trans"/>
                               <struct name="edma_channel">
-                                 <setting name="channel_prefix_id" value="CH0"/>
-                                 <setting name="uid" value="1000"/>
-                                 <setting name="eDMAn" value="0"/>
+                                 <setting name="channel_prefix_id" value="xxx"/>
+                                 <setting name="uid" value="1769767206405"/>
+                                 <setting name="eDMAn" value="2"/>
                                  <setting name="eDMA_source" value="dmaDisable"/>
                                  <setting name="init_channel_priority" value="false"/>
                                  <struct name="edma_channel_Preemption">
@@ -877,48 +1129,35 @@
                                     <setting name="arbitrationGroup" value="0"/>
                                     <setting name="channelPriority" value="0"/>
                                  </struct>
+                                 <setting name="enable_custom_name" value="false"/>
                               </struct>
-                              <setting name="resetChannel" value="true"/>
                               <setting name="enableChannelRequest" value="false"/>
                               <setting name="enableAsyncRequest" value="false"/>
-                              <array name="tcd_configuration">
-                                 <struct name="0">
-                                    <setting name="uid" value="2000"/>
-                                    <setting name="tcdID" value="CH0_TCD0"/>
-                                    <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
-                                    <setting name="saddr_expr" value="&amp;srcAddr0[0]"/>
-                                    <setting name="saddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t srcAddr0[], N_bytes);"/>
-                                    <setting name="soff" value="sizeof(srcAddr0[0])"/>
-                                    <setting name="soff_def" value=""/>
-                                    <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
-                                    <setting name="daddr_expr" value="&amp;dstAddr0[0]"/>
-                                    <setting name="daddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t dstAddr0[], N_bytes);"/>
-                                    <setting name="doff" value="sizeof(dstAddr0[0])"/>
-                                    <setting name="doff_def" value=""/>
-                                    <setting name="nbytes" value="1"/>
-                                 </struct>
-                              </array>
-                              <setting name="constantTCD" value="false"/>
+                              <setting name="tcd_pool_enable" value="false"/>
+                              <struct name="tcd_settings">
+                                 <setting name="tcd_size" value="1"/>
+                                 <setting name="tcd_memory_custom_id" value="false"/>
+                              </struct>
+                              <array name="transfer_config"/>
                               <setting name="no_init_uid" value="0"/>
-                              <setting name="initializedTCD" value="2000"/>
+                              <setting name="init_callback" value="false"/>
+                              <setting name="callback_function" value=""/>
+                              <setting name="callback_user_data" value=""/>
                               <set name="channel_enabled_interrupts">
                                  <selected/>
                               </set>
-                              <setting name="init_interruptsEnable" value="false"/>
                               <struct name="interrupt_channel">
-                                 <setting name="IRQn" value="DMA0_CH0_IRQn"/>
-                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="IRQn" value="DMA0_CH2_IRQn"/>
                                  <setting name="enable_priority" value="false"/>
                                  <setting name="priority" value="0"/>
-                                 <setting name="enable_custom_name" value="false"/>
                               </struct>
                            </struct>
                            <struct name="1">
-                              <setting name="apiMode" value="nontransTCD"/>
+                              <setting name="apiMode" value="trans"/>
                               <struct name="edma_channel">
-                                 <setting name="channel_prefix_id" value="CH1"/>
-                                 <setting name="uid" value="1001"/>
-                                 <setting name="eDMAn" value="1"/>
+                                 <setting name="channel_prefix_id" value="yyy"/>
+                                 <setting name="uid" value="1769767281644"/>
+                                 <setting name="eDMAn" value="11"/>
                                  <setting name="eDMA_source" value="dmaDisable"/>
                                  <setting name="init_channel_priority" value="false"/>
                                  <struct name="edma_channel_Preemption">
@@ -927,40 +1166,27 @@
                                     <setting name="arbitrationGroup" value="0"/>
                                     <setting name="channelPriority" value="0"/>
                                  </struct>
+                                 <setting name="enable_custom_name" value="false"/>
                               </struct>
-                              <setting name="resetChannel" value="true"/>
                               <setting name="enableChannelRequest" value="false"/>
                               <setting name="enableAsyncRequest" value="false"/>
-                              <array name="tcd_configuration">
-                                 <struct name="0">
-                                    <setting name="uid" value="2010"/>
-                                    <setting name="tcdID" value="CH1_TCD0"/>
-                                    <setting name="ssize" value="kEDMA_TransferSize1Bytes"/>
-                                    <setting name="saddr_expr" value="&amp;srcAddr1[0]"/>
-                                    <setting name="saddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t srcAddr1[], N_bytes);"/>
-                                    <setting name="soff" value="sizeof(srcAddr1[0])"/>
-                                    <setting name="soff_def" value=""/>
-                                    <setting name="dsize" value="kEDMA_TransferSize1Bytes"/>
-                                    <setting name="daddr_expr" value="&amp;dstAddr1[0]"/>
-                                    <setting name="daddr_def" value="AT_NONCACHEABLE_SECTION_ALIGN_INIT(extern uint32_t dstAddr1[], N_bytes);"/>
-                                    <setting name="doff" value="sizeof(dstAddr1[0])"/>
-                                    <setting name="doff_def" value=""/>
-                                    <setting name="nbytes" value="1"/>
-                                 </struct>
-                              </array>
-                              <setting name="constantTCD" value="false"/>
+                              <setting name="tcd_pool_enable" value="false"/>
+                              <struct name="tcd_settings">
+                                 <setting name="tcd_size" value="1"/>
+                                 <setting name="tcd_memory_custom_id" value="false"/>
+                              </struct>
+                              <array name="transfer_config"/>
                               <setting name="no_init_uid" value="0"/>
-                              <setting name="initializedTCD" value="2010"/>
+                              <setting name="init_callback" value="false"/>
+                              <setting name="callback_function" value=""/>
+                              <setting name="callback_user_data" value=""/>
                               <set name="channel_enabled_interrupts">
                                  <selected/>
                               </set>
-                              <setting name="init_interruptsEnable" value="false"/>
                               <struct name="interrupt_channel">
-                                 <setting name="IRQn" value="DMA0_CH1_IRQn"/>
-                                 <setting name="enable_interrrupt" value="enabled"/>
+                                 <setting name="IRQn" value="DMA0_CH11_IRQn"/>
                                  <setting name="enable_priority" value="false"/>
                                  <setting name="priority" value="0"/>
-                                 <setting name="enable_custom_name" value="false"/>
                               </struct>
                            </struct>
                         </array>
