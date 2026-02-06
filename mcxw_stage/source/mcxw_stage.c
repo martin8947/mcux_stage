@@ -25,6 +25,8 @@ int main(void) {
 	//LPADC0 trigger start
 	LPIT_StartTimer(LPIT0_PERIPHERAL, LPIT0_ADC_CONV_TRIG);
 
+	iic_test();
+
 	while (1);
 
 	littlefs_test();

@@ -9,6 +9,7 @@
 /***********************************************************************************************************************
  * Included files
  **********************************************************************************************************************/
+#include "fsl_edma.h"
 #include "fsl_common.h"
 #include "fsl_clock.h"
 #include "fsl_tpm.h"
@@ -17,6 +18,7 @@
 #include "fsl_vref.h"
 #include "fsl_lpadc.h"
 #include "fsl_lpi2c.h"
+#include "fsl_lpi2c_edma.h"
 #include "fsl_syspm.h"
 
 #if defined(__cplusplus)
@@ -27,6 +29,8 @@ extern "C" {
  * Definitions
  **********************************************************************************************************************/
 /* Definitions for periph_init functional group */
+/* Used DMA device. */
+#define DMA0_DMA_BASEADDR DMA0
 /* Definition of peripheral ID */
 #define TPM0_PERIPHERAL TPM0
 /* Definition of the clock source frequency */
@@ -83,10 +87,20 @@ extern "C" {
 #define LPI2C1_PERIPHERAL LPI2C1
 /* Definition of clock source */
 #define LPI2C1_CLOCK_FREQ 96000000UL
-/* Transfer buffer size */
-#define LPI2C1_MASTER_BUFFER_SIZE 1
 /* Definition of follower address */
 #define LPI2C1_MASTER_SLAVE_ADDRESS 0
+/* LPI2C1 eDMA source request. */
+#define LPI2C1_RX_DMA_REQUEST kDmaRequestLPI2C1Rx
+/* Selected eDMA channel number. */
+#define LPI2C1_RX_DMA_CHANNEL 10
+/* Used DMA device. */
+#define LPI2C1_RX_DMA_BASEADDR DMA0
+/* LPI2C1 eDMA source request. */
+#define LPI2C1_TX_DMA_REQUEST kDmaRequestLPI2C1Tx
+/* Selected eDMA channel number. */
+#define LPI2C1_TX_DMA_CHANNEL 12
+/* Used DMA device. */
+#define LPI2C1_TX_DMA_BASEADDR DMA0
 /* periph_init defines for SYSPM */
 /* Definition of peripheral ID */
 #define SYSPM_PERIPHERAL SYSPM
@@ -106,6 +120,7 @@ extern "C" {
 /***********************************************************************************************************************
  * Global variables
  **********************************************************************************************************************/
+extern const edma_config_t DMA0_config;
 extern const tpm_config_t TPM0_config;
 extern const lpit_config_t LPIT0_config;
 extern const lpit_chnl_params_t LPIT0_adc_conv_trig_struct;
@@ -113,9 +128,15 @@ extern const lpadc_config_t ADC0_config;
 extern lpadc_conv_command_config_t ADC0_commandsConfig[1];
 extern lpadc_conv_trigger_config_t ADC0_triggersConfig[1];
 extern const lpi2c_master_config_t LPI2C1_masterConfig;
-extern lpi2c_master_transfer_t LPI2C1_masterTransfer;
-extern uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
-extern lpi2c_master_handle_t LPI2C1_masterHandle;
+extern edma_handle_t LPI2C1_RX_Handle;
+extern edma_handle_t LPI2C1_TX_Handle;
+extern lpi2c_master_edma_handle_t LPI2C1_masterHandle;
+
+/***********************************************************************************************************************
+ * Callback functions
+ **********************************************************************************************************************/
+/* Leader transfer callback function for component LPI2C1*/
+extern void iic_test_xfer_cb(LPI2C_Type *base, lpi2c_master_edma_handle_t *handle, status_t completionStatus, void *userData);
 
 /***********************************************************************************************************************
  * Initialization functions

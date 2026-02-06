@@ -467,6 +467,16 @@
                   <data type="Version" maxValue="2.3.9">2.2.0</data>
                </feature>
             </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.dma3" description="EDMA Driver is not found in the toolchain/IDE project. The project will not compile!" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.dma3" description="An unsupported version of the EDMA Driver in the toolchain/IDE project. Required: ${required_value}, actual: ${actual_value}. The project might not compile correctly." problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="greaterOrEqual">
+                  <data type="Version" maxValue="2.5.9">2.2.0</data>
+               </feature>
+            </dependency>
             <dependency resourceType="Tool" resourceId="Pins" description="The Pins tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data>true</data>
@@ -539,6 +549,16 @@
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="LPI2C1.lpi2c_sda" description="Signal serial data is not routed." problem_level="1" source="Peripherals:periph_init">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c_edma" description="The fsl_lpi2c_edma driver is missing in the project (required for the DMA mode)." problem_level="2" source="Peripherals:periph_init">
+                     <feature name="enabled" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpi2c_edma" description="The compatible version of the fsl_lpi2c_edma driver is not available in the project (required for the DMA mode)." problem_level="1" source="Peripherals:periph_init">
+                     <feature name="version" evaluation="compatible">
+                        <data type="Version">2.2.0</data>
                      </feature>
                   </dependency>
                </dependencies>
@@ -810,14 +830,14 @@
                      </config_set>
                      <config_set name="interrupt_vector"/>
                      <config_set name="master">
-                        <setting name="mode" value="transfer"/>
+                        <setting name="mode" value="edma"/>
                         <struct name="config">
                            <setting name="enableMaster" value="true"/>
                            <setting name="enableDoze" value="true"/>
                            <setting name="debugEnable" value="false"/>
                            <setting name="ignoreAck" value="false"/>
                            <setting name="pinConfig" value="kLPI2C_2PinOpenDrain"/>
-                           <setting name="baudRate_Hz" value="100000"/>
+                           <setting name="baudRate_Hz" value="400000"/>
                            <setting name="busIdleTimeout_ns" value="0"/>
                            <setting name="pinLowTimeout_ns" value="0"/>
                            <setting name="sdaGlitchFilterWidth_ns" value="0"/>
@@ -827,27 +847,45 @@
                               <setting name="source" value="kLPI2C_HostRequestExternalPin"/>
                               <setting name="polarity" value="kLPI2C_HostRequestPinActiveHigh"/>
                            </struct>
-                           <set name="edmaRequestSources">
-                              <selected/>
-                           </set>
                         </struct>
-                        <struct name="transfer">
-                           <setting name="blocking" value="false"/>
-                           <setting name="enable_custom_handle" value="false"/>
-                           <struct name="callback">
-                              <setting name="name" value=""/>
-                              <setting name="userData" value=""/>
+                        <struct name="edma">
+                           <struct name="channels">
+                              <setting name="enableReceive" value="true"/>
+                              <struct name="receive">
+                                 <setting name="uid" value="1770380147724"/>
+                                 <setting name="eDMAn" value="10"/>
+                                 <setting name="eDMA_source" value="kDmaRequestLPI2C1Rx"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="arbitrationGroup" value="0"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
+                              <setting name="enableTransmit" value="true"/>
+                              <struct name="transmit">
+                                 <setting name="uid" value="1770380147725"/>
+                                 <setting name="eDMAn" value="12"/>
+                                 <setting name="eDMA_source" value="kDmaRequestLPI2C1Tx"/>
+                                 <setting name="init_channel_priority" value="false"/>
+                                 <struct name="edma_channel_Preemption">
+                                    <setting name="enableChannelPreemption" value="false"/>
+                                    <setting name="enablePreemptAbility" value="false"/>
+                                    <setting name="arbitrationGroup" value="0"/>
+                                    <setting name="channelPriority" value="0"/>
+                                 </struct>
+                                 <setting name="enable_custom_name" value="false"/>
+                              </struct>
                            </struct>
-                           <set name="flags">
-                              <selected/>
-                           </set>
-                           <setting name="slaveAddress" value="0"/>
-                           <setting name="direction" value="kLPI2C_Write"/>
-                           <setting name="subaddress" value="0"/>
-                           <setting name="subaddressSize" value="0"/>
-                           <setting name="blocking_buffer" value="false"/>
-                           <setting name="enable_custom_buffer" value="false"/>
-                           <setting name="dataSize" value="1"/>
+                           <struct name="transfer">
+                              <setting name="enable_custom_handle" value="false"/>
+                              <struct name="callback">
+                                 <setting name="name" value="iic_test_xfer_cb"/>
+                                 <setting name="userData" value=""/>
+                              </struct>
+                           </struct>
                         </struct>
                      </config_set>
                   </instance>
@@ -926,7 +964,7 @@
                         <struct name="edma_channels">
                            <setting name="enable_rx_fifo_edma_channel" value="true"/>
                            <struct name="edma_rx_fifo_channel">
-                              <setting name="uid" value="1769767061281"/>
+                              <setting name="uid" value="1770380147726"/>
                               <setting name="eDMAn" value="8"/>
                               <setting name="eDMA_source" value="kDmaRequestCAN0"/>
                               <setting name="init_channel_priority" value="false"/>
@@ -1103,93 +1141,21 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="DMA0" uuid="600fbfa6-7215-41f7-a4da-cd51efecb8cd" type="dma3" type_id="dma3_2.2.0" mode="general" peripheral="DMA0" enabled="false" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="config">
+                  <instance name="DMA0" uuid="dc9c2c21-1884-4c2d-ae21-234c19c5bfe5" type="dma3" type_id="dma3_2.2.0" mode="general" peripheral="DMA0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="config" quick_selection="default">
                         <struct name="common_settings">
                            <struct name="vars"/>
                            <setting name="enableMasterIdReplication" value="true"/>
                            <setting name="enableHaltOnError" value="true"/>
-                           <setting name="enableRoundRobinArbitration" value="roundRobin"/>
+                           <setting name="enableRoundRobinArbitration" value="fixedPriority"/>
                            <setting name="enableDebugMode" value="false"/>
                            <setting name="globalChannelLink" value="enable"/>
                         </struct>
-                        <array name="dma_table"/>
-                        <array name="edma_channels">
-                           <struct name="0">
-                              <setting name="apiMode" value="trans"/>
-                              <struct name="edma_channel">
-                                 <setting name="channel_prefix_id" value="xxx"/>
-                                 <setting name="uid" value="1769767206405"/>
-                                 <setting name="eDMAn" value="2"/>
-                                 <setting name="eDMA_source" value="dmaDisable"/>
-                                 <setting name="init_channel_priority" value="false"/>
-                                 <struct name="edma_channel_Preemption">
-                                    <setting name="enableChannelPreemption" value="false"/>
-                                    <setting name="enablePreemptAbility" value="false"/>
-                                    <setting name="arbitrationGroup" value="0"/>
-                                    <setting name="channelPriority" value="0"/>
-                                 </struct>
-                                 <setting name="enable_custom_name" value="false"/>
-                              </struct>
-                              <setting name="enableChannelRequest" value="false"/>
-                              <setting name="enableAsyncRequest" value="false"/>
-                              <setting name="tcd_pool_enable" value="false"/>
-                              <struct name="tcd_settings">
-                                 <setting name="tcd_size" value="1"/>
-                                 <setting name="tcd_memory_custom_id" value="false"/>
-                              </struct>
-                              <array name="transfer_config"/>
-                              <setting name="no_init_uid" value="0"/>
-                              <setting name="init_callback" value="false"/>
-                              <setting name="callback_function" value=""/>
-                              <setting name="callback_user_data" value=""/>
-                              <set name="channel_enabled_interrupts">
-                                 <selected/>
-                              </set>
-                              <struct name="interrupt_channel">
-                                 <setting name="IRQn" value="DMA0_CH2_IRQn"/>
-                                 <setting name="enable_priority" value="false"/>
-                                 <setting name="priority" value="0"/>
-                              </struct>
-                           </struct>
-                           <struct name="1">
-                              <setting name="apiMode" value="trans"/>
-                              <struct name="edma_channel">
-                                 <setting name="channel_prefix_id" value="yyy"/>
-                                 <setting name="uid" value="1769767281644"/>
-                                 <setting name="eDMAn" value="11"/>
-                                 <setting name="eDMA_source" value="dmaDisable"/>
-                                 <setting name="init_channel_priority" value="false"/>
-                                 <struct name="edma_channel_Preemption">
-                                    <setting name="enableChannelPreemption" value="false"/>
-                                    <setting name="enablePreemptAbility" value="false"/>
-                                    <setting name="arbitrationGroup" value="0"/>
-                                    <setting name="channelPriority" value="0"/>
-                                 </struct>
-                                 <setting name="enable_custom_name" value="false"/>
-                              </struct>
-                              <setting name="enableChannelRequest" value="false"/>
-                              <setting name="enableAsyncRequest" value="false"/>
-                              <setting name="tcd_pool_enable" value="false"/>
-                              <struct name="tcd_settings">
-                                 <setting name="tcd_size" value="1"/>
-                                 <setting name="tcd_memory_custom_id" value="false"/>
-                              </struct>
-                              <array name="transfer_config"/>
-                              <setting name="no_init_uid" value="0"/>
-                              <setting name="init_callback" value="false"/>
-                              <setting name="callback_function" value=""/>
-                              <setting name="callback_user_data" value=""/>
-                              <set name="channel_enabled_interrupts">
-                                 <selected/>
-                              </set>
-                              <struct name="interrupt_channel">
-                                 <setting name="IRQn" value="DMA0_CH11_IRQn"/>
-                                 <setting name="enable_priority" value="false"/>
-                                 <setting name="priority" value="0"/>
-                              </struct>
-                           </struct>
+                        <array name="dma_table">
+                           <struct name="0"/>
+                           <struct name="1"/>
                         </array>
+                        <array name="edma_channels"/>
                      </config_set>
                   </instance>
                </instances>

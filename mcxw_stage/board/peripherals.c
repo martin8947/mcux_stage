@@ -54,6 +54,46 @@ component:
  * periph_init functional group
  **********************************************************************************************************************/
 /***********************************************************************************************************************
+ * DMA0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'DMA0'
+- type: 'dma3'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'dma3_2.2.0'
+- functional_group: 'periph_init'
+- peripheral: 'DMA0'
+- config_sets:
+  - config:
+    - common_settings:
+      - vars: []
+      - enableMasterIdReplication: 'true'
+      - enableHaltOnError: 'true'
+      - enableRoundRobinArbitration: 'fixedPriority'
+      - enableDebugMode: 'false'
+      - globalChannelLink: 'enable'
+    - dma_table:
+      - 0: []
+      - 1: []
+    - edma_channels: []
+    - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const edma_config_t DMA0_config = {
+  .enableMasterIdReplication = true,
+  .enableHaltOnError = true,
+  .enableRoundRobinArbitration = false,
+  .enableDebugMode = false
+};
+
+/* Empty initialization function (commented out)
+static void DMA0_init(void) {
+} */
+
+/***********************************************************************************************************************
  * TPM0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -154,7 +194,7 @@ const tpm_config_t TPM0_config = {
   .enablePauseOnTrigger = false
 };
 
-const tpm_chnl_pwm_signal_param_t TPM0_pwmSignalParams[] = {
+const tpm_chnl_pwm_signal_param_t TPM0_pwmSignalParams[] = { 
   {
     .chnlNumber = kTPM_Chnl_0,
     .level = kTPM_LowTrue,
@@ -468,7 +508,7 @@ const lpadc_config_t ADC0_config = {
 lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
   {
     .sampleChannelMode = kLPADC_SampleChannelSingleEndSideB,
-    .channelNumber = 2U,
+    .channelNumber = 6U,
     .chainedNextCommandNumber = 0,
     .enableAutoChannelIncrement = false,
     .loopCount = 0UL,
@@ -528,14 +568,14 @@ instance:
     - clockSourceFreq: 'clk_init'
   - interrupt_vector: []
   - master:
-    - mode: 'transfer'
+    - mode: 'edma'
     - config:
       - enableMaster: 'true'
       - enableDoze: 'true'
       - debugEnable: 'false'
       - ignoreAck: 'false'
       - pinConfig: 'kLPI2C_2PinOpenDrain'
-      - baudRate_Hz: '100000'
+      - baudRate_Hz: '400000'
       - busIdleTimeout_ns: '0'
       - pinLowTimeout_ns: '0'
       - sdaGlitchFilterWidth_ns: '0'
@@ -544,21 +584,37 @@ instance:
         - enable: 'false'
         - source: 'kLPI2C_HostRequestExternalPin'
         - polarity: 'kLPI2C_HostRequestPinActiveHigh'
-      - edmaRequestSources: ''
-    - transfer:
-      - blocking: 'false'
-      - enable_custom_handle: 'false'
-      - callback:
-        - name: ''
-        - userData: ''
-      - flags: ''
-      - slaveAddress: '0'
-      - direction: 'kLPI2C_Write'
-      - subaddress: '0'
-      - subaddressSize: '0'
-      - blocking_buffer: 'false'
-      - enable_custom_buffer: 'false'
-      - dataSize: '1'
+    - edma:
+      - channels:
+        - enableReceive: 'true'
+        - receive:
+          - uid: '1770380147724'
+          - eDMAn: '10'
+          - eDMA_source: 'kDmaRequestLPI2C1Rx'
+          - init_channel_priority: 'false'
+          - edma_channel_Preemption:
+            - enableChannelPreemption: 'false'
+            - enablePreemptAbility: 'false'
+            - arbitrationGroup: '0'
+            - channelPriority: '0'
+          - enable_custom_name: 'false'
+        - enableTransmit: 'true'
+        - transmit:
+          - uid: '1770380147725'
+          - eDMAn: '12'
+          - eDMA_source: 'kDmaRequestLPI2C1Tx'
+          - init_channel_priority: 'false'
+          - edma_channel_Preemption:
+            - enableChannelPreemption: 'false'
+            - enablePreemptAbility: 'false'
+            - arbitrationGroup: '0'
+            - channelPriority: '0'
+          - enable_custom_name: 'false'
+      - transfer:
+        - enable_custom_handle: 'false'
+        - callback:
+          - name: 'iic_test_xfer_cb'
+          - userData: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const lpi2c_master_config_t LPI2C1_masterConfig = {
@@ -567,7 +623,7 @@ const lpi2c_master_config_t LPI2C1_masterConfig = {
   .debugEnable = false,
   .ignoreAck = false,
   .pinConfig = kLPI2C_2PinOpenDrain,
-  .baudRate_Hz = 100000UL,
+  .baudRate_Hz = 400000UL,
   .busIdleTimeout_ns = 0UL,
   .pinLowTimeout_ns = 0UL,
   .sdaGlitchFilterWidth_ns = 0U,
@@ -578,21 +634,21 @@ const lpi2c_master_config_t LPI2C1_masterConfig = {
     .polarity = kLPI2C_HostRequestPinActiveHigh
   }
 };
-lpi2c_master_transfer_t LPI2C1_masterTransfer = {
-  .flags = kLPI2C_TransferDefaultFlag,
-  .slaveAddress = 0,
-  .direction = kLPI2C_Write,
-  .subaddress = 0,
-  .subaddressSize = 0,
-  .data = LPI2C1_masterBuffer,
-  .dataSize = 1
-};
-lpi2c_master_handle_t LPI2C1_masterHandle;
-uint8_t LPI2C1_masterBuffer[LPI2C1_MASTER_BUFFER_SIZE];
+edma_handle_t LPI2C1_RX_Handle;
+edma_handle_t LPI2C1_TX_Handle;
+lpi2c_master_edma_handle_t LPI2C1_masterHandle;
 
 static void LPI2C1_init(void) {
   LPI2C_MasterInit(LPI2C1_PERIPHERAL, &LPI2C1_masterConfig, LPI2C1_CLOCK_FREQ);
-  LPI2C_MasterTransferCreateHandle(LPI2C1_PERIPHERAL, &LPI2C1_masterHandle, NULL, NULL);
+  /* Set the kDmaRequestLPI2C1Rx request */
+  EDMA_SetChannelMux(LPI2C1_RX_DMA_BASEADDR, LPI2C1_RX_DMA_CHANNEL, LPI2C1_RX_DMA_REQUEST);
+  /* Set the kDmaRequestLPI2C1Tx request */
+  EDMA_SetChannelMux(LPI2C1_TX_DMA_BASEADDR, LPI2C1_TX_DMA_CHANNEL, LPI2C1_TX_DMA_REQUEST);
+  /* Create the eDMA LPI2C1_RX_Handle handle */
+  EDMA_CreateHandle(&LPI2C1_RX_Handle, LPI2C1_RX_DMA_BASEADDR, LPI2C1_RX_DMA_CHANNEL);
+  /* Create the eDMA LPI2C1_TX_Handle handle */
+  EDMA_CreateHandle(&LPI2C1_TX_Handle, LPI2C1_TX_DMA_BASEADDR, LPI2C1_TX_DMA_CHANNEL);
+  LPI2C_MasterCreateEDMAHandle(LPI2C1_PERIPHERAL, &LPI2C1_masterHandle, &LPI2C1_RX_Handle, &LPI2C1_TX_Handle, iic_test_xfer_cb, NULL);
 }
 
 /***********************************************************************************************************************
@@ -715,6 +771,9 @@ static void SYSPM_init(void) {
  **********************************************************************************************************************/
 void periph_init(void)
 {
+  /* Global initialization */
+  EDMA_Init(DMA0_DMA_BASEADDR, &DMA0_config);
+
   /* Initialize components */
   TPM0_init();
   GPIOC_init();
